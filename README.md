@@ -17,7 +17,7 @@ Then, run the development server:
 ```bash
 npm run dev
 ```
-Any changes made to the source code (src/) will be automatically reflected in the browser, with the link provided in the prompt.
+Open the link provided in the prompt with a browser. Any changes made to the source code (src/) will be automatically reflected in the browser, with the .
 
 ## Table of Contents
 

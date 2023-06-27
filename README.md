@@ -1,3 +1,25 @@
+# Dawn Teach Math's website, built with Vue.js
+
+## Introduction
+This repository contains the source code for the website of Dawn Teach Math, a website for teachers to provide a modern interface for students to conveniently access Schoology's course material. The website is built with Vue.js.
+
+## Getting Started
+To get started, clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/JonnyTran/dawn-teach-math
+cd dawn-teach-math
+npm install
+```
+
+Then, run the development server:
+
+```bash
+npm run dev
+```
+
+## Table of Contents
+
 Based on the requirements and assumptions, here are the core classes, functions, and methods that will be necessary:
 
 1. `App.vue`: The main Vue component that serves as the entry point of the application. It will contain the main layout and navigation logic.

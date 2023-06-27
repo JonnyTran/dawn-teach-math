@@ -14,7 +14,7 @@ export default {
         id: 1,
         title: 'Algebra',
         content: '<p>Unit content fetched from Schoology API goes here...</p>',
-      },
+      }
     };
   },
 };

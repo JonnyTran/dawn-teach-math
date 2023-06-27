@@ -3,7 +3,7 @@ sudo apt-get install -y nodejs
 
 npm install -g @vue/cli
 
-cd teacher-profile-website
+cd dawn-teach-math
 
 npm install
 

@@ -1,4 +1,6 @@
 import './assets/main.css'
+// import { Text } from 'gestalt';
+// import 'gestalt/dist/gestalt.css';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

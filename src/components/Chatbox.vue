@@ -8,6 +8,7 @@
       </div>
       <div class="chatbox-body">
         <!-- Chat messages go here -->
+        
       </div>
       <form @submit.prevent="sendMessage">
         <input type="text" v-model="message" required>
@@ -22,8 +23,8 @@ export default {
   name: 'Chatbox',
   data() {
     return {
-      showChatbox: false,
-      message: '',
+      showChatbox: true,
+      message: "Hi, I'm David S. Pumpkins. Any questions?",
     };
   },
   methods: {

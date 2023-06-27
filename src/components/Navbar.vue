@@ -16,5 +16,6 @@ export default {
 </script>
 
 <style>
-/* Add your custom styles here */
+/* Use top-level NavBar style */
+
 </style>

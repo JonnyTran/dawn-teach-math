@@ -1,26 +1,24 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div id="app">
+    <Navbar />
+    <router-view />
+  </div>
 </template>
 
-<style scoped>
+<script>
+import Navbar from './components/Navbar.vue';
+import Chatbox from './components/Chatbox.vue';
+
+export default {
+  name: 'App',
+  components: {
+    Navbar,
+	Chatbox
+  },
+};
+</script>
+
+<style>
 header {
   line-height: 1.5;
   max-height: 100vh;

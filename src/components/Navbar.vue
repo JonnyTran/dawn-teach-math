@@ -9,10 +9,10 @@
     <MDBCollapse v-model="collapse1" id="navbarSupportedContent">
       <MDBNavbarNav class="mb-2 mb-lg-0">
         <MDBNavbarItem to="#" active>
-          Home
+          <router-link to="/">Home</router-link></li>
         </MDBNavbarItem>
         <MDBNavbarItem href="#">
-          Link
+          <router-link to="/bio">Bio</router-link></li>
         </MDBNavbarItem>
         <MDBNavbarItem>
           <!-- Navbar dropdown -->
@@ -41,7 +41,7 @@
         <input
           type="search"
           class="form-control"
-          placeholder="Type query"
+          placeholder="Search here..."
           aria-label="Search"
         />
         <MDBBtn outline="primary">

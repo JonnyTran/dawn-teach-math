@@ -2,10 +2,10 @@
 <template>
   <nav>
     <ul>
-      <li><router-link to="/">Home</router-link></li>
-      <li><router-link to="/courses">Courses</router-link></li>
-      <li><router-link to="/bio">Bio</router-link></li>
-      <li><router-link to="/contact">Contact</router-link></li>
+      <router-link to="/">Home</router-link>
+      <router-link to="/courses">Courses</router-link>
+      <router-link to="/bio">Bio</router-link>
+      <router-link to="/contact">Contact</router-link>
     </ul>
   </nav>
 </template>

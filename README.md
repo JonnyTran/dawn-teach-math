@@ -19,9 +19,10 @@ npm run dev
 ```
 Open the link provided in the prompt with a browser. Any changes made to the source code (src/) will be automatically reflected in the browser, with the .
 
-## Table of Contents
+## Directory structure
 
-Based on the requirements and assumptions, here are the core classes, functions, and methods that will be necessary:
+To understand more about the Vue.js's directory structure, see ![https://itnext.io how-to-structure-my-vue-js-project-e4468db005ac](https://itnext.io how-to-structure-my-vue-js-project-e4468db005ac).
+Here are some of the important files and directories in the project:
 
 1. `App.vue`: The main Vue component that serves as the entry point of the application. It will contain the main layout and navigation logic.
 

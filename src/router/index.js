@@ -12,23 +12,23 @@ const router = createRouter({
     {
       path: '/courses',
       name: 'courses',
-      component: () => import('../views/CoursePage.vue')
+      component: () => import('../views/CourseView.vue')
     },
 	// add route for /courses/:id/units/:id
 	{
 	  path: '/courses/:course_id/units/:unit_id',
 	  name: 'units',
-	  component: () => import('../views/UnitPage.vue')
+	  component: () => import('../views/UnitView.vue')
 	},
 	{
       path: '/bio',
       name: 'bio',
-      component: () => import('../views/BioPage.vue')
+      component: () => import('../views/BioView.vue')
     },
     {
       path: '/contact',
       name: 'contact',
-      component: () => import('../views/ContactPage.vue')
+      component: () => import('../views/ContactView.vue')
     },
     {
       path: '/about',

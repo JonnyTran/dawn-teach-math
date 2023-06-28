@@ -17,6 +17,13 @@ export default {
 </script>
 
 <style>
-/* Use top-level NavBar style */
-
+/* Position the NavBar on the top left */ 
+nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+}
 </style>

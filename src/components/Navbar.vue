@@ -18,4 +18,4 @@ export default {
 <style>
 /* Use top-level NavBar style */
 
-</style>
+</style>     

@@ -1,4 +1,4 @@
-     
+
 <template>
   <MDBNavbar expand="lg" light bg="light" container>
     <MDBNavbarBrand href="#">Brand</MDBNavbarBrand>
@@ -12,7 +12,7 @@
           Home
         </MDBNavbarItem>
         <MDBNavbarItem href="#">
-          Bio
+          Link
         </MDBNavbarItem>
         <MDBNavbarItem>
           <!-- Navbar dropdown -->
@@ -21,23 +21,27 @@
               tag="a"
               class="nav-link"
               @click="dropdown1 = !dropdown1"
-              >Courses</MDBDropdownToggle
+              >Dropdown</MDBDropdownToggle
             >
             <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
-              <MDBDropdownItem href="#">Algebra 1</MDBDropdownItem>
-              <MDBDropdownItem href="#">Algebra 2</MDBDropdownItem>
+              <MDBDropdownItem href="#">Action</MDBDropdownItem>
+              <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
               <MDBDropdownItem href="#"
                 >Something else here</MDBDropdownItem
               >
             </MDBDropdownMenu>
           </MDBDropdown>
+        </MDBNavbarItem>
+        <MDBNavbarItem to="#" disabled>
+          Disabled
+        </MDBNavbarItem>
       </MDBNavbarNav>
       <!-- Search form -->
       <form class="d-flex input-group w-auto">
         <input
           type="search"
           class="form-control"
-          placeholder="Search "
+          placeholder="Type query"
           aria-label="Search"
         />
         <MDBBtn outline="primary">

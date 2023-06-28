@@ -6,6 +6,47 @@
 </template>
 
 <script>
+  import {
+    MDBBtn,
+    MDBNavbar,
+    MDBNavbarToggler,
+    MDBNavbarBrand,
+    MDBNavbarNav,
+    MDBNavbarItem,
+    MDBCollapse,
+    MDBDropdown,
+    MDBDropdownToggle,
+    MDBDropdownMenu,
+    MDBDropdownItem
+  } from 'mdb-vue-ui-kit';
+  import { ref } from 'vue';
+
+  export default {
+    components: {
+      MDBBtn,
+      MDBNavbar,
+      MDBNavbarToggler,
+      MDBNavbarBrand,
+      MDBNavbarNav,
+      MDBNavbarItem,
+      MDBCollapse,
+      MDBDropdown,
+      MDBDropdownToggle,
+      MDBDropdownMenu,
+      MDBDropdownItem
+    },
+    setup() {
+      const collapse1 = ref(false);
+      const dropdown1 = ref(false);
+      return {
+        collapse1,
+        dropdown1
+      }
+    }
+  };
+</script>
+
+<script>
 import Navbar from './components/Navbar.vue';
 import Chatbox from './components/Chatbox.vue';
 
@@ -80,4 +121,6 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
+
 </style>
+

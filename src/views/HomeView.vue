@@ -17,8 +17,8 @@ export default {
   data() {
     return {
       courses: [
-        { id: 1, title: 'Mathematics', description: 'Learn math concepts and problem-solving techniques.' },
-        { id: 2, title: 'Physics', description: 'Explore the fundamental principles of physics.' },
+        { id: 1, title: 'Algebra 1', description: '(Sections TBD)' },
+        { id: 2, title: 'Algebra 2', description: '(Sections TBD)' },
         // Add more courses here
       ],
     };

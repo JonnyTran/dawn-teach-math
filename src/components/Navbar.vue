@@ -19,11 +19,11 @@ export default {
 <style>
 /* Position the NavBar on the top left */ 
 nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #333;
+  background-color: #ffffff;
   color: #fff;
 }
 </style>

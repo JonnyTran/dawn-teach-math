@@ -9,6 +9,7 @@
 import Navbar from './components/Navbar.vue';
 import Chatbox from './components/Chatbox.vue';
 
+// What's this? It's a global mixin. It's a way to add functionality to all of your components.
 export default {
   name: 'App',
   components: {

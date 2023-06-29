@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Welcome to the Teacher Profile Website</h1>
+    <h1 class="font-bold">Welcome to the Teacher Profile Website</h1>
     <h2>Courses</h2>
     <h3>
       <text v-for="course in courses" :key="course.id">

@@ -1,4 +1,8 @@
 <template>
+  <!-- <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head> -->
   <div id="app">
     <Navbar />
     <router-view />
@@ -9,11 +13,12 @@
 import Navbar from './components/Navbar.vue';
 import Chatbox from './components/Chatbox.vue';
 
+// What's this? It's a global mixin. It's a way to add functionality to all of your components.
 export default {
   name: 'App',
   components: {
     Navbar,
-	Chatbox
+    Chatbox
   },
 };
 </script>

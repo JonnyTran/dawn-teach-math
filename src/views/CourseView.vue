@@ -34,12 +34,12 @@ export default {
     return {
       course: {
         id: 1,
-        title: 'Mathematics',
+        title: 'Algebra 1',
         info: 'This course covers various mathematical topics.',
         syllabus: '...',
         units: [
-          { id: 1, title: 'Algebra' },
-          { id: 2, title: 'Geometry' },
+          { id: 1, title: '1-Step Equations' },
+          { id: 2, title: '2-Step Equations' },
           // Add more units here
         ],
         links: [

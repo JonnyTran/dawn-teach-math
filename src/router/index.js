@@ -14,7 +14,7 @@ const router = createRouter({
       name: 'courses',
       component: () => import('../views/CourseView.vue')
     },
-	// add route for /courses/:id/units/:id
+	// add route for /courses/:course_id/units/:unit_id
 	{
 	  path: '/courses/:course_id/units/:unit_id',
 	  name: 'units',

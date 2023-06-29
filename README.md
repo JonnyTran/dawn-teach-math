@@ -1,14 +1,19 @@
 # Dawn Teach Math's website, built with Vue.js
 
 ## Introduction
-This repository contains the source code for the website of Dawn Teach Math, a website for teachers to provide a modern interface for students to conveniently access Schoology's course material. The website is built with Vue.js.
+This repository contains the source code for Dawn Teach Math, a website for teachers to provide a modern interface for students to conveniently access Schoology's course material. The website is built with Vue.js.
 
 ## Getting Started
-To get started, clone the repository and install the dependencies:
+To get started, clone the repository with your preferred code editor (VS Code) or through the terminal:
 
 ```bash
 git clone https://github.com/JonnyTran/dawn-teach-math
 cd dawn-teach-math
+```
+
+Install the dependencies:
+
+```bash
 npm install
 ```
 
@@ -21,7 +26,7 @@ Open the link provided in the prompt with a browser. Any changes made to the sou
 
 ## Directory structure
 
-To understand more about the Vue.js's directory structure, see ![https://itnext.io how-to-structure-my-vue-js-project-e4468db005ac](https://itnext.io how-to-structure-my-vue-js-project-e4468db005ac).
+To understand more about the Vue.js's directory structure, see (https://itnext.io/how-to-structure-my-vue-js-project-e4468db005ac).
 Here are some of the important files and directories in the project:
 
 1. `App.vue`: The main Vue component that serves as the entry point of the application. It will contain the main layout and navigation logic.
@@ -40,6 +45,3 @@ Here are some of the important files and directories in the project:
 
 8. `Chatbox.vue`: A component that represents the chatbox. It will handle user interactions and communicate with OpenAI's API to provide answers to questions.
 
-Now, let's proceed with creating the necessary files and implementing the code.
-
-**App.vue**

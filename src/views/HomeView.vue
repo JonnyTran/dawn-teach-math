@@ -13,6 +13,7 @@
 
 <script>
 import { Dropdown, ListGroup, ListGroupItem } from 'flowbite-vue'
+
 export default {
   name: 'HomePage',
   data() {
@@ -28,7 +29,7 @@ export default {
 
 <style>
 /* Position the heading & courses */
-h1 {
+/* h1 {
   position: fixed;
   top: 80px;
   left: 30px;
@@ -47,10 +48,10 @@ h2 {
   font-weight: 100;
   background-color: #ffffff28;
   color: #000000;
-}
+} */
 
 /* Position the list of courses */
-h3 {
+/* h3 {
   position: fixed;
   display: flex;
   gap: 30px;
@@ -59,7 +60,7 @@ h3 {
   font-size: 18px;
   background-color: #ffffff28;
   color: #000000;
-}
+} */
 
 </style>
 

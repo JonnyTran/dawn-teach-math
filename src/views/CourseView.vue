@@ -1,22 +1,27 @@
 <template>
   <div>
     <h1>{{ course.title }}</h1>
+
     <h2>Course Info</h2>
     <p>{{ course.info }}</p>
+
     <h2>Syllabus</h2>
     <p>{{ course.syllabus }}</p>
+
     <h2>Units</h2>
     <ul>
       <li v-for="unit in course.units" :key="unit.id">
         <router-link :to="'/courses/' + course.id + '/units/' + unit.id">{{ unit.title }}</router-link>
       </li>
     </ul>
-    <h2>Links</h2>
+
+    <h2>Quick Links</h2>
     <ul>
       <li v-for="link in course.links" :key="link.id">
         <a :href="link.url" target="_blank">{{ link.title }}</a>
       </li>
     </ul>
+
     <h2>FAQ</h2>
     <ul>
       <li v-for="faq in course.faq" :key="faq.id">
@@ -26,6 +31,7 @@
     </ul>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -59,5 +65,5 @@ export default {
 </script>
 
 <style>
-/* Add your custom styles here */
+
 </style>

@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { Dropdown, ListGroup, ListGroupItem } from 'flowbite-vue'
 export default {
   name: 'HomePage',
   data() {
@@ -26,7 +27,7 @@ export default {
 </script>
 
 <style>
-/* Position tje heading & courses */
+/* Position the heading & courses */
 h1 {
   position: fixed;
   top: 80px;

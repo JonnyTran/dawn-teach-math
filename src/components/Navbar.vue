@@ -19,6 +19,8 @@
 
 
 <script>
+import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink } from 'flowbite-vue'
+
 export default {
   name: 'Navbar',
 };

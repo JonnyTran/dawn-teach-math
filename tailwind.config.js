@@ -2,6 +2,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx,vue,html}",
@@ -11,7 +12,23 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],  // load Inter font from CDN
+        body: [ 
+          'Inter', 
+          'ui-sans-serif', 
+          'system-ui', 
+          '-apple-system', 
+          'system-ui', 
+          'Segoe UI', 
+          'Roboto', 
+          'Helvetica Neue', 
+          'Arial', 
+          'Noto Sans', 
+          'sans-serif', 
+          'Apple Color Emoji', 
+          'Segoe UI Emoji', 
+          'Segoe UI Symbol', 
+          'Noto Color Emoji' ],
+        sans: [ 'Inter var', ...defaultTheme.fontFamily.sans ],
       },
     },
   },

@@ -12,15 +12,15 @@
       
       <name>
       <label for="name">Name:</label>
-      <input type="text" id="name" v-model="form.name" required> 
+      <input type="text" name="name" v-model="form.name" required> 
       </name>
       <email>
       <label for="email">Email:</label>
-      <input type="email" id="email" v-model="form.email" required>
+      <input type="email" name="email" v-model="form.email" required>
       </email>
       <message>
       <label for="message">Message:</label>
-      <textarea id="message" v-model="form.message" required></textarea>
+      <textarea name="message" v-model="form.message" required></textarea>
       </message>
       <button type="submit">Submit</button>
     </form>

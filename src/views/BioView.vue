@@ -1,7 +1,7 @@
 <template>
   <div>
       <portrait>
-      <img src="https://i.imgur.com/rTeadEW.png" alt="teacher" width="250" height="300">
+      <img src="src/assets/Web_portrait.png" alt="teacher" width="250" height="300">
       </portrait>
   </div>
   <div>

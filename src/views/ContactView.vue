@@ -5,7 +5,7 @@
     </contact>
     <form action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="15362813-1203-485a-b258-4227d01d0bd6">
-      <input type="hidden" name="subject" value="New Submission from Web3Forms">
+      <input type="hidden" name="subject" value="New Submission">
       <input type="hidden" name="from_name" value="Tran Teach Math">
       <input type="hidden" name="redirect" value="https://web3forms.com/success">
       <input type="checkbox" name="botcheck" id="" style="display: none;">
@@ -18,6 +18,10 @@
       <label for="email">Email:</label>
       <input type="email" name="email" v-model="form.email" required>
       </email>
+      <subject>
+      <label for="subject">Subject:</label>
+      <input type="text" name="Inquiry" v-model="form.subject" required>
+      </subject>
       <message>
       <label for="message">Message:</label>
       <textarea name="message" v-model="form.message" required></textarea>
@@ -83,7 +87,7 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height:500px;
+  height:600px;
   width: 450px;
   background: #ffffff;
   border-radius: 8px;
@@ -112,6 +116,15 @@ form name, textarea {
 form email, textarea {
   display: flex;
   align-self: center;  align-self: center;
+  flex-direction: column;
+  height: 90px;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+form subject, textarea {
+  display: flex;
+  align-self: center;
   flex-direction: column;
   height: 90px;
   width: 90%;

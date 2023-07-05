@@ -3,7 +3,13 @@
     <contact>
     <h1>Contact</h1>
     </contact>
-    <form @submit.prevent="submitForm">
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="15362813-1203-485a-b258-4227d01d0bd6">
+      <input type="hidden" name="subject" value="New Submission from Web3Forms">
+      <input type="hidden" name="from_name" value="Tran Teach Math">
+      <input type="hidden" name="redirect" value="https://web3forms.com/success">
+      <input type="checkbox" name="botcheck" id="" style="display: none;">
+      
       <name>
       <label for="name">Name:</label>
       <input type="text" id="name" v-model="form.name" required> 
@@ -22,6 +28,7 @@
 </template>
 
 <script>
+const WEB3FORMS_ACCESS_KEY = "15362813-1203-485a-b258-4227d01d0bd6";
 export default {
   name: 'ContactPage',
   data() {
@@ -34,13 +41,28 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-      // Handle form submission logic here
-      console.log(this.form);
+      async submitForm() {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            name: this.name,
+            email: this.email,
+            message: this.message,
+          }),
+        });
+        const result = await response.json();
+        if (result.success) {
+          console.log(result);
+        }
+      },
     },
-  },
-};
-</script>
+  };
+  </script>
 
 <style>
 contact {

@@ -12,7 +12,7 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button } from 'f
     <template #default="{isShowMenu}">
       <NavbarCollapse :isShowMenu="isShowMenu">
         <!-- Set isActive to NavbarLink when in the currentRoute -->
-        <NavbarLink>
+        <NavbarLink :isActive="true">
           <router-link to="/">Home</router-link>
         </NavbarLink>
         <NavbarLink>

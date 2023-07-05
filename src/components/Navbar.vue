@@ -6,7 +6,7 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button } from 'f
   <Navbar solid>
     <template #logo>
       <NavbarLogo href="#" alt="Flowbite logo" image-url="https://flowbite.com/docs/images/logo.svg">
-        Dawn Teach Math
+        Tran Teach Math
       </NavbarLogo>  
     </template>
     <template #default="{isShowMenu}">

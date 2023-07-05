@@ -1,17 +1,17 @@
 <template>
   <div>
-    <portrait>
-    <img src="https://i.imgur.com/rTeadEW.png" alt="teacher" width="250" height="300">
-    </portrait>
+      <portrait>
+      <img src="https://i.imgur.com/rTeadEW.png" alt="teacher" width="250" height="300">
+      </portrait>
   </div>
   <div>
-    <bio>
-    <biotitle><h1>Bio</h1></biotitle>
-    <p>Name: {{ bio.name }}</p>
-    <p>Qualifications: {{ bio.qualifications }}</p>
-    <p>Teaching Experience: {{ bio.teachingExperience }}</p>
-    <p>About me: {{ bio.about }}</p>
-    </bio>
+      <bio>
+      <biotitle><h1>Bio</h1></biotitle>
+      <p>Name: {{ bio.name }}</p>
+      <p>Qualifications: {{ bio.qualifications }}</p>
+      <p>Teaching Experience: {{ bio.teachingExperience }}</p>
+      <p>About me: {{ bio.about }}</p>
+      </bio>
   </div>
   <div>
     <quote>
@@ -30,7 +30,7 @@ export default {
         name: 'Dawn Tran',
         qualifications: 'B.S. in Mathematics at the University of Texas at Austin (2021)',
         teachingExperience: '2 years',
-        about: 'I am originally from Vietnam and moved to the United States when I was very young. That said, please do not ask me to teach you any Vietnamese. I can teach math way better!',
+        about: 'I am originally from Vietnam and moved to the United States when I was very young. I probably can\'t teach you any Vietnamese, butI can teach math way better!',
       },
     };
   },
@@ -39,10 +39,10 @@ export default {
 
 <style>
 portrait {
-  position: absolute;
-  top: 140px;
-  left: 140px;
+  display: inline-flex;
+  position: relative;
   background: #ffffff;
+  margin: 60px;
   border-radius: 8px;
   border: 1px solid #000000;
   padding: 10px;
@@ -56,11 +56,13 @@ biotitle {
   color: #02150aa7;
 }
 
+
 bio {
-  position: absolute;
-  top: 160px;
+  display: grid;
+  position: relative;
+  top: -400px;
   left: 500px;
-  width: 590px;
+  width: 600px;
   background: #ffffff;
   border-radius: 8px;
   border: 1px solid #000000;

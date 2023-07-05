@@ -5,9 +5,9 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button } from 'f
 <template>
   <Navbar solid>
     <template #logo>
-      <NavbarLogo href="#" alt="logo" image-url="src/assets/logo.svg">
+      <NavbarLogo href="#" alt="Flowbite logo" image-url="https://flowbite.com/docs/images/logo.svg">
         Dawn Teach Math
-      </NavbarLogo>
+      </NavbarLogo>  
     </template>
     <template #default="{isShowMenu}">
       <NavbarCollapse :isShowMenu="isShowMenu">
@@ -26,7 +26,7 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button } from 'f
         </NavbarLink>
       </NavbarCollapse>
 
-      <Input size="lg" placeholder="Find anything">
+      <Input size="lg" placeholder="">
         <template #prefix>
           <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -55,6 +55,7 @@ export default {
 </script>
 
 <style>
+
 /* Style the NavBar */ 
 .is-active {
   
@@ -94,5 +95,4 @@ nav ul {
   padding: 10px;
   color: #02150aa7;
 } */
-/*edit*/
 </style>

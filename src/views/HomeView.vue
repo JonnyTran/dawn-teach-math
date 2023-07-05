@@ -28,39 +28,9 @@ export default {
 </script>
 
 <style>
-/* Position the heading & courses */
-/* h1 {
-  position: fixed;
-  top: 80px;
-  left: 30px;
-  width: 100%;
-  font-weight: 100;
-  background-color: #ffffff28;
-  color: #000000;
-}
 
-h2 {
-  position: fixed;
-  top: 145px;
-  left: 30px;
-  width: 100%;
-  margin: 0;
-  font-weight: 100;
-  background-color: #ffffff28;
-  color: #000000;
-} */
 
-/* Position the list of courses */
-/* h3 {
-  position: fixed;
-  display: flex;
-  gap: 30px;
-  top: 150px;
-  left: 145px;
-  font-size: 18px;
-  background-color: #ffffff28;
-  color: #000000;
-} */
+
 
 </style>
 

@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
 export default {
   name: 'UnitPage',
   data() {
@@ -18,6 +19,15 @@ export default {
     };
   },
 };
+
+async function getUnitList() {
+    const { data } = await routeManager.getListEntity('course');
+    entity.value = data.result;
+}
+
+onMounted(() => {
+    getListEntity();
+});
 </script>
 
 <style>

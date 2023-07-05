@@ -1,5 +1,5 @@
 <script setup>
-import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button } from 'flowbite-vue'
+import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button } from 'flowbite-vue';
 </script>
 
 <template>
@@ -12,16 +12,16 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button } from 'f
     <template #default="{isShowMenu}">
       <NavbarCollapse :isShowMenu="isShowMenu">
         <!-- Set isActive to NavbarLink when in the currentRoute -->
-        <NavbarLink :isActive="currentRoute === '/'">
+        <NavbarLink>
           <router-link to="/">Home</router-link>
         </NavbarLink>
-        <NavbarLink :isActive="currentRoute === '/courses'">
+        <NavbarLink>
           <router-link to="/courses">Courses</router-link>
         </NavbarLink>
-        <NavbarLink :isActive="currentRoute === '/bio'">
+        <NavbarLink>
           <router-link to="/bio">Bio</router-link>
         </NavbarLink>
-        <NavbarLink :isActive="currentRoute === '/contact'">
+        <NavbarLink>
           <router-link to="/contact">Contact</router-link>
         </NavbarLink>
       </NavbarCollapse>
@@ -42,11 +42,12 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button } from 'f
 
 </template>
 
+
 <script>
 export default {
   computed: {
     currentRoute() {
-      console.log(this.$route.path)
+      console.log('<script> currentRoute()', this.$route.path)
       return this.$route.path;
     }
   }
@@ -55,7 +56,9 @@ export default {
 
 <style>
 /* Style the NavBar */ 
-
+.is-active {
+  
+}
 
 /* nav {
   position: absolute;

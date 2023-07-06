@@ -34,6 +34,11 @@
 
 
 <script>
+import { useTeacherStore } from '@/stores/teacher'
+const teacher = useTeacherStore()
+console.log(teacher.getSchool())
+
+
 export default {
   name: 'CoursePage',
   data() {

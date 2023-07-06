@@ -1,9 +1,5 @@
 <script setup>
 import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue'
-
-import { useTeacherStore } from '@/stores/teacher'
-const teacher = useTeacherStore()
-console.log(teacher.getSchool())
 </script>
 
 <template>

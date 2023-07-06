@@ -5,11 +5,10 @@
     </contact>
     <form action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="15362813-1203-485a-b258-4227d01d0bd6">
-      <input type="hidden" name="subject" value="New Submission">
+      <input type="hidden" name="subject" value="New Submission from Tran Teach Math">
       <input type="hidden" name="from_name" value="Tran Teach Math">
       <input type="hidden" name="redirect" value="https://web3forms.com/success">
-      <input type="checkbox" name="botcheck" id="" style="display: none;">
-      
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
       <name>
       <label for="name">Name:</label>
       <input type="text" name="name" v-model="form.name" required> 
@@ -20,7 +19,7 @@
       </email>
       <subject>
       <label for="subject">Subject:</label>
-      <input type="text" name="Inquiry" v-model="form.subject" required>
+      <input type="text" name="subject " v-model="form.subject" required>
       </subject>
       <message>
       <label for="message">Message:</label>
@@ -32,6 +31,7 @@
 </template>
 
 <script>
+import Dropdown from 'vue-simple-search-dropdown';
 const WEB3FORMS_ACCESS_KEY = "15362813-1203-485a-b258-4227d01d0bd6";
 export default {
   name: 'ContactPage',
@@ -40,6 +40,7 @@ export default {
       form: {
         name: '',
         email: '',
+        subject:'',
         message: '',
       },
     };
@@ -56,6 +57,7 @@ export default {
             access_key: WEB3FORMS_ACCESS_KEY,
             name: this.name,
             email: this.email,
+            subject: this.subject,
             message: this.message,
           }),
         });
@@ -169,8 +171,5 @@ form button:focus {
 form button:active {
   transform: scale(0.98);
 }
-
-
-
 
 </style>

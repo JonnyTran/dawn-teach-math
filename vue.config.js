@@ -14,3 +14,4 @@ module.exports = {
 
   }
 }
+Vue.http.headers.common['Access-Control-Allow-Origin'] = true

@@ -3,7 +3,7 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle }
 
 import { useTeacherStore } from '@/stores/teacher'
 const teacher = useTeacherStore()
-teacher.getSchool()
+console.log(teacher.getSchool())
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <template>
   <div>
       <picture>
-      <img src="web_portrait.png" alt="teacher" width="250" height="300">
+      <img src="../../public/web_portrait.png" alt="teacher" width="250" height="300">
       </picture>
       <br>
       <bio>

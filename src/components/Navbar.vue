@@ -1,5 +1,9 @@
 <script setup>
-import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button } from 'flowbite-vue';
+import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue'
+
+import { useTeacherStore } from '@/stores/teacher'
+const teacher = useTeacherStore()
+teacher.getSchool()
 </script>
 
 <template>
@@ -44,14 +48,17 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button } from 'f
 
 
 <script>
+import { mapState, mapActions } from 'pinia';
+// import { useGeneralStore } from '@/stores/general';
+
 export default {
   computed: {
     currentRoute() {
-      console.log('<script> currentRoute()', this.$route.path)
       return this.$route.path;
     }
   }
 };
+
 </script>
 
 <style>

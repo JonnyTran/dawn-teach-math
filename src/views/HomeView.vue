@@ -1,7 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 import { Tabs, Tab } from 'flowbite-vue'
+import sections from '@/data/sections.json'
+
 const activeTab = ref('first')
+console.log(sections)  // open the developer console on the browser to see the output
 </script>
 
 <template>
@@ -28,8 +31,8 @@ const activeTab = ref('first')
   </section>
   <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
 
-  <section class="flex justify-center">
-    <tabs v-model="activeTab" class="p-5"> <!-- class appends to content DIV for all tabs -->
+  <section class="flex justify-center w-full">
+    <tabs v-model="activeTab" class="p-5 flex-1"> 
       <tab name="first" title="First">
         Lorem...
       </tab>

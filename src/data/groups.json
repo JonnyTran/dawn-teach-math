@@ -1,0 +1,31 @@
+{
+    "group": [
+        {
+            "id": "2786183058",
+            "title": "Advanced Algebra 2 PCC",
+            "description": "",
+            "website": "",
+            "access_code": null,
+            "category": "",
+            "options": {
+                "member_post": 1,
+                "member_post_comment": 1,
+                "create_discussion": 1,
+                "create_files": 0,
+                "invite_type": 0
+            },
+            "group_code": "",
+            "privacy_level": "group",
+            "picture_url": "https://asset-cdn.schoology.com/system/files/imagecache/profile_reg/grouplogos/logo-2786183058_5f34b970b00ad.PNG?1597290864",
+            "school_id": "2589655242",
+            "building_id": "2601379665",
+            "links": {
+                "self": "https://api.schoology.com/v1/groups/2786183058"
+            }
+        }
+    ],
+    "total": 1,
+    "links": {
+        "self": "https://api.schoology.com/v1/groups?start=0&limit=20"
+    }
+}

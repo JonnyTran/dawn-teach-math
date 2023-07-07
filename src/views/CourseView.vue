@@ -1,5 +1,15 @@
+<script setup>
+import { useTeacherStore } from '@/stores/teacher'
+import { storeToRefs } from 'pinia'
+const teacherStore = useTeacherStore();
+teacherStore.getSchool();
+</script>
+
 <template>
   <div>
+    <!-- <h1>{{ teacherStore.school.title }}</h1> -->
+    <!-- <p>{{ teacherStore.school.id }}</p> -->
+
     <h1>{{ course.title }}</h1>
 
     <h2>Course Info</h2>
@@ -32,13 +42,7 @@
   </div>
 </template>
 
-
 <script>
-import { useTeacherStore } from '@/stores/teacher'
-const teacher = useTeacherStore()
-console.log(teacher.getSchool())
-
-
 export default {
   name: 'CoursePage',
   data() {

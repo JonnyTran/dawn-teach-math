@@ -61,7 +61,7 @@ export default {
 
 /* Style the NavBar */ 
 .is-active {
-  
+  background-color: gray;
 }
 
 /* nav {

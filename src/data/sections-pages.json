@@ -1,0 +1,141 @@
+{
+    "page": [
+        {
+            "id": 6498301221,
+            "title": "Edficiency Student Tutorial FLEX",
+            "body": "<base href=\"https://app.schoology.com\"/><p><iframe src=\"https://www.youtube.com/embed/EhAtljdAQ6g\" width=\"560\" height=\"315\" frameborder=\"0\" allowfullscreen=\"\"></iframe></p>",
+            "published": 1,
+            "inline": 0,
+            "created": 1672680376,
+            "available": 1,
+            "completed": 0,
+            "folder_id": 682378933,
+            "display_weight": 9,
+            "num_assignees": 0,
+            "assignees": [],
+            "grading_group_ids": [],
+            "completion_status": "",
+            "links": {
+                "self": "https://api.schoology.com/v1/sections/6051987179/pages/6498301221"
+            }
+        },
+        {
+            "id": 6501364449,
+            "title": "Unit 1 Study Checklist",
+            "body": "<base href=\"https://app.schoology.com\"/><p><span style=\"font-size:13px;\">Need to know:</span></p>\n<p><span style=\"font-size:13px;\">1. Write polynomials in standard form and identify the degree and leading coefficient</span></p>\n<p><span style=\"font-size:13px;\">2. Names of a polynomial (e.g. constant, linear, quadratic, cubic, quartic, and quintic)</span></p>\n<p><span style=\"font-size:13px;\">3. Type of polynomial (e.g. monomial, binomial, trinomial, and polynomial for +4 terms)</span></p>\n<p><span style=\"font-size:13px;\">4. Binomial expansion using Pascal triangle of coefficients</span></p>\n<p><span style=\"font-size:13px;\">5. Polynomial addition, subtraction, multiplication, and division</span></p>\n<p><span style=\"font-size:13px;\">6. Solving word problems using polynomial operations (Review questions 29 &amp; 30)</span></p>\n<p><span style=\"font-size:13px;\">7. Factoring a difference of squares, sum of cubes, difference of cubes, quadratic-like polynomials, and grouping method</span></p>\n<p><span style=\"font-size:13px;\">8. Remainder theorem (what it means and how to use it)</span></p>",
+            "published": 1,
+            "inline": 0,
+            "created": 1672762760,
+            "available": 1,
+            "completed": 0,
+            "folder_id": 682400998,
+            "display_weight": 1,
+            "num_assignees": 0,
+            "assignees": [],
+            "grading_group_ids": [],
+            "completion_status": "",
+            "links": {
+                "self": "https://api.schoology.com/v1/sections/6051987179/pages/6501364449"
+            }
+        },
+        {
+            "id": 6546489487,
+            "title": "Unit 2 Study Checklist",
+            "body": "<base href=\"https://app.schoology.com\"/><p><span style=\"font-size:13px;\">Know how to:</span></p>\n<p><span style=\"font-size:13px;\">1. Multiply polynomials of any length</span></p>\n<p><span style=\"font-size:13px;\">2. Factor using any previous methods (e.g. grouping, guess &amp; check, box method, quad. formula, diff. of squares, sum/diff. of cubes etc.)</span></p>\n<p><span style=\"font-size:13px;\">3. List out all possible rational roots </span></p>\n<p><span style=\"font-size:13px;\">4. Find roots using synthetic division and/or factoring</span></p>\n<p><span style=\"font-size:13px;\">5. Write a polynomial in standard form given the roots, multiplicity, leading coefficient, and/or y-intercept</span></p>\n<p><span style=\"font-size:13px;\">6. Write a polynomial in standard form given a graph</span></p>\n<p><span style=\"font-size:13px;\">7. Determine whether a polynomial or graph is odd/even and positive/negative</span></p>\n<p><span style=\"font-size:13px;\">8. Describe the end behavior of any graph using proper notation</span></p>\n<p><span style=\"font-size:13px;\">9. Sketch the graph of a given polynomial with intercept labeled</span></p>\n<p><span style=\"font-size:13px;\">10. Know that if a+b√c is a root, then so is <span style=\"font-size:13px;\">a-b</span><span style=\"font-size:13px;\">√c. Same with a+bi and a-bi roots. </span></span></p>\n<p><span style=\"font-size:13px;\"><span style=\"font-size:13px;\">11. Know how to solve the box problem, the rectangular area problem, and the grain silo problem.</span></span></p>",
+            "published": 1,
+            "inline": 0,
+            "created": 1674495319,
+            "available": 1,
+            "completed": 0,
+            "folder_id": 691419662,
+            "display_weight": 1,
+            "num_assignees": 0,
+            "assignees": [],
+            "grading_group_ids": [],
+            "completion_status": "",
+            "links": {
+                "self": "https://api.schoology.com/v1/sections/6051987179/pages/6546489487"
+            }
+        },
+        {
+            "id": 6604552526,
+            "title": "Unit 3 Study Checklist",
+            "body": "<base href=\"https://app.schoology.com\"/><p>Know how to </p>\n<p>1. Add, subtract, multiply, divide, and simplify rational expressions</p>\n<p>2. State the restrictions of a rational expression</p>\n<p>3. Solve a rational equation</p>\n<p>4. Set up and solve a direct variation word problem</p>\n<p>5. Solve a rational inequality by creating a sign chart and stating answer as an inequality or interval</p>\n<p>6. Simplify complex rational expressions</p>\n<p>7. Finding the common denominator of multiple rational expressions</p>\n<p>8. Setting up a rational equation for a 'round trip' application problem and solving it</p>\n<p>9. Setting up a rational equation for a 'same time' application problem and solving it</p>",
+            "published": 1,
+            "inline": 0,
+            "created": 1677278877,
+            "available": 1,
+            "completed": 0,
+            "folder_id": 700636926,
+            "display_weight": 1,
+            "num_assignees": 0,
+            "assignees": [],
+            "grading_group_ids": [],
+            "completion_status": "",
+            "links": {
+                "self": "https://api.schoology.com/v1/sections/6051987179/pages/6604552526"
+            }
+        },
+        {
+            "id": 6653003919,
+            "title": "Unit 4 Study Checklist",
+            "body": "<base href=\"https://app.schoology.com\"/><p>For any rational function, know how to</p>\n<p>1. Find the intercepts and write as points</p>\n<p>2. Find the asymptotes and write as x= or y=</p>\n<p>3. Find the domain and range using set notation (also know how to find the TRUE range if asked)</p>\n<p>4. Find holes and write as points</p>\n<p>5. Sketch a rational function using 1-4 </p>\n<p>6. Write equations given a graph</p>\n<p>7. Find the end behavior of a function or graph</p>",
+            "published": 1,
+            "inline": 0,
+            "created": 1679936140,
+            "available": 1,
+            "completed": 0,
+            "folder_id": 707413888,
+            "display_weight": 0,
+            "num_assignees": 0,
+            "assignees": [],
+            "grading_group_ids": [],
+            "completion_status": "",
+            "links": {
+                "self": "https://api.schoology.com/v1/sections/6051987179/pages/6653003919"
+            }
+        },
+        {
+            "id": 6668225477,
+            "title": "Unit 6 Study Checklist",
+            "body": "<base href=\"https://app.schoology.com\"/><p><span style=\"font-size:14px;\">Know how to...</span></p>\n<p><span style=\"font-size:14px;\">1. Simplify radical expressions (including rational exponents).</span></p>\n<p><span style=\"font-size:14px;\">2. Evaluate composite functions using a table.</span></p>\n<p><span style=\"font-size:14px;\">3. Determine whether two functions are inverses (by simplifying both f(g(x)) and g(f(x)) for full credit).</span></p>\n<p><span style=\"font-size:14px;\">4. Find the inverse of any given expression.</span></p>\n<p><span style=\"font-size:14px;\">5. Determine whether an inverse is a function or not.</span></p>\n<p><span style=\"font-size:14px;\"><span style=\"font-size:14px;\">6. Find the domain and range of an inverse. </span></span></p>\n<p><span style=\"font-size:14px;\">7. Find the domain of a radical function by solving an inequality or using a sign chart. </span></p>\n<p><span style=\"font-size:14px;\">8. Identify the transformations of a radical function or graph.</span></p>\n<p><span style=\"font-size:14px;\">9. Solve a radical equation and check for extraneous solutions. </span></p>\n<p><span style=\"font-size:14px;\">10. Solve a radical inequality.</span></p>\n<p><span style=\"font-size:14px;\">11. Match a radical function to its graph. </span></p>\n<p><span style=\"font-size:14px;\">12. And know how extraneous solutions form. </span></p>",
+            "published": 1,
+            "inline": 0,
+            "created": 1680907371,
+            "available": 1,
+            "completed": 0,
+            "folder_id": 709947499,
+            "display_weight": 1,
+            "num_assignees": 0,
+            "assignees": [],
+            "grading_group_ids": [],
+            "completion_status": "",
+            "links": {
+                "self": "https://api.schoology.com/v1/sections/6051987179/pages/6668225477"
+            }
+        },
+        {
+            "id": 6699904115,
+            "title": "Unit 6 Study Checklist",
+            "body": "<base href=\"https://app.schoology.com\"/><p><span style=\"font-size:14px;\">1. Determine key features of an exponential function (asymptote, intercept(s), coordinate points, growth or decay, domain &amp; range).</span></p>\n<p><span style=\"font-size:14px;\">2. Determine key features of a logarithmic function (asymptote, intercept(s), coordinate points, domain &amp; range)</span></p>\n<p><span style=\"font-size:14px;\">3. Identify transformations of an exponential or logarithmic function.</span></p>\n<p><span style=\"font-size:14px;\">4. Match graphs to exponential or logarithmic functions.</span></p>\n<p><span style=\"font-size:14px;\">5. Evaluate or calculate exponential &amp; logarithmic expressions.</span></p>\n<p><span style=\"font-size:14px;\"></span><span style=\"font-size:14px;\">6. Convert between exponential &amp; log form.</span></p>\n<p><span style=\"font-size:14px;\">7. Rewrite logs using the change-of-base formula.</span></p>\n<p><span style=\"font-size:14px;\">8. Use the product, quotient, and power property of logarithms to expand or condense log expressions.</span></p>\n<p><span style=\"font-size:14px;\"><span style=\"font-size:14px;\">9. Solve compound interest &amp; continuously compounded interest problems.</span></span></p>",
+            "published": 1,
+            "inline": 0,
+            "created": 1682899081,
+            "available": 1,
+            "completed": 0,
+            "folder_id": 712543301,
+            "display_weight": 0,
+            "num_assignees": 0,
+            "assignees": [],
+            "grading_group_ids": [],
+            "completion_status": "",
+            "links": {
+                "self": "https://api.schoology.com/v1/sections/6051987179/pages/6699904115"
+            }
+        }
+    ],
+    "total": 7,
+    "links": {
+        "self": "https://api.schoology.com/v1/sections/6051987179/pages?oauth_consumer_key=8aa414b64bb6f107f22380c55d5d38c206498ecf1&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1688700074&oauth_nonce=zBATuJg22fX&oauth_version=1.0&oauth_signature=edSBNtG0CDjhaLFFQKKC07dETYI%3D&start=0&limit=20"
+    }
+}

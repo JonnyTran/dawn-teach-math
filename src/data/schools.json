@@ -1,0 +1,19 @@
+{
+    "school": [
+        {
+            "id": "2589655242",
+            "title": "Round Rock ISD",
+            "address1": "1311 Round Rock Avenue",
+            "address2": "",
+            "city": "Round Rock",
+            "state": "TX",
+            "postal_code": "78681-4941",
+            "country": "US",
+            "website": "www.roundrockisd.org/",
+            "phone": "(512) 464-5000",
+            "fax": "",
+            "building_code": "",
+            "picture_url": "https://asset-cdn.schoology.com/system/files/imagecache/profile_reg/sites/all/themes/schoology_theme/images/school-default.gif"
+        }
+    ]
+}

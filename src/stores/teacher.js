@@ -30,7 +30,7 @@ export const useTeacherStore = defineStore('teacher', {
     user: null,
     school: null,
     courses: [],
-    units: [],
+    sections: [],
     folders: [],
     files: []
   }),
@@ -41,13 +41,13 @@ export const useTeacherStore = defineStore('teacher', {
       this.school = school.data.school[0];
       return this.school;
     },
-    // async getUnits() {
-    //     const units = await axios.get('/api/units');
-    //     this.units = units.data;
-    //     return units.data;
+    // async getSections() {
+    //     const sections = await axios.get('/sections');
+    //     this.sections = sections.data;
+    //     return sections.data;
     // },
     // async getFolders() {
-    //     const folders = await axios.get('/api/folders');
+    //     const folders = await axios.get('/folders');
     //     this.folders = folders.data;
     //     return folders.data;
     // },

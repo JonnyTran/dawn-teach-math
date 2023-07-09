@@ -10,13 +10,18 @@ const routes = [
   {
     path: '/courses',
     name: 'courses',
-    component: () => import('../views/CourseView.vue')
+    component: () => import('../views/CoursesView.vue')
   },
   {
-    path: '/courses/:course_id/units/:unit_id',
-    name: 'units',
-    component: () => import('../views/UnitView.vue')
+    path: '/courses/:sectionId/',
+    name: 'section',
+    component: () => import('../views/SectionView.vue')
   },
+  // {
+  //   path: '/courses/:sectionId/units/:unitId',
+  //   name: 'unit',
+  //   component: () => import('../views/UnitView.vue')
+  // },
   {
     path: '/bio',
     name: 'bio',
@@ -30,9 +35,6 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (About.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import('../views/AboutView.vue')
   },
 ]

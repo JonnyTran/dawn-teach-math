@@ -18,10 +18,10 @@ const options = {
 addOAuthInterceptor(axiosClient, options);
 
 // Print axios request and response to console
-// axiosClient.interceptors.request.use(request => {
-//   console.log('Starting Request', request)
-//   return request
-// })
+axiosClient.interceptors.request.use(request => {
+  console.log('Starting Request', request)
+  return request
+})
 
 // Create a Pinia store in this Vue.js named useUserStore with OAuth 1.0 using axios
 // and then store it so other components can use it to make a request to the API at https://api.schoology.com/v1/
@@ -29,8 +29,8 @@ export const useTeacherStore = defineStore('teacher', {
   state: () => ({
     user: null,
     school: null,
-    courses: [],
-    sections: [],
+    sections: {},
+    highlight_sections: [],
     folders: [],
     files: []
   }),
@@ -45,8 +45,10 @@ export const useTeacherStore = defineStore('teacher', {
       this.user = (await import ('../data/user.json')).default;
 
       // const sections = await axiosClient.get('/sections');
-      // this.sections = sections.data.sections;
-      this.sections = (await import ('../data/sections.json')).default.sections;
+      const sections = (await import ('../data/sections.json')).default.sections;
+      for (const section of sections) {
+        this.sections[section.id] = section;
+      }
 
       return this;
     },

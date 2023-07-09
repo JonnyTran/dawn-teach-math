@@ -35,7 +35,7 @@ const activeTab = ref('6051987179')
 
   <section class="flex justify-center bg-white dark:bg-gray-700 w-full">
     <tabs v-model="activeTab" class="p-5 flex-1"> 
-      <tab v-for="section in teacherStore.sections" :name="section.id" :title="section.course_title">
+      <tab v-for="(section, id) in teacherStore.sections" :name="id" :title="section.course_title">
         <p class="mb-3 text-gray-500 dark:text-gray-400">{{ section.course_title }}</p>
         <p class="text-gray-500 dark:text-gray-400">{{ section.section_title }}</p>
         <Button size="md">

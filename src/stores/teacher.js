@@ -35,34 +35,30 @@ export const useTeacherStore = defineStore('teacher', {
     files: []
   }),
   actions: {
-    async getSchool() {
-      const school = await axiosClient.get('/schools/');
+    async fill() {
+      // const school = await axiosClient.get('/schools/');
+      // this.school = school.data.school[0];
+      this.school = (await import ('../data/schools.json')).default.school[0];
 
-      this.school = school.data.school[0];
-      return this.school;
+      // const user = await axiosClient.get('/user/{id}');
+      // this.user = school.data;
+      this.user = (await import ('../data/user.json')).default;
+
+      // const sections = await axiosClient.get('/sections');
+      // this.sections = sections.data.sections;
+      this.sections = (await import ('../data/sections.json')).default.sections;
+
+      return this;
     },
-    // async getSections() {
-    //     const sections = await axios.get('/sections');
-    //     this.sections = sections.data;
-    //     return sections.data;
-    // },
-    // async getFolders() {
-    //     const folders = await axios.get('/folders');
-    //     this.folders = folders.data;
-    //     return folders.data;
-    // },
-    // async getFiles() {
-    //     const files = await axios.get('/api/files');
-    //     this.files = files.data;
-    //     return files.data;
-    // },
   },
   getters: {
-    get_school: (state) => {
-      return state.school;
+    num_courses: (state) => {
+      if (state.courses) {
+        return state.courses.length;
+      }
     },
     isAuthenticated: (state) => {
-        return state.oauth_token && state.oauth_token_secret;
+        return axiosClient.oauth_token && axiosClient.oauth_token_secret;
     }   
   }
 });

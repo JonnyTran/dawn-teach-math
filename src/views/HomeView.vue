@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue'
-import { Tabs, Tab } from 'flowbite-vue'
-import sections from '@/data/sections.json'
+import { Tabs, Tab, Button } from 'flowbite-vue'
+import { useTeacherStore } from '@/stores/teacher';
 
-const activeTab = ref('first')
-console.log(sections)  // open the developer console on the browser to see the output
+const teacherStore = useTeacherStore();
+const activeTab = ref('6051987179')
 </script>
 
 <template>
@@ -28,22 +28,19 @@ console.log(sections)  // open the developer console on the browser to see the o
         <img src="../../src/assets/hero-section-splash.jpg" alt="mockup">
       </div>                
     </div>
-  </section>
-  <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
 
-  <section class="flex justify-center w-full">
+  </section>
+
+  <hr class="h-px my-8 border-0">
+
+  <section class="flex justify-center bg-white dark:bg-gray-700 w-full">
     <tabs v-model="activeTab" class="p-5 flex-1"> 
-      <tab name="first" title="First">
-        Lorem...
-      </tab>
-      <tab name="second" title="Second">
-        Lorem...
-      </tab>
-      <tab name="third" title="Third">
-        Lorem...
-      </tab>
-      <tab name="fourth" title="Fourth">
-        Lorem...
+      <tab v-for="section in teacherStore.sections" :name="section.id" :title="section.course_title">
+        <p class="mb-3 text-gray-500 dark:text-gray-400">{{ section.course_title }}</p>
+        <p class="text-gray-500 dark:text-gray-400">{{ section.section_title }}</p>
+        <Button size="md">
+          <router-link :to="'/courses/' + section.id">Go to Class</router-link>
+        </Button>
       </tab>
     </tabs>
   </section>
@@ -65,15 +62,16 @@ console.log(sections)  // open the developer console on the browser to see the o
 import { Dropdown, ListGroup, ListGroupItem } from 'flowbite-vue'
 
 export default {
-  name: 'HomePage',
-  data() {
-    return {
-      courses: [
-        { id: 1, title: 'Algebra 1'},
-        { id: 2, title: 'Algebra 2'}
-      ],
-    };
-  },
+    name: "HomePage",
+    data() {
+        return {
+            courses: [
+                { id: 1, title: "Algebra 1" },
+                { id: 2, title: "Algebra 2" }
+            ],
+        };
+    },
+    components: { Button }
 };
 </script>
 

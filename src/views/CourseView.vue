@@ -1,8 +1,6 @@
 <script setup>
 import { useTeacherStore } from '@/stores/teacher'
-import { storeToRefs } from 'pinia'
 const teacherStore = useTeacherStore();
-teacherStore.getSchool();
 </script>
 
 <template>

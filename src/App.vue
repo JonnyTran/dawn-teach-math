@@ -1,3 +1,9 @@
+<script setup>
+import { useTeacherStore } from '@/stores/teacher';
+const teacherStore = useTeacherStore();
+teacherStore.fill();
+</script>
+
 <template>
   <head>
     <meta charset="UTF-8">

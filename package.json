@@ -35,6 +35,7 @@
     "eslint-plugin-vue": "^9.11.0",
     "flowbite": "^1.6.6",
     "flowbite-vue": "^0.0.14",
+    "js-yaml": "^4.1.0",
     "jsdom": "^22.1.0",
     "pinia": "^2.1.4",
     "postcss": "^8.4.24",

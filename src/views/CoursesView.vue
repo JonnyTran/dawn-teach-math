@@ -20,7 +20,7 @@ const teacherStore = useTeacherStore();
       <the-card variant="image" img-src="https://flowbite.com/docs/images/blog/image-1.jpg" img-alt="desk">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Advance Algebra 2</h5>
       <p class="font-normal text-gray-700 dark:text-gray-400">
-        An advance continuation of Algebra 1, including matrices, polynomials, and more.
+        An in-depth continuation of Algebra 1, including matrices, polynomials, complex numbers, and more.
       </p>
     </the-card>
     </a>

@@ -5,9 +5,6 @@ const teacherStore = useTeacherStore();
 
 <template>
   <div>
-    <!-- <h1>{{ teacherStore.school.title }}</h1> -->
-    <!-- <p>{{ teacherStore.school.id }}</p> -->
-
     <h1>{{ course.title }}</h1>
 
     <h2>Course Info</h2>

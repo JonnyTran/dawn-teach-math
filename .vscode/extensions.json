@@ -4,6 +4,7 @@
     "vue.vscode-typescript-vue-plugin",
     "bradlc.vscode-tailwindcss",
     "esbenp.prettier-vscode",
-    "hollowtree.vue-snippets"
+    "hollowtree.vue-snippets",
+    "GitHub.copilot"
   ]
 }

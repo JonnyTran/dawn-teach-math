@@ -5,6 +5,27 @@ const teacherStore = useTeacherStore();
 
 <template>
   <div>
+    <!-- <h1>{{ teacherStore.school.title }}</h1> -->
+    <!-- <p>{{ teacherStore.school.id }}</p> -->
+    <div style="display: flex; justify-content: center; margin: 30px">
+    <a href="#" class="card" style="text-decoration: none;">
+    <the-card href="" variant="image" img-src="https://flowbite.com/docs/images/blog/image-1.jpg" img-alt="desk">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Algebra 1</h5>
+      <p class="font-normal text-gray-700 dark:text-gray-400">
+        The foundations of number systems, expressions, equations, inequalities, graphs, and functions.
+      </p>
+    </the-card>
+    </a>
+      <a href="#" class="card" style="text-decoration: none;">
+      <the-card variant="image" img-src="https://flowbite.com/docs/images/blog/image-1.jpg" img-alt="desk">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Advance Algebra 2</h5>
+      <p class="font-normal text-gray-700 dark:text-gray-400">
+        An in-depth continuation of Algebra 1, including matrices, polynomials, complex numbers, and more.
+      </p>
+    </the-card>
+    </a>
+  </div>
+   <!--
     <h1>{{ course.title }}</h1>
 
     <h2>Course Info</h2>
@@ -25,19 +46,107 @@ const teacherStore = useTeacherStore();
       <li v-for="link in course.links" :key="link.id">
         <a :href="link.url" target="_blank">{{ link.title }}</a>
       </li>
-    </ul>
-
-    <h2>FAQ</h2>
-    <ul>
-      <li v-for="faq in course.faq" :key="faq.id">
-        <p><strong>{{ faq.question }}</strong></p>
-        <p>{{ faq.answer }}</p>
-      </li>
-    </ul>
+    </ul> -->
+    <br>
+    <faqhead><h1>General FAQ</h1></faqhead>
+    <faq>
+    <Accordion>
+    <accordion-panel>
+      <accordion-header>What are Ms. Tran's tutoring hours?</accordion-header>
+      <accordion-content>
+        <div>
+          <p>
+            <li>After school Monday/Wednesday 4:20-5:00 PM</li>
+            <li>Morning by teacher availability</li>
+            <li>Flex self-schedule on Edficiency</li></p>
+            <br>Note that the above hours are subject to change. 
+            Contact Ms. Tran for any scheduling inquiries.
+        </div>
+      </accordion-content>
+    </accordion-panel>
+    <accordion-panel>
+      <accordion-header>How do I turn in assignments?</accordion-header>
+      <accordion-content>
+        <div>
+          <p>All assignments will be posted and submitted on Schoology. 
+            Students should see a list of assignments listed on the right side of the course page. 
+            Click on each assignment for instructions, due dates, and submitting work. 
+            Students will not turn in any paper copies unless given notice otherwise. 
+            Name and work must be clearly shown to be able to receive full credit.</p>
+            <p><br>Check Schoology or contact Ms. Tran for instructions on specific assignments.</p>
+        </div>
+      </accordion-content>
+    </accordion-panel>
+    <accordion-panel>
+      <accordion-header>What is the late work policy?</accordion-header>
+      <accordion-content>
+        <div>
+          <p>Late work only applies to homework assigned when a student is present in class. If a student is absent the day homework is assigned, please see the missed assignments policy below. <br> 
+          <br>Students are responsible for making up missed assignments. 
+          Late work may be graded up to a 70 and can be submitted until the 9-week grading period is over. 
+          Late work cannot be made up after the grading period is over unless a student's average is below passing.</p>
+          <p><br>It is possible to receive full credit for late work if a student has an excused absent between the assigned date and the due date. Please submit the assignment within 5 days of the absence and email Ms. Tran for a grade update.</p>
+          <p><br>In extenuating circumstances that severely prevents a student from completing class work, please have a parent or guardian contact Ms. Tran.</p>
+        </div>
+      </accordion-content>
+    </accordion-panel>
+    <accordion-panel>
+      <accordion-header>How do I make up a missed assignment, test, or quiz?</accordion-header>
+      <accordion-content>
+        <div>
+          <p>Students are responsible for making up any missed assignments, tests, and quizzes within 5 days of the last absence. Contact Ms. Tran a day in advance to set up a time:</p>
+            <br><li>After school Tuesday-Friday 4:30-5:45 PM</li>
+            <li>Morning by teacher availability</li>
+            <li>Flex self-schedule on Edficiency</li>
+            <p><br>Note that the above hours are subject to change and that a retest may not be guaranteed without prior notice. Contact Ms. Tran for any scheduling inquiries.</p>
+        </div>
+      </accordion-content>
+    </accordion-panel>
+    <accordion-panel>
+      <accordion-header>What is the retest policy?</accordion-header>
+      <accordion-content>
+        <div>
+          <p>Students are responsible for making up any tests below passing for up to a 70 within the grading period. Contact Ms. Tran a day in advance to set up a retest:</p>
+            <br><li>After school Tuesday-Friday 4:30-5:45 PM</li>
+            <li>Morning by teacher availability</li>
+            <li>Flex self-schedule on Edficiency</li>
+           <p><br>Note that the above hours are subject to change and that a retest may not be guaranteed without prior notice. Contact Ms. Tran for any scheduling inquiries.</p>
+        </div>
+      </accordion-content>
+    </accordion-panel>
+    <accordion-panel>
+      <accordion-header>Is there a curve?</accordion-header>
+      <accordion-content>
+        <div>
+        <p>To keep the grading consistent with other courses, there will not be a curve on any assignments, tests, or quizzes.</p>
+        </div>
+      </accordion-content>
+    </accordion-panel>
+    <accordion-panel>
+      <accordion-header>Is there extra credit?</accordion-header>
+      <accordion-content>
+        <div>
+        <p>Yes! Please check the course calendar or wait in class for announcements on extra credit opportunities.</p>
+        </div>
+      </accordion-content>
+    </accordion-panel>
+    <accordion-panel>
+      <accordion-header>What is the academic dishonesty policy?</accordion-header>
+      <accordion-content>
+        <div>
+        <p>Please refer to the Westwood Student Handbook for policies over academic dishonesty.</p>
+        <p><br>Cheating, plagiarizing, and copying any unoriginal work will result in disciplinary actions such as receiving a zero, losing make up opportunities, parent contact, and in serious or repeated cases, a referral with administrative involvement.</p>
+        </div>
+      </accordion-content>
+    </accordion-panel>
+  </Accordion>
+  </faq>
   </div>
 </template>
 
 <script>
+import { TheCard } from 'flowbite-vue'
+import { Accordion, AccordionPanel, AccordionHeader, AccordionContent } from 'flowbite-vue'
 export default {
   name: 'CoursePage',
   data() {
@@ -69,5 +178,32 @@ export default {
 </script>
 
 <style>
+.card {
+  position: center;
+  background-position-y: center;
+
+  display: flex;
+  margin-inline-end: 50px;
+  margin-inline-start: 50px;
+  min-width: 300px;
+}
+
+.card:hover {
+  transform: scale(1.06);
+  transition: transform 0.4s;
+  shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
+.card:not(:hover) {
+  transform: scale(1);
+  transition: transform 0.1s;
+  box-shadow: none;
+}
+
+faqhead {
+  position: sticky;
+  font-size: 2rem;
+}
 
 </style>

@@ -11,7 +11,7 @@
       <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
       <name>
       <label for="name">Name:</label>
-      <input type="text" name="name" v-model="form.name" required> 
+      <input type="text" name="name" v-model="form.name" required>
       </name>
       <email>
       <label for="email">Email:</label>
@@ -22,13 +22,13 @@
       <label for="subject">Subject:</label>
       <select name="subject " v-model="selectedSubject" class="bg-gray-50 border border-gray-300 text-gray-900 text-md lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
         <option value="" disabled selected>Choose a subject</option>
-        <option value="GR">Grades</option>
-        <option value="AS">Assignments</option>
-        <option value="RE">Retest/Missed test or quiz</option>
-        <option value="TU">Tutoring</option>
-        <option value="AT">Attendance</option>
-        <option value="PC">Parent contact</option>
-        <option value="OT">Other</option>
+        <option value="Grades">Grades</option>
+        <option value="Assignments">Assignments</option>
+        <option value="Retest">Retest/Missed test or quiz</option>
+        <option value="Tutoring">Tutoring</option>
+        <option value="Attendance">Attendance</option>
+        <option value="Parent contact">Parent contact</option>
+        <option value="Other">Other</option>
       </select>
       </subject>
       <message>
@@ -45,65 +45,60 @@
 const WEB3FORMS_ACCESS_KEY = "15362813-1203-485a-b258-4227d01d0bd6";
 
 export default {
-  name: 'ContactPage',
-  data() {
-    return {
-      selectedSubject: '',
-      form: {
-        name: '',
-        email: '',
-        message: '',
-      },
-      emailError: '',
-    };
-  },
-  methods: {
-      getPlaceholder() {
-        switch (this.selectedSubject) {
-          case "GR":
-            return 'e.g., When will grades be posted for...\nHow can I make up this grade...\nPlease update this grade...';
-          case "AS":
-            return 'e.g., Did you receive my work for...\nI need to make up this assignment...\nI won\'t be able to turn in this assignment... ';
-          case "RE":
-            return 'Testing Hours:\n- After school Tues-Thu 4:30-5:45 PM\n- Morning by teacher availability\n- Flex self-schedule on Edficiency\nMust be completed in one continuous session';
-          case "TU":
-            return 'Tutoring Hours:\n- After school Mon/Wed 4:20-5:45 PM\n- Morning by teacher availability\n- Flex self-schedule on Edficiency';
-          case "AT":
-            return 'e.g., I will be absent during...\nPlease fix my attendance for...\nWhat will I miss on this day...';
-          case "PC":
-            return 'e.g., Hello, I am the parent of...\nI would like to schedule a call or meeting...\nPlease contact me at...';
-          case "OT":
-            return 'Enter your message...';
-          default:
-            return 'Enter your message...';
-        }
-      },
-
-      /* FormKit */
-
-
-      /* Old Form Plugin
-      async submitForm() {
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_ACCESS_KEY,
-            name: this.name,
-            email: this.email,
-            subject: this.subject,
-            message: this.message,
-          }),
-        });
-        const result = await response.json();
-        if (result.success) {
-          console.log(result);
-        } 
-      }, */
-    }
+    name: "ContactPage",
+    data() {
+        return {
+            selectedSubject: "",
+            form: {
+                name: "",
+                email: "",
+                message: "",
+            },
+            emailError: "",
+        };
+    },
+    methods: {
+        getPlaceholder() {
+            switch (this.selectedSubject) {
+                case "Grades":
+                    return "e.g., How can I make up this grade...\nPlease update this grade...\nWhen will grades be posted for...\n";
+                case "Assignments":
+                    return "e.g., Did you receive my work for...\nI need to make up this assignment...\nI won't be able to turn in this assignment... ";
+                case "Retest":
+                    return "Testing Hours:\n- After school Tues-Thu 4:30-5:45 PM\n- Morning by teacher availability\n- Flex self-schedule on Edficiency\ne.g., Can I make up...on this day...";
+                case "Tutoring":
+                    return "Tutoring Hours:\n- After school Mon/Wed 4:20-5:45 PM\n- Morning by teacher availability\n- Flex self-schedule on Edficiency\ne.g., Can I get help with...on this day...";
+                case "Attendance":
+                    return "e.g., I will be absent during...\nPlease fix my attendance for...\nWhat will I miss on this day...";
+                case "Parent contact":
+                    return "e.g., Hello, I am the parent of...\nI would like to schedule a call or meeting...\nPlease contact me at...";
+                case "Other":
+                    return "Enter your message...";
+                default:
+                    return "Enter your message...";
+            }
+        },
+        async submitForm() {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    access_key: WEB3FORMS_ACCESS_KEY,
+                    name: this.name,
+                    email: this.email,
+                    subject: this.subject,
+                    message: this.message,
+                }),
+            });
+            const result = await response.json();
+            if (result.success) {
+                console.log(result);
+            }
+        },
+    },
 }
   </script>
 
@@ -149,7 +144,7 @@ form name, textarea {
   flex-direction: column;
   height: 90px;
   width: 90%;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 form email, textarea {
@@ -158,7 +153,7 @@ form email, textarea {
   flex-direction: column;
   height: 90px;
   width: 90%;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 form subject, textarea {
@@ -167,7 +162,7 @@ form subject, textarea {
   flex-direction: column;
   height: 90px;
   width: 90%;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 form message, textarea {
@@ -177,7 +172,7 @@ form message, textarea {
   height: 200px;
   width: 95%;
   border-radius: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .input-style::placeholder {

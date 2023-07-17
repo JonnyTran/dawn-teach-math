@@ -1,4 +1,6 @@
 <template>
+  <!-- Create a Chatbox that opens with a button on the NavBar. The Chatbox is a conversational AI that connects to OpenAI API and 
+    injects the course content to the query -->
   <div>
     <button @click="toggleChatbox" v-show="!showChatbox">Chat</button>
     <div v-show="showChatbox">

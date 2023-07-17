@@ -18,6 +18,7 @@ teacherStore.fill();
   <div id="app">
     <Navbar />
     <router-view />
+    <!-- <Chatbox /> -->
   </div>
 </template>
 

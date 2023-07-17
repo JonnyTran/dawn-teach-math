@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue'
-import { Tabs, Tab, Button } from 'flowbite-vue'
+import { ref } from 'vue';
+import { Tabs, Tab, Button } from 'flowbite-vue';
 import { useTeacherStore } from '@/stores/teacher';
 
 const teacherStore = useTeacherStore();

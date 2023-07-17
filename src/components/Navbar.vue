@@ -1,5 +1,5 @@
 <script setup>
-import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue'
+import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue';
 </script>
 
 <template>
@@ -38,10 +38,9 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle }
       </Input> -->
     </template>
   </Navbar>
-  <!-- Add a second level navbar for Class or Unit here -->
-
+  <!-- Add a second level navbar for Class or Unit here if current route starts with /courses -->
+  
 </template>
-
 
 <script>
 import { mapState, mapActions } from 'pinia';
@@ -63,19 +62,6 @@ export default {
 .is-active {
   font-weight: bold;
 }
-
-/* nav {
-  position: absolute;
-  top: -5px;
-  left: 15px;
-  background-color: #a9c2b52f;
-  border-radius: 15px;
-}
-
-nav ul {
-  font-size: medium;
-  list-style-type: none;
-} */
 
 /* Style the search box */
 /* .search-box {

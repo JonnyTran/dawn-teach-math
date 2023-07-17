@@ -15,7 +15,7 @@ console.log('sectionId: ', sectionId);
 
 <template>
   <p>
-    {{ teacherStore.sections[sectionId] }}}
+    {{ teacherStore.sections[sectionId] }}
   </p>
 </template>
 

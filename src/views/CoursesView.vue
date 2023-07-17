@@ -1,30 +1,30 @@
 <script setup>
+import { TheCard } from 'flowbite-vue'
+import { Accordion, AccordionPanel, AccordionHeader, AccordionContent } from 'flowbite-vue'
 import { useTeacherStore } from '@/stores/teacher'
 const teacherStore = useTeacherStore();
+
+console.log(teacherStore.sections)
 </script>
 
 <template>
-  <div>
+  <section>
     <!-- <h1>{{ teacherStore.school.title }}</h1> -->
     <!-- <p>{{ teacherStore.school.id }}</p> -->
-    <div style="display: flex; justify-content: center; margin: 30px">
-    <a href="#" class="card" style="text-decoration: none;">
-    <the-card href="" variant="image" img-src="https://flowbite.com/docs/images/blog/image-1.jpg" img-alt="desk">
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Algebra 1</h5>
-      <p class="font-normal text-gray-700 dark:text-gray-400">
-        The foundations of number systems, expressions, equations, inequalities, graphs, and functions.
-      </p>
-    </the-card>
-    </a>
-      <a href="#" class="card" style="text-decoration: none;">
-      <the-card variant="image" img-src="https://flowbite.com/docs/images/blog/image-1.jpg" img-alt="desk">
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Advance Algebra 2</h5>
-      <p class="font-normal text-gray-700 dark:text-gray-400">
-        An in-depth continuation of Algebra 1, including matrices, polynomials, complex numbers, and more.
-      </p>
-    </the-card>
-    </a>
-  </div>
+    <coursecards v-for="(section, id) in teacherStore.sections" :name="id">
+      <div style="display: flex; justify-content: center; margin: 30px">
+        <router-link :to="'/courses/' + section.id" class="card" style="text-decoration: none;">
+        <the-card href="" variant="image" :img-src="section.profile_url" img-alt="desk">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ section.course_title }}</h5>
+          <p class="font-normal text-gray-700 dark:text-gray-400">
+            {{ section.description }}
+          </p>
+        </the-card>
+        </router-link>
+      </div>
+    </coursecards>
+  </section>
+
    <!--
     <h1>{{ course.title }}</h1>
 
@@ -47,6 +47,8 @@ const teacherStore = useTeacherStore();
         <a :href="link.url" target="_blank">{{ link.title }}</a>
       </li>
     </ul> -->
+
+    <div>
     <br>
     <faqhead><h1>General FAQ</h1></faqhead>
     <faq>
@@ -145,8 +147,6 @@ const teacherStore = useTeacherStore();
 </template>
 
 <script>
-import { TheCard } from 'flowbite-vue'
-import { Accordion, AccordionPanel, AccordionHeader, AccordionContent } from 'flowbite-vue'
 export default {
   name: 'CoursePage',
   data() {
@@ -172,6 +172,9 @@ export default {
           // Add more FAQs here
         ],
       },
+      faqs: [
+
+      ]
     };
   },
 };

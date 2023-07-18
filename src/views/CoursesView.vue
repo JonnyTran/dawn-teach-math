@@ -10,7 +10,7 @@ console.log(teacherStore.sections)
   <section>
     <coursecards v-for="(section, id) in teacherStore.sections" :name="id">
       <div style="display: flex; justify-content: center; margin: 30px">
-        <router-link :to="'/courses/' + section.id" class="card" style="text-decoration: none;">
+        <router-link :to="'/courses/' + id" class="card" style="text-decoration: none;">
         <the-card href="" variant="image" :img-src="section.profile_url" img-alt="desk">
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ section.course_title }}</h5>
           <p class="font-normal text-gray-700 dark:text-gray-400">

@@ -60,12 +60,12 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle }
 import { mapState, mapActions } from 'pinia';
 // import { useGeneralStore } from '@/stores/general';
 
-import { Datepicker } from 'flowbite-datepicker/Datepicker';
+// import { Datepicker } from 'flowbite-datepicker/Datepicker';
 
-const lessonDatePicker = document.getElementById('lessonDatePicker');
-new Datepicker(lessonDatePicker, {
-    // options
-}); 
+// const lessonDatePicker = document.getElementById('lessonDatePicker');
+// new Datepicker(lessonDatePicker, {
+//     // options
+// }); 
 
 export default {
   data() {

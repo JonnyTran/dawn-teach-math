@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top:50px" class="mx-auto p-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 ">
+  <div style="margin-block-start:5%" class="mx-auto p-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 ">
     <h1 class="text-xl font-medium text-gray-900 dark:text-white">Contact</h1>
     <form class="space-y-6" action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="15362813-1203-485a-b258-4227d01d0bd6">

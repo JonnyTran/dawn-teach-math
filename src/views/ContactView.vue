@@ -1,41 +1,50 @@
 <template>
-  <div>
-    <contact>
-    <h1>Contact</h1>
-    </contact>
-    <form action="https://api.web3forms.com/submit" method="POST">
+  <div style="margin-top:50px" class="mx-auto p-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 ">
+    <h1 class="text-xl font-medium text-gray-900 dark:text-white">Contact</h1>
+    <form class="space-y-6" action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="15362813-1203-485a-b258-4227d01d0bd6">
       <input type="hidden" name="subject" value="New Submission from Tran Teach Math">
       <input type="hidden" name="from_name" value="Tran Teach Math">
       <input type="hidden" name="redirect" value="https://web3forms.com/success">
       <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-      <name>
-      <label for="name">Name:</label>
-      <input type="text" name="name" v-model="form.name" required>
-      </name>
-      <email>
-      <label for="email">Email:</label>
-      <input type="email" name="email" v-model="form.email" required>
+      
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="name">Name:</label>
+        <input type="text" name="name" v-model="form.name" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+      </div>
+
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="email">Email:</label>
+        <input type="email" name="email" v-model="form.email" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
       <span v-if="emailError">{{ emailError }}</span>
-      </email>
-      <subject>
-      <label for="subject">Subject:</label>
-      <select name="subject " v-model="selectedSubject" class="bg-gray-50 border border-gray-300 text-gray-900 text-md lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-        <option value="" disabled selected>Choose a subject</option>
-        <option value="Grades">Grades</option>
-        <option value="Assignments">Assignments</option>
-        <option value="Retest">Retest/Missed test or quiz</option>
-        <option value="Tutoring">Tutoring</option>
-        <option value="Attendance">Attendance</option>
-        <option value="Parent contact">Parent contact</option>
-        <option value="Other">Other</option>
-      </select>
-      </subject>
-      <message>
-      <label for="message">Message:</label>
-      <textarea name="message" v-model="form.message" class="input-style" :placeholder="getPlaceholder()" required></textarea>
-      </message>
-      <button type="submit">Submit</button>
+      </div>
+
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="subject">Subject:</label>
+        <select name="subject " v-model="selectedSubject" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+          <option value="" disabled selected>Choose a subject</option>
+          <option value="Grades">Grades</option>
+          <option value="Assignments">Assignments</option>
+          <option value="Retest">Retest/Missed test or quiz</option>
+          <option value="Tutoring">Tutoring</option>
+          <option value="Attendance">Attendance</option>
+          <option value="Parent contact">Parent contact</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div> 
+        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Message:</label>
+        <textarea name="message" v-model="form.message" :placeholder="getPlaceholder()" rows="5" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"></textarea>
+      </div>
+
+      <div class="flex items-start">
+        <div class="flex items-center h-5">
+          <input name="sendcopy" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required>
+        </div>
+        <label for="sendcopy" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Send me a copy of my response</label>
+      </div>
+      <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
     </form>
   </div>
 </template>
@@ -102,111 +111,7 @@ export default {
 }
   </script>
 
+
 <style>
-contact {
-  position: absolute;
-  top: 15.5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.8rem;
-  font-weight: 450;
-  color: #02150aa7;
-}
-
-form {
-  position: absolute;
-  top: 51%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height:600px;
-  width: 450px;
-  background: #ffffff;
-  border-radius: 8px;
-  border: 1px solid #000000;
-  padding: 10px;
-  border-bottom: 6px solid #02150aa7;
-  border-right: 4px solid #02150aa7;
-}
-
-form label {
-  margin: 10px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-form name, textarea {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
-  height: 90px;
-  width: 90%;
-  margin-bottom: 8px;
-}
-
-form email, textarea {
-  display: flex;
-  align-self: center;  align-self: center;
-  flex-direction: column;
-  height: 90px;
-  width: 90%;
-  margin-bottom: 8px;
-}
-
-form subject, textarea {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
-  height: 90px;
-  width: 90%;
-  margin-bottom: 8px;
-}
-
-form message, textarea {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
-  height: 200px;
-  width: 95%;
-  border-radius: 6px;
-  margin-bottom: 8px;
-}
-
-.input-style::placeholder {
-  font-style: italic;
-  line-height: 1.6;
-}
-
-form button {
-  align-self: center;
-  width: 50%;
-  height: 50px;
-  border: 2.5px solid rgba(37, 89, 211, 0.738);
-  border-radius: 8px;
-  color: rgb(37, 89, 211);
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  margin-bottom: 10px;
-}
-
-form button:hover {
-  background: rgb(37, 89, 211);
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  font-size: 1.12rem;
-}
-
-form button:focus {
-  outline: none;
-}
-
-form button:active {
-  transform: scale(0.98);
-}
 
 </style>

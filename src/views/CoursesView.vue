@@ -9,7 +9,7 @@ console.log(teacherStore.sections)
 <template>
   <section>
     <coursecards v-for="(section, id) in teacherStore.sections" :name="id">
-      <div style="display: flex; justify-content: center; margin: 30px">
+      <div style="display: flex; flex-direction: row; justify-content: center; margin-top:30px;">
         <router-link :to="'/courses/' + id" class="card" style="text-decoration: none;">
         <the-card href="" variant="image" :img-src="section.profile_url" img-alt="desk">
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ section.course_title }}</h5>
@@ -23,7 +23,7 @@ console.log(teacherStore.sections)
   </section>
 
   <section>
-    <h1 style="position: sticky; font-size: 2rem;">
+    <h1 style="display: center; font-size: 2rem; margin:20px">
       General FAQ
     </h1>
     <Accordion>
@@ -40,6 +40,7 @@ console.log(teacherStore.sections)
           </div>
         </accordion-content>
       </accordion-panel>
+
       <accordion-panel>
         <accordion-header>How do I turn in assignments?</accordion-header>
         <accordion-content>
@@ -53,6 +54,7 @@ console.log(teacherStore.sections)
           </div>
         </accordion-content>
       </accordion-panel>
+
       <accordion-panel>
         <accordion-header>What is the late work policy?</accordion-header>
         <accordion-content>
@@ -66,6 +68,7 @@ console.log(teacherStore.sections)
           </div>
         </accordion-content>
       </accordion-panel>
+
       <accordion-panel>
         <accordion-header>How do I make up a missed assignment, test, or quiz?</accordion-header>
         <accordion-content>
@@ -78,6 +81,7 @@ console.log(teacherStore.sections)
           </div>
         </accordion-content>
       </accordion-panel>
+
       <accordion-panel>
         <accordion-header>What is the retest policy?</accordion-header>
         <accordion-content>
@@ -90,6 +94,7 @@ console.log(teacherStore.sections)
           </div>
         </accordion-content>
       </accordion-panel>
+
       <accordion-panel>
         <accordion-header>Is there a curve?</accordion-header>
         <accordion-content>
@@ -98,6 +103,7 @@ console.log(teacherStore.sections)
           </div>
         </accordion-content>
       </accordion-panel>
+
       <accordion-panel>
         <accordion-header>Is there extra credit?</accordion-header>
         <accordion-content>
@@ -106,6 +112,7 @@ console.log(teacherStore.sections)
           </div>
         </accordion-content>
       </accordion-panel>
+
       <accordion-panel>
         <accordion-header>What is the academic dishonesty policy?</accordion-header>
         <accordion-content>
@@ -157,10 +164,8 @@ export default {
 .card {
   position: center;
   background-position-y: center;
-
   display: flex;
-  margin-inline-end: 50px;
-  margin-inline-start: 50px;
+  margin: 1rem;
   min-width: 300px;
 }
 
@@ -176,4 +181,14 @@ export default {
   transition: transform 0.1s;
   box-shadow: none;
 }
+
+section, .accordion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+}
+
+
 </style>

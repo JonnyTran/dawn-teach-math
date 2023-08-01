@@ -24,7 +24,7 @@ const activeTab = ref('6051987179')
         </a> 
       </div>
       <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-        <img style="border-radius: 10px;" src="/src/assets/home_pic.jpg" alt="mockup">
+        <img style="border-radius: 10px;" src="/src/assets/home_pic.jpg"  alt="mockup">
       </div>                
     </div>
 

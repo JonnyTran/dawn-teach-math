@@ -7,7 +7,7 @@
                 <div class="mx-auto bg-white p-5 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div class="image overflow-hidden">
                         <img  class="mx-auto shadow" style="border-radius: 50%; height:150px; width:150px; object-fit: cover; object-position: 0px -12px;"
-                            src= "/src/assets/web_portrait.png"
+                            src="/src/assets/web_portrait.png"
                             alt="">
                     </div>
                     <h1 class="text-center text-gray-900 font-bold text-xl leading-8 my-1 dark:text-white">Dawn Tran</h1>

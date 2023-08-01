@@ -11,7 +11,6 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle }
     </template>
     <template #default="{isShowMenu}">
       <NavbarCollapse :isShowMenu="isShowMenu">
-        <!-- Set isActive to NavbarLink when in the currentRoute -->
         <NavbarLink>
           <router-link to="/">Home</router-link>
         </NavbarLink>
@@ -67,6 +66,7 @@ import { mapState, mapActions } from 'pinia';
 //     // options
 // }); 
 
+
 export default {
   data() {
     return {
@@ -78,9 +78,16 @@ export default {
       return this.$route.path;
     }
   },
+  // add a new function to check if current route starts with /courses
+  methods: {
+    checkRouteStartsWith(url) {
+      return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
+    }
+  },
   watch: {
     $route(to) {
       this.showCoursesSubMenu = /^\/courses\/\d+$/.test(to.path);
+      this.currentRoute = to.path;
     }
   },
 };

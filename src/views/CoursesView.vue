@@ -3,7 +3,7 @@ import { TheCard, Accordion, AccordionHeader, AccordionPanel, AccordionContent }
 import { useTeacherStore } from '@/stores/teacher';
 const teacherStore = useTeacherStore();
 
-console.log(teacherStore.sections)
+// console.log(teacherStore.sections)
 </script>
 
 <template>

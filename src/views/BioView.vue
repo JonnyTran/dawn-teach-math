@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto my-5 p-5 mx-w-md">
+  <div class="bg-gray-50 rounded-lg container mx-auto my-5 p-5 mx-w-md">
         <div class="md:flex no-wrap md:-mx-2">
             <!-- Left Side -->
             <div class="w-full sm:4/12 md:w-3/12 md:mx-2">
@@ -59,7 +59,7 @@
                 <div class="w-full mx-auto my-3 bg-white p-4 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
                         <span class="text-blue-500">
-                            <svg class="h-4 dark:text-gray-400 mr-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="1 0 20 18"
+                            <svg class="h-4 overflow-visible dark:text-gray-400 mr-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="1 0 20 18"
                                 stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                                 <path d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"/>
                             </svg>
@@ -67,8 +67,8 @@
                         <span class="tracking-wide dark:text-gray-200">Interests</span>
                     </div>
                     <ul style="" class="flex flex-wrap my-2">
-                        <li class="bg-indigo-100 text-indigo-800 text-sm font-medium px-2.5 py-0.5 mb-2 mr-2 rounded dark:bg-indigo-900 dark:text-indigo-200">EdTech</li>
-                        <li class="bg-brown-100 text-indigo-800 text-sm font-medium px-2.5 py-0.5 mb-2 mr-2 rounded dark:bg-indigo-900 dark:text-indigo-200">Coffee</li>
+                        <li class="gradient bg-indigo-100 text-indigo-800 text-sm font-medium px-2.5 py-0.5 mb-2 mr-2 rounded dark:bg-indigo-900 dark:text-indigo-200">EdTech</li>
+                        <li class="bg-indigo-100 text-indigo-800 text-sm font-medium px-2.5 py-0.5 mb-2 mr-2 rounded dark:bg-indigo-900 dark:text-indigo-200">Coffee</li>
                         <li class="bg-indigo-100 text-indigo-800 text-sm font-medium px-2.5 py-0.5 mb-2 mr-2 rounded dark:bg-indigo-900 dark:text-indigo-200">Baking</li>
                         <li class="bg-indigo-100 text-indigo-800 text-sm font-medium px-2.5 py-0.5 mb-2 mr-2 rounded dark:bg-indigo-900 dark:text-indigo-200">Dance</li>
                         <li class="bg-indigo-100 text-indigo-800 text-sm font-medium px-2.5 py-0.5 mb-2 mr-2 rounded dark:bg-indigo-900 dark:text-indigo-200">Guitar</li>
@@ -175,7 +175,7 @@
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3 dark:text-gray-400">
                                 <span clas="text-blue-500">
-                                    <svg class="h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
                                         <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
                                         <path fill="#fff"
@@ -199,7 +199,7 @@
                 </div>
                 <!-- End of profile tab -->
                 <!-- Contributors card -->
-                <div style="background: none;" class="grid mt-4 justify-items-center md:justify-items-end">
+                <div style="" class="grid mt-4 justify-items-center md:justify-items-end bg-white p-4 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8">
                         <span class="text-blue-500 dark:text-gray-500">
                             <svg class="h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -211,7 +211,7 @@
                         <span class="tracking-wide dark:text-gray-200">Website Contributors</span>
                     </div>
                     
-                    <div class="flex ml-4">
+                    <div class="flex">
                         <!-- Jonny Start -->
                         <div class="text-center mr-5 my-2">
                             <img class="h-12 rounded-full mx-auto"

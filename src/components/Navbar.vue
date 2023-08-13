@@ -1,5 +1,10 @@
 <script setup>
-import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue';
+// import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue';
+// import { Datepicker } from 'flowbite-datepicker';
+
+// import { useTeacherStore } from '@/stores/teacher';
+// import { storeToRefs } from 'pinia';
+// const { sections } = storeToRefs(useTeacherStore());
 </script>
 
 <template>
@@ -24,7 +29,6 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle }
           <router-link to="/contact">Contact</router-link>
         </NavbarLink>
       </NavbarCollapse>
-
       <!-- <Input size="lg" placeholder="">
         <template #prefix>
           <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -38,87 +42,108 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle }
     </template>
   </Navbar>
   <!-- Add a second level navbar for Class or Unit here if current route starts with /courses -->
-  <Navbar v-if="showCoursesSubMenu">
-    <template>
-      <div class="relative max-w-sm">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-            </svg>
-        </div>
-        <input datepicker datepicker-buttons id="lessonDatePicker" placeholder="Select date" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-      </div>
+  <Navbar v-if="showCoursesSubmenu && sectionId">
+    <template #logo>
+      <NavbarLogo v-if="sections[sectionId]" href="#" alt="Course logo" image-url="https://flowbite.com/docs/images/logo.svg" >
+        <Tooltip trigger="hover" placement="bottom" theme="light">
+          <template #trigger>
+            <button>{{ sections[sectionId].course_title }} - {{ sections[sectionId].section_title }}</button>
+          </template>
+          <template #content>
+            {{ sections[sectionId].description }}
+          </template>
+        </Tooltip>
+      </NavbarLogo>
     </template>
-
-    <NavbarCollapse :isShowMenu="isShowMenu">
-    </NavbarCollapse> 
+    <template #default="{isShowMenu}">
+      <NavbarCollapse :isShowMenu="isShowMenu">
+        <div class="relative max-w-sm">
+          <!-- <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+              </svg>
+          </div> -->
+          <!-- <input v-model="selectedDate" ref="datepicker1" id="datepicker1" placeholder="Select date" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> -->
+          <vue-tailwind-datepicker as-single v-model="selectedDate" :disable-date="disabledDates" placeholder="Select date" @click:next="onSelectDate($event)" :formatter="dateFormatter" :options="dateOptions"/>
+        </div>
+        <Button size="sm" @click="console.log(selectedDate)">
+          Test
+        </Button>
+      </NavbarCollapse> 
+    </template>
   </Navbar>
 </template>
 
 <script>
-import { mapState, mapActions } from 'pinia';
-// import { useGeneralStore } from '@/stores/general';
-
-// import { Datepicker } from 'flowbite-datepicker/Datepicker';
-
-// const lessonDatePicker = document.getElementById('lessonDatePicker');
-// new Datepicker(lessonDatePicker, {
-//     // options
-// }); 
-
+import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle, Tooltip } from 'flowbite-vue';
+import { ref } from 'vue';
+import { storeToRefs, mapState, mapActions } from 'pinia';
+import { useTeacherStore } from '@/stores/teacher';
 
 export default {
   data() {
     return {
-      showCoursesSubMenu: false,
+      showCoursesSubmenu: false,
+      sectionId: null,
+      selectedDate: new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }),
+      dateFormatter: {
+        date: 'MMM DD, YYYY',
+        month: 'MMM',
+        weekday: 'ddd',
+      },
+      dateOptions: {
+        shortcuts: {
+          today: 'Today',
+          yesterday: 'Yesterday',
+          currentMonth: 'This month',
+          pastMonth: 'Last month'
+        },
+        footer: {
+          apply: 'Apply',
+          cancel: 'Cancel'
+        }
+      },
+      disabledDates: (date) => {
+        return date < new Date();
+      }
     };
   },
   computed: {
+    ...mapState(useTeacherStore, ['sections']),
     currentRoute() {
       return this.$route.path;
     }
   },
   // add a new function to check if current route starts with /courses
   methods: {
+    // ...mapActions(useTeacherStore, [''],
     checkRouteStartsWith(url) {
       return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
-    }
+    },
+    onSelectDate(newDate) {
+      console.log(newDate) // newDate instanceof dayjs
+    },
   },
   watch: {
     $route(to) {
-      this.showCoursesSubMenu = /^\/courses\/\d+$/.test(to.path);
-      this.currentRoute = to.path;
-    }
+      this.showCoursesSubmenu = /^\/courses\/\d+$/.test(to.path);
+      // this.currentRoute = to.path;
+
+      if (this.showCoursesSubmenu) {
+        this.sectionId = this.currentRoute.split('/')[2];
+      }
+    },
   },
 };
 </script>
 
 <style>
-
 /* Set text to bold on active */ 
 .is-active {
   font-weight: bold;
 }
-
-/* Style the search box */
-/* .search-box {
-  position: absolute;
-  top: 10px;
-  right: 50px;
-  height: 35px;
-  width: 280px;
-  background: #ffffff;
-  border-radius: 8px;
-}
-
-.search-txt {
-  border: none;
-  background: none;
-  outline: none;
-  top: 15px;
-  left: 5px;
-  font-size: 14px;
-  padding: 10px;
-  color: #02150aa7;
-} */
 </style>

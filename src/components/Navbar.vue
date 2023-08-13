@@ -42,42 +42,74 @@
     </template>
   </Navbar>
   <!-- Add a second level navbar for Class or Unit here if current route starts with /courses -->
-  <Navbar v-if="showCoursesSubmenu">
-    <NavbarLogo v-if="showCoursesSubmenu && sectionId && sections[sectionId]" href="#" alt="Course logo" image-url="https://flowbite.com/docs/images/logo.svg" >
-      {{ sections[sectionId].course_title }} - {{ sections[sectionId].section_title }}
-    </NavbarLogo>  
-    <template>
-      <div class="relative max-w-sm">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-            </svg>
-        </div>
-        <input datepicker datepicker-buttons id="lessonDatePicker" placeholder="Select date" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-      </div>
+  <Navbar v-if="showCoursesSubmenu && sectionId">
+    <template #logo>
+      <NavbarLogo v-if="sections[sectionId]" href="#" alt="Course logo" image-url="https://flowbite.com/docs/images/logo.svg" >
+        <Tooltip trigger="hover" placement="bottom" theme="light">
+          <template #trigger>
+            <button>{{ sections[sectionId].course_title }} - {{ sections[sectionId].section_title }}</button>
+          </template>
+          <template #content>
+            {{ sections[sectionId].description }}
+          </template>
+        </Tooltip>
+      </NavbarLogo>
     </template>
-    <NavbarCollapse :isShowMenu="isShowMenu">
-      <Button size="sm" @click="console.log(sections[sectionId])">
-        Test
-      </Button>
-    </NavbarCollapse> 
+    <template #default="{isShowMenu}">
+      <NavbarCollapse :isShowMenu="isShowMenu">
+        <div class="relative max-w-sm">
+          <!-- <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+              </svg>
+          </div> -->
+          <!-- <input v-model="selectedDate" ref="datepicker1" id="datepicker1" placeholder="Select date" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> -->
+          <vue-tailwind-datepicker as-single v-model="selectedDate" :disable-date="disabledDates" placeholder="Select date" @click:next="onSelectDate($event)" :formatter="dateFormatter" :options="dateOptions"/>
+        </div>
+        <Button size="sm" @click="console.log(selectedDate)">
+          Test
+        </Button>
+      </NavbarCollapse> 
+    </template>
   </Navbar>
 </template>
 
 <script>
-import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue';
-import Datepicker from 'flowbite-datepicker/Datepicker';
+import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle, Tooltip } from 'flowbite-vue';
+import { ref } from 'vue';
 import { storeToRefs, mapState, mapActions } from 'pinia';
 import { useTeacherStore } from '@/stores/teacher';
-
-const datepickerEl = document.getElementById('lessonDatePicker');
-new Datepicker(datepickerEl);
 
 export default {
   data() {
     return {
       showCoursesSubmenu: false,
       sectionId: null,
+      selectedDate: new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }),
+      dateFormatter: {
+        date: 'MMM DD, YYYY',
+        month: 'MMM',
+        weekday: 'ddd',
+      },
+      dateOptions: {
+        shortcuts: {
+          today: 'Today',
+          yesterday: 'Yesterday',
+          currentMonth: 'This month',
+          pastMonth: 'Last month'
+        },
+        footer: {
+          apply: 'Apply',
+          cancel: 'Cancel'
+        }
+      },
+      disabledDates: (date) => {
+        return date < new Date();
+      }
     };
   },
   computed: {
@@ -89,9 +121,12 @@ export default {
   // add a new function to check if current route starts with /courses
   methods: {
     // ...mapActions(useTeacherStore, [''],
-    // checkRouteStartsWith(url) {
-    //   return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
-    // }
+    checkRouteStartsWith(url) {
+      return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
+    },
+    onSelectDate(newDate) {
+      console.log(newDate) // newDate instanceof dayjs
+    },
   },
   watch: {
     $route(to) {
@@ -99,10 +134,7 @@ export default {
       // this.currentRoute = to.path;
 
       if (this.showCoursesSubmenu) {
-        // get current section ID from URL
         this.sectionId = this.currentRoute.split('/')[2];
-        // set current section in store
-        console.log('NavBar this.sectionId', this.sectionId)
       }
     },
   },

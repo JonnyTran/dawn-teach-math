@@ -7,10 +7,7 @@ const teacherStore = useTeacherStore();
 
 const route = useRoute();
 const sectionId = route.params.sectionId;
-
-console.log('sectionId: ', sectionId);
-// console.log(devServer);
-
+teacherStore.setCurrentSection(sectionId);
 </script>
 
 <template>

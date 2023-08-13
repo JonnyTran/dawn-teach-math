@@ -17,11 +17,11 @@ const routes = [
     name: 'section',
     component: () => import('../views/SectionView.vue')
   },
-  // {
-  //   path: '/courses/:sectionId/units/:unitId',
-  //   name: 'unit',
-  //   component: () => import('../views/UnitView.vue')
-  // },
+  {
+    path: '/courses/:sectionId/?page=:folderId',
+    name: 'unit',
+    component: () => import('../views/SectionView.vue')
+  },
   {
     path: '/bio',
     name: 'bio',

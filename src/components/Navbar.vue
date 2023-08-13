@@ -1,5 +1,10 @@
 <script setup>
-import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue';
+// import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue';
+// import { Datepicker } from 'flowbite-datepicker';
+
+// import { useTeacherStore } from '@/stores/teacher';
+// import { storeToRefs } from 'pinia';
+// const { sections } = storeToRefs(useTeacherStore());
 </script>
 
 <template>
@@ -24,7 +29,6 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle }
           <router-link to="/contact">Contact</router-link>
         </NavbarLink>
       </NavbarCollapse>
-
       <!-- <Input size="lg" placeholder="">
         <template #prefix>
           <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +42,10 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle }
     </template>
   </Navbar>
   <!-- Add a second level navbar for Class or Unit here if current route starts with /courses -->
-  <Navbar v-if="showCoursesSubMenu">
+  <Navbar v-if="showCoursesSubmenu">
+    <NavbarLogo v-if="showCoursesSubmenu && sectionId && sections[sectionId]" href="#" alt="Course logo" image-url="https://flowbite.com/docs/images/logo.svg" >
+      {{ sections[sectionId].course_title }} - {{ sections[sectionId].section_title }}
+    </NavbarLogo>  
     <template>
       <div class="relative max-w-sm">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -49,76 +56,62 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle }
         <input datepicker datepicker-buttons id="lessonDatePicker" placeholder="Select date" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </div>
     </template>
-
     <NavbarCollapse :isShowMenu="isShowMenu">
+      <Button size="sm" @click="console.log(sections[sectionId])">
+        Test
+      </Button>
     </NavbarCollapse> 
   </Navbar>
 </template>
 
 <script>
-import { mapState, mapActions } from 'pinia';
-// import { useGeneralStore } from '@/stores/general';
+import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue';
+import Datepicker from 'flowbite-datepicker/Datepicker';
+import { storeToRefs, mapState, mapActions } from 'pinia';
+import { useTeacherStore } from '@/stores/teacher';
 
-// import { Datepicker } from 'flowbite-datepicker/Datepicker';
-
-// const lessonDatePicker = document.getElementById('lessonDatePicker');
-// new Datepicker(lessonDatePicker, {
-//     // options
-// }); 
-
+const datepickerEl = document.getElementById('lessonDatePicker');
+new Datepicker(datepickerEl);
 
 export default {
   data() {
     return {
-      showCoursesSubMenu: false,
+      showCoursesSubmenu: false,
+      sectionId: null,
     };
   },
   computed: {
+    ...mapState(useTeacherStore, ['sections']),
     currentRoute() {
       return this.$route.path;
     }
   },
   // add a new function to check if current route starts with /courses
   methods: {
-    checkRouteStartsWith(url) {
-      return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
-    }
+    // ...mapActions(useTeacherStore, [''],
+    // checkRouteStartsWith(url) {
+    //   return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
+    // }
   },
   watch: {
     $route(to) {
-      this.showCoursesSubMenu = /^\/courses\/\d+$/.test(to.path);
-      this.currentRoute = to.path;
-    }
+      this.showCoursesSubmenu = /^\/courses\/\d+$/.test(to.path);
+      // this.currentRoute = to.path;
+
+      if (this.showCoursesSubmenu) {
+        // get current section ID from URL
+        this.sectionId = this.currentRoute.split('/')[2];
+        // set current section in store
+        console.log('NavBar this.sectionId', this.sectionId)
+      }
+    },
   },
 };
 </script>
 
 <style>
-
 /* Set text to bold on active */ 
 .is-active {
   font-weight: bold;
 }
-
-/* Style the search box */
-/* .search-box {
-  position: absolute;
-  top: 10px;
-  right: 50px;
-  height: 35px;
-  width: 280px;
-  background: #ffffff;
-  border-radius: 8px;
-}
-
-.search-txt {
-  border: none;
-  background: none;
-  outline: none;
-  top: 15px;
-  left: 5px;
-  font-size: 14px;
-  padding: 10px;
-  color: #02150aa7;
-} */
 </style>

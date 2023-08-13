@@ -215,7 +215,7 @@
                         <!-- Jonny Start -->
                         <div class="text-center mr-5 my-2">
                             <img class="h-12 rounded-full mx-auto"
-                                src="https://cdn.australianageingagenda.com.au/wp-content/uploads/2015/06/28085920/Phil-Beckett-2-e1435107243361.jpg"
+                                src="#"
                                 alt="">
                             <a href="#" class="text-main-color">Jonny</a> 
                         </div>
@@ -224,7 +224,7 @@
                         <!-- Dianne Start -->
                         <div class="text-center mr-5 my-2">
                             <img class="h-12 rounded-full mx-auto"
-                                src="https://avatars2.githubusercontent.com/u/24622175?s=60&amp;v=4"
+                                src="#"
                                 alt="">
                             <a href="#" class="text-main-color">Dianne</a>
                         </div>
@@ -233,7 +233,7 @@
                         <!-- Shivangi Start -->
                         <div class="text-center mr-5 my-2">
                             <img class="h-12 rounded-full mx-auto"
-                                src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
+                                src="#"
                                 alt="">
                             <a href="#" class="text-main-color">Shivangi</a>
                         </div>

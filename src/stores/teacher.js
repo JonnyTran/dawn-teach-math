@@ -30,37 +30,58 @@ export const useTeacherStore = defineStore('teacher', {
     user: null,
     school: null,
     sections: {},
-    highlight_sections: [],
-    folders: [],
-    files: []
+    currentSection: null,
+    highlightSections: [],
+    loading: false,
+    error: null
   }),
   actions: {
-    async fill() {
-      // const school = await axiosClient.get('/schools/');
-      // this.school = school.data.school[0];
-      this.school = (await import ('../data/schools.json')).default.school[0];
+    async fetch() {
+      this.loading = true
+      try {
+        // const school = await axiosClient.get('/schools/');
+        // this.school = school.data.school[0];
+        this.school = (await import ('../data/schools.json')).default.school[0];
 
-      // const user = await axiosClient.get('/user/{id}');
-      // this.user = school.data;
-      this.user = (await import ('../data/user.json')).default;
+        // const user = await axiosClient.get('/user/{id}');
+        // this.user = school.data;
+        this.user = (await import ('../data/user.json')).default;
 
-      // const sections = await axiosClient.get('/sections');
-      const sections = (await import ('../data/sections.json')).default.sections;
-      for (const section of sections) {
-        this.sections[section.id] = section;
+        // const sections = await axiosClient.get('/sections');
+        const sections = (await import ('../data/sections.json')).default.sections;
+        for (const section of sections) {
+          this.sections[section.id] = section;
+        }
+      } catch (error) {
+        this.error = error
+      } finally {
+        this.loading = false
       }
-
       return this;
     },
+    setCurrentSection(sectionId) {
+      console.log("store.setCurrentSection", sectionId);
+      try {
+        this.currentSection = this.sections[sectionId];
+      } catch (error) {
+        this.error = error
+      } finally {
+        this.loading = false
+      }
+    }
   },
   getters: {
-    num_courses: (state) => {
+    getSection: (state) => (sectionId) => { state.sections[sectionId] },
+    // currentSection: (state) => { state.currentSection },
+    getNumCourses: (state) => {
       if (state.courses) {
         return state.courses.length;
       }
+      return 0;
     },
     isAuthenticated: (state) => {
         return axiosClient.oauth_token && axiosClient.oauth_token_secret;
-    }   
+    },
+    
   }
 });

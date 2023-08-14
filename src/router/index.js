@@ -18,9 +18,9 @@ const routes = [
     component: () => import('../views/SectionView.vue')
   },
   {
-    path: '/courses/:sectionId/?page=:folderId',
-    name: 'unit',
-    component: () => import('../views/SectionView.vue')
+    path: '/courses/:sectionId/pages/:pageId',
+    name: 'page',
+    component: () => import('../views/PageView.vue')
   },
   {
     path: '/bio',

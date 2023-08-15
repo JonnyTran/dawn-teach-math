@@ -58,9 +58,12 @@ export const useCourseStore = defineStore('course', {
         //   return acc;
         // }, {});
 
+        console.log('folders nestedFolders', this.nestedFolders)
+
         [this.pages, this.nestedFolders] = createNestedTree((await import ('../data/section-pages.json')).default.page, new Map(), this.nestedFolders)
 
-        console.log('nestedFolders', this.nestedFolders)
+        console.log('pages nestedFolders', this.nestedFolders)
+        
         console.log('folders', this.folders)
         console.log('pages', this.pages)
 
@@ -68,17 +71,14 @@ export const useCourseStore = defineStore('course', {
           this.section = teacherStore.sections[sectionId];
         }
 
-        // for grading_period in this.section.grading_periods {
-        //   this.gradingPeriods[grading_period.id] = grading_period;
+        // const gradingPeriods = (await import ('../data/gradingperiods.json')).default
+        // for (const gradingPeriod of gradingPeriods) {
+        //   this.gradingPeriods.push({
+        //     start: gradingPeriod.start, 
+        //     end: gradingPeriod.end,
+        //   });
         // }
-        const gradingPeriods = (await import ('../data/gradingperiods.json')).default
-        for (const gradingPeriod of gradingPeriods) {
-          this.gradingPeriods.push({
-            start: gradingPeriod.start, 
-            end: gradingPeriod.end,
-          });
-        }
-        console.log('gradingPeriods', this.gradingPeriods)
+        // console.log('gradingPeriods', this.gradingPeriods)
         
         this.id = sectionId;
       } catch (error) {

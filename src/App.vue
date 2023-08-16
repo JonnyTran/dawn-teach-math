@@ -1,5 +1,6 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
+import Footer from './components/Footer.vue';
 import Chatbox from './components/Chatbox.vue';
 </script>
 
@@ -17,6 +18,7 @@ import Chatbox from './components/Chatbox.vue';
     <Navbar />
     <router-view />
     <!-- <Chatbox /> -->
+    <Footer />
   </div>
 </template>
 

@@ -37,7 +37,7 @@ export const useTeacherStore = defineStore('teacher', {
   }),
   actions: {
     async fetch() {
-      this.loading = true
+      this.loading = true;
       try {
         // const school = await axiosClient.get('/schools/');
         // this.school = school.data.school[0];
@@ -48,14 +48,15 @@ export const useTeacherStore = defineStore('teacher', {
         this.user = (await import ('../data/user.json')).default;
 
         // const sections = await axiosClient.get('/sections');
-        const sections = (await import ('../data/sections.json')).default.sections;
-        for (const section of sections) {
-          this.sections[section.id] = section;
-        }
+        this.sections = (await import ('../data/sections.json')).default.sections.reduce((acc, obj) => {
+          acc[obj.id] = obj;
+          return acc;
+        }, {});
       } catch (error) {
-        this.error = error
+        console.log('teacherStore fetch', error);
+        this.error = error;
       } finally {
-        this.loading = false
+        this.loading = false;
       }
       return this;
     },
@@ -64,9 +65,10 @@ export const useTeacherStore = defineStore('teacher', {
       try {
         this.currentSection = this.sections[sectionId];
       } catch (error) {
-        this.error = error
+        console.log('teacherStore setCurrentSection', error);
+        this.error = error;
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     }
   },

@@ -41,44 +41,70 @@
       </Input> -->
     </template>
   </Navbar>
-  <!-- Add a second level navbar for Class or Unit here if current route starts with /courses -->
-  <Navbar v-if="showCoursesSubmenu && sectionId">
-    <template #logo>
-      <NavbarLogo v-if="sections[sectionId]" href="#" alt="Course logo" image-url="https://flowbite.com/docs/images/logo.svg" >
-        <Tooltip trigger="hover" placement="bottom" theme="light">
-          <template #trigger>
-            <button>{{ sections[sectionId].course_title }} - {{ sections[sectionId].section_title }}</button>
-          </template>
-          <template #content>
-            {{ sections[sectionId].description }}
-          </template>
-        </Tooltip>
-      </NavbarLogo>
-    </template>
-    <template #default="{isShowMenu}">
-      <NavbarCollapse :isShowMenu="isShowMenu">
-        <div class="relative max-w-sm">
-          <!-- <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-              </svg>
-          </div> -->
-          <!-- <input v-model="selectedDate" ref="datepicker1" id="datepicker1" placeholder="Select date" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> -->
-          <vue-tailwind-datepicker as-single v-model="selectedDate" :disable-date="disabledDates" placeholder="Select date" @click:next="onSelectDate($event)" :formatter="dateFormatter" :options="dateOptions"/>
+  <!-- Add a second level navbar for Class here if current route starts with /courses -->
+  <nav 
+  v-if="showCoursesSubmenu && sectionId && sections && sectionId in sections" class="bg-gray-50 dark:bg-gray-700 w-full sticky top-0">
+    <div class="flex items-center justify-between max-w-screen-xl px-4 py-2 mx-auto">
+      <div class="flex flex-row md:order-0">
+        <Breadcrumb>
+          <BreadcrumbItem home :href="'/courses/' + sectionId">
+            {{ sections[sectionId].course_title }}
+          </BreadcrumbItem>
+          <BreadcrumbItem :href="'/courses/' + sectionId">
+            {{ sections[sectionId].section_title }}
+          </BreadcrumbItem>
+          <!-- <BreadcrumbItem>
+            {{ sections[sectionId].section_title }}
+          </BreadcrumbItem> -->
+        </Breadcrumb>
+      </div>
+
+      <div class="flex flex-row items-center md:order-1 md:w-auto ">
+
+        <div class="px-4">
+          <vue-tailwind-datepicker as-single v-model="selectedDate" :disable-date="disabledDates" placeholder="Select date" @update:model-value="onSelectDate($event)" :formatter="dateFormatter" :options="dateOptions"/>
         </div>
-        <Button size="sm" @click="console.log(selectedDate)">
-          Test
-        </Button>
-      </NavbarCollapse> 
-    </template>
-  </Navbar>
+
+        <div class="fill-current">
+          <dropdown text="Quick Links">
+            <list-group>
+              <list-group-item>
+                <template #prefix>
+                  <svg class="w-4 h-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+                </template>
+                Unit Review
+              </list-group-item>
+              <list-group-item>
+                <template #prefix>
+                  <svg class="w-4 h-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"></path></svg>
+                </template>
+                Calendar
+              </list-group-item>
+              <list-group-item>
+                <template #prefix>
+                  <svg class="w-4 h-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v7h-2l-1 2H8l-1-2H5V5z" clip-rule="evenodd"></path></svg>
+                </template>
+                Syllabus
+              </list-group-item>
+              <list-group-item>
+                <template #prefix>
+                  <svg class="w-4 h-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd"></path></svg>
+                </template>
+                Grading Policy
+              </list-group-item>
+            </list-group>
+          </dropdown>
+        </div>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
-import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle, Tooltip } from 'flowbite-vue';
-import { ref } from 'vue';
-import { storeToRefs, mapState, mapActions } from 'pinia';
+import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Dropdown, ListGroup, ListGroupItem, Tooltip, Breadcrumb, BreadcrumbItem } from 'flowbite-vue';
+import { mapState, mapActions } from 'pinia';
 import { useTeacherStore } from '@/stores/teacher';
+import { useCourseStore } from '@/stores/course';
 
 export default {
   data() {
@@ -86,12 +112,12 @@ export default {
       showCoursesSubmenu: false,
       sectionId: null,
       selectedDate: new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
+        // year: 'numeric',
         month: 'short',
         day: 'numeric'
       }),
       dateFormatter: {
-        date: 'MMM DD, YYYY',
+        date: 'MMM DD',
         month: 'MMM',
         weekday: 'ddd',
       },
@@ -114,23 +140,27 @@ export default {
   },
   computed: {
     ...mapState(useTeacherStore, ['sections']),
+    ...mapState(useCourseStore, ['getLessonFromDate']),
     currentRoute() {
       return this.$route.path;
     }
   },
   // add a new function to check if current route starts with /courses
   methods: {
-    // ...mapActions(useTeacherStore, [''],
+    ...mapActions(useCourseStore, ['fetch']),
     checkRouteStartsWith(url) {
       return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
     },
     onSelectDate(newDate) {
-      console.log(newDate) // newDate instanceof dayjs
+      console.log(newDate)
+
+      fetch(this.sectionId);
+      console.log(getLessonFromDate(newDate));
     },
   },
   watch: {
     $route(to) {
-      this.showCoursesSubmenu = /^\/courses\/\d+$/.test(to.path);
+      this.showCoursesSubmenu = /^\/courses\/\d+.*$/.test(to.path);
       // this.currentRoute = to.path;
 
       if (this.showCoursesSubmenu) {

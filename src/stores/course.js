@@ -27,13 +27,14 @@ function createNestedTree(objs, objMap = new Map(), objTree = []) {
 }
 
 function getDateRange(dateString) {
-  const today = new Date();
+  // const today = new Date();
+  // ${today.getFullYear().toString()}
   const startMonthDateString = dateString.split('-')[0].trim();
-  const startDate = new Date(`${startMonthDateString} ${today.getFullYear().toString()}`); 
+  const startDate = new Date(`${startMonthDateString}`); 
   
   const monthString = dateString.split(' ')[0].trim();
   const endDateString = dateString.split('-')[1].trim();
-  const endDate = new Date(`${monthString} ${endDateString} ${today.getFullYear().toString()}`); 
+  const endDate = new Date(`${monthString} ${endDateString}`); 
 
   return [startDate, endDate]
 }
@@ -105,7 +106,7 @@ export const useCourseStore = defineStore('course', {
     },
     getLesson: (state) => (id) => { state.lessons.find(lesson => lesson.id.toString() === id) },
     getLessonFromDate: (state) => {
-      return (today) => state.lessons.find((lesson) => lesson.start_date <= today && lesson.end_date >= today);
+      return (today) => state.lessons.find(lesson => lesson.start_date <= today && lesson.end_date >= today);
     },
     getAllowedDateRange: (state) => () => {
       const today = new Date();

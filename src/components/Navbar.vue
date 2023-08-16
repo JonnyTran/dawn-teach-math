@@ -134,7 +134,8 @@ export default {
         }
       },
       disabledDates: (date) => {
-        return date < new Date();
+        return false
+        // return date < new Date();
       }
     };
   },
@@ -147,15 +148,16 @@ export default {
   },
   // add a new function to check if current route starts with /courses
   methods: {
-    ...mapActions(useCourseStore, ['fetch']),
+    // ...mapActions(useCourseStore, ['fetch']),
     checkRouteStartsWith(url) {
       return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
     },
-    onSelectDate(newDate) {
-      console.log(newDate)
-
-      fetch(this.sectionId);
-      console.log(getLessonFromDate(newDate));
+    onSelectDate(dateStr) {
+      const newDate = new Date(dateStr);
+      const lesson = this.getLessonFromDate(newDate);
+      if (lesson) {
+        this.$router.push(`/courses/${this.sectionId}/pages/${lesson.id}`);
+      }
     },
   },
   watch: {

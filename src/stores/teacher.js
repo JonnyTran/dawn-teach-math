@@ -53,7 +53,7 @@ export const useTeacherStore = defineStore('teacher', {
           return acc;
         }, {});
       } catch (error) {
-        console.log('teacherStore', error);
+        console.log('teacherStore fetch', error);
         this.error = error;
       } finally {
         this.loading = false;
@@ -65,7 +65,7 @@ export const useTeacherStore = defineStore('teacher', {
       try {
         this.currentSection = this.sections[sectionId];
       } catch (error) {
-        console.log('teacherStore', error);
+        console.log('teacherStore setCurrentSection', error);
         this.error = error;
       } finally {
         this.loading = false;

@@ -23,7 +23,19 @@ function createNestedTree(objs, objMap = new Map(), objTree = []) {
     }
   });
 
-  return [objMap, objTree];
+  return objTree;
+}
+
+function getDateRange(dateString) {
+  const today = new Date();
+  const startMonthDateString = dateString.split('-')[0].trim();
+  const startDate = new Date(`${startMonthDateString} ${today.getFullYear().toString()}`); 
+  
+  const monthString = dateString.split(' ')[0].trim();
+  const endDateString = dateString.split('-')[1].trim();
+  const endDate = new Date(`${monthString} ${endDateString} ${today.getFullYear().toString()}`); 
+
+  return [startDate, endDate]
 }
 
 
@@ -33,6 +45,7 @@ export const useCourseStore = defineStore('course', {
     section: null,
     folders: {},
     pages: {},
+    lessons: [],
     nestedFolders: [],
     gradingPeriods: [],
     teacher: null,
@@ -41,34 +54,29 @@ export const useCourseStore = defineStore('course', {
   }),
   actions: {
     async fetch(sectionId) {
-      console.log("useCourseStore.fetch", sectionId)
       this.loading = true
       const teacherStore = useTeacherStore();
 
       try {
-        // this.folders = (await import ('../data/section-folders.json')).default.folders.reduce((acc, obj) => {
-        //   acc[obj.id] = obj;
-        //   return acc;
-        // }, {});
-
-        [this.folders, this.nestedFolders] = createNestedTree((await import ('../data/section-folders.json')).default.folders)
+        // const folders = await axiosClient.get('/folders?start=0&limit=20');
+        this.folders = new Map();
+        this.nestedFolders = createNestedTree((await import ('../data/section-folders.json')).default.folders, this.folders)
   
-        // this.pages = (await import ('../data/section-pages.json')).default.page.reduce((acc, obj) => {
-        //   acc[obj.id] = obj;
-        //   return acc;
-        // }, {});
-
-        console.log('folders nestedFolders', this.nestedFolders)
-
-        [this.pages, this.nestedFolders] = createNestedTree((await import ('../data/section-pages.json')).default.page, new Map(), this.nestedFolders)
-
-        console.log('pages nestedFolders', this.nestedFolders)
-        
-        console.log('folders', this.folders)
-        console.log('pages', this.pages)
+        this.pages = new Map();
+        this.nestedFolders = createNestedTree((await import ('../data/section-pages.json')).default.page, this.pages, this.nestedFolders)
 
         if (sectionId) {
           this.section = teacherStore.sections[sectionId];
+        }
+
+        var isLessonDate = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s\d{1,2}-\d{1,2}$/i;
+        for (let [id, folder] of this.folders) {
+          if (isLessonDate.test(folder.title)) {
+            const [startDate, endDate] = getDateRange(folder.title);
+            folder.start_date = startDate;
+            folder.end_date = endDate;
+            this.lessons.push(folder);
+          }
         }
 
         // const gradingPeriods = (await import ('../data/gradingperiods.json')).default
@@ -82,7 +90,7 @@ export const useCourseStore = defineStore('course', {
         
         this.id = sectionId;
       } catch (error) {
-        console.log(error)
+        console.log('courseStore', error)
         this.error = error
       } finally {
         this.loading = false
@@ -94,6 +102,19 @@ export const useCourseStore = defineStore('course', {
     getPostAuthor: (state) => {
       const teacherStore = useTeacherStore()
       return state.teacher = teacherStore;
-    }
+    },
+    getLesson: (state) => (id) => { state.lessons.find(lesson => lesson.id.toString() === id) },
+    getLessonFromDate: (state) => {
+      return (today) => state.lessons.find((lesson) => lesson.start_date <= today && lesson.end_date >= today);
+    },
+    getAllowedDateRange: (state) => () => {
+      const today = new Date();
+      const lesson = state.lessons.find(lesson => {
+        const startDateString = lesson.title.split('-')[0].trim();
+        const startDate = new Date(`${startDateString} ${today.getFullYear().toString()}`); 
+
+        return today >= startDate;
+      });
+    },
   },
 })

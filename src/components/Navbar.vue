@@ -62,7 +62,7 @@
       <div class="flex flex-row items-center md:order-1 md:w-auto ">
 
         <div class="px-4">
-          <vue-tailwind-datepicker as-single v-model="selectedDate" :disable-date="disabledDates" placeholder="Select date" @click:next="onSelectDate($event)" :formatter="dateFormatter" :options="dateOptions"/>
+          <vue-tailwind-datepicker as-single v-model="selectedDate" :disable-date="disabledDates" placeholder="Select date" @update:model-value="onSelectDate($event)" :formatter="dateFormatter" :options="dateOptions"/>
         </div>
 
         <div class="fill-current">
@@ -102,9 +102,9 @@
 
 <script>
 import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Dropdown, ListGroup, ListGroupItem, Tooltip, Breadcrumb, BreadcrumbItem } from 'flowbite-vue';
-import { ref } from 'vue';
-import { storeToRefs, mapState, mapActions } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 import { useTeacherStore } from '@/stores/teacher';
+import { useCourseStore } from '@/stores/course';
 
 export default {
   data() {
@@ -112,12 +112,12 @@ export default {
       showCoursesSubmenu: false,
       sectionId: null,
       selectedDate: new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
+        // year: 'numeric',
         month: 'short',
         day: 'numeric'
       }),
       dateFormatter: {
-        date: 'MMM DD, YYYY',
+        date: 'MMM DD',
         month: 'MMM',
         weekday: 'ddd',
       },
@@ -140,18 +140,22 @@ export default {
   },
   computed: {
     ...mapState(useTeacherStore, ['sections']),
+    ...mapState(useCourseStore, ['getLessonFromDate']),
     currentRoute() {
       return this.$route.path;
     }
   },
   // add a new function to check if current route starts with /courses
   methods: {
-    // ...mapActions(useTeacherStore, [''],
+    ...mapActions(useCourseStore, ['fetch']),
     checkRouteStartsWith(url) {
       return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
     },
     onSelectDate(newDate) {
-      console.log(newDate) // newDate instanceof dayjs
+      console.log(newDate)
+
+      fetch(this.sectionId);
+      console.log(getLessonFromDate(newDate));
     },
   },
   watch: {

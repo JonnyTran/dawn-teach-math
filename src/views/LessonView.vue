@@ -5,28 +5,29 @@ import { useCourseStore } from '@/stores/course';
 
 const route = useRoute();
 const sectionId = route.params.sectionId;
-const pageId = route.params.pageId;
+const folderId = route.params.folderId;
 
 const courseStore = useCourseStore();
 if (courseStore.id != sectionId) {
   courseStore.fetch(sectionId);
 }
 
-console.log('pageId', pageId)
+const lesson = courseStore.getLesson(folderId);
+console.log(lesson)
+
 </script>
 
 <template>
   <spinner size="12" v-if="courseStore.loading" />
   <template v-if="courseStore.folders.size && courseStore.pages.size">
-    {{ courseStore.getLesson(pageId) }}
-    <!-- <div v-if="courseStore.folders.has(pageId)">
-      <h1>{{ courseStore.folders[pageId].title }}</h1>
-      <p>{{ courseStore.folders[pageId].body }}</p>
+    <div v-if="courseStore.folders.has(folderId)">
+      <h1>{{ courseStore.getFolder(folderId).title }}</h1>
+      <p>{{ courseStore.getFolder(folderId).children }}</p>
     </div>
-    <div v-if="courseStore.pages.has(pageId)">
-      <h1>{{ courseStore.pages[pageId].title }}</h1>
-      <div v-html="courseStore.pages[pageId].body"></div>
-    </div> -->
+    <div v-if="courseStore.pages.has(folderId)">
+      <h1>{{ courseStore.getPage(folderId).title }}</h1>
+      <div v-html="courseStore.getPage(folderId).body"></div>
+    </div>
   </template>
   
 </template>

@@ -44,8 +44,8 @@ export const useCourseStore = defineStore('course', {
   state: () => ({
     id: null,
     section: null,
-    folders: {},
-    pages: {},
+    folders: new Map(),
+    pages: new Map(),
     lessons: [],
     nestedFolders: [],
     gradingPeriods: [],
@@ -100,11 +100,12 @@ export const useCourseStore = defineStore('course', {
     }
   },
   getters: {
-    getPostAuthor: (state) => {
-      const teacherStore = useTeacherStore()
-      return state.teacher = teacherStore;
-    },
-    getLesson: (state) => (id) => { state.lessons.find(lesson => lesson.id.toString() === id) },
+    isLoaded: (state) => { return state.id != null && state.folders.size && state.pages.size },
+    hasFolder: (state) => { return (folderId) => state.folders.has(folderId) },
+    hasPage: (state) => { return (pageId) => state.pages.has(pageId) },
+    getFolder: (state) => { return (folderId) => state.folders.get(folderId) },
+    getPage: (state) => { return (pageId) => state.pages.get(pageId) },
+    getLesson: (state) => { return (folderId) => state.lessons.find(lesson => lesson.id.toString() === folderId) },
     getLessonFromDate: (state) => {
       return (today) => state.lessons.find(lesson => lesson.start_date <= today && lesson.end_date >= today);
     },

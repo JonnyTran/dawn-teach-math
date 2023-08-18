@@ -7,8 +7,8 @@ const teacherStore = useTeacherStore();
 </script>
 
 <template>
-  <section>
-    <coursecards v-for="(section, id) in teacherStore.sections" :name="id">
+  <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
+    <div v-for="(section, id) in teacherStore.sections" :name="id">
       <div style="display: flex; flex-direction: row; justify-content: center; margin-top:30px;">
         <router-link :to="'/courses/' + id" class="card" style="text-decoration: none;">
         <the-card href="" variant="image" :img-src="section.profile_url" img-alt="desk">
@@ -19,8 +19,8 @@ const teacherStore = useTeacherStore();
         </the-card>
         </router-link>
       </div>
-    </coursecards>
-  </section>
+    </div>
+  </div>
 
   <section>
     <h1 style="display: center; font-size: 2rem; margin:20px">

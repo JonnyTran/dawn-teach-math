@@ -156,7 +156,7 @@ export default {
       const newDate = new Date(dateStr);
       const lesson = this.getLessonFromDate(newDate);
       if (lesson) {
-        this.$router.push(`/courses/${this.sectionId}/pages/${lesson.id}`);
+        this.$router.push(`/courses/${this.sectionId}/lesson/${lesson.id}`);
       }
     },
   },

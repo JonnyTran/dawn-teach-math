@@ -2,12 +2,10 @@
 import { TheCard, Accordion, AccordionHeader, AccordionPanel, AccordionContent } from 'flowbite-vue';
 import { useTeacherStore } from '@/stores/teacher';
 const teacherStore = useTeacherStore();
-
-// console.log(teacherStore.sections)
 </script>
 
 <template>
-  <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
+  <section class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
     <div v-for="(section, id) in teacherStore.sections" :name="id">
       <div style="display: flex; flex-direction: row; justify-content: center; margin-top:30px;">
         <router-link :to="'/courses/' + id" class="card" style="text-decoration: none;">
@@ -20,7 +18,7 @@ const teacherStore = useTeacherStore();
         </router-link>
       </div>
     </div>
-  </div>
+  </section>
 
   <section>
     <h1 style="display: center; font-size: 2rem; margin:20px">

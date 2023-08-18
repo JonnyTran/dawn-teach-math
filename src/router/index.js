@@ -18,7 +18,7 @@ const routes = [
     component: () => import('../views/SectionView.vue')
   },
   {
-    path: '/courses/:sectionId/lesson/:folderId',
+    path: '/courses/:sectionId/lesson/:pageId',
     name: 'page',
     component: () => import('../views/LessonView.vue')
   },

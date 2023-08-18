@@ -31,43 +31,6 @@ courseStore.fetch(sectionId);
 </template>
 
 <script>
-// import { useCourseStore } from '@/stores/course';
-// const courseStore = useCourseStore();
-
-// export default {
-//   data() {
-//     return {
-//       leafNode: null,
-//     };
-//   },
-//   methods: {
-//     toggle(page) {
-//       page.available = !page.available;
-//     },
-//   },
-//   watch: {
-//     pages: {
-//       deep: true,
-//       immediate: true,
-//       handler() {
-//         this.findLeafNode();
-//       }
-//     },
-//   },
-//   methods: {
-//     findLeafNode() {
-//       for (let page of courseStore.nestedFolders) {
-//         if (!page.children) {
-//           this.leafNode = page;
-//           return;
-//         } else {
-//           this.findLeafNode(leafNode.children);
-//         }
-//       }
-//       this.leafNode = null;
-//     },
-//   },
-// };
 </script>
 
 <style>

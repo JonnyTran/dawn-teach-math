@@ -1,12 +1,3 @@
-<script setup>
-// import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Input, Button, Toggle } from 'flowbite-vue';
-// import { Datepicker } from 'flowbite-datepicker';
-
-// import { useTeacherStore } from '@/stores/teacher';
-// import { storeToRefs } from 'pinia';
-// const { sections } = storeToRefs(useTeacherStore());
-</script>
-
 <template>
   <Navbar solid>
     <template #logo>
@@ -48,14 +39,11 @@
       <div class="flex flex-row md:order-0">
         <Breadcrumb>
           <BreadcrumbItem home :href="'/courses/' + sectionId">
-            {{ sections[sectionId].course_title }}
+            {{ sections[sectionId].course_title }} - {{ sections[sectionId].section_title }}
           </BreadcrumbItem>
           <BreadcrumbItem :href="'/courses/' + sectionId">
-            {{ sections[sectionId].section_title }}
+            Home
           </BreadcrumbItem>
-          <!-- <BreadcrumbItem>
-            {{ sections[sectionId].section_title }}
-          </BreadcrumbItem> -->
         </Breadcrumb>
       </div>
 
@@ -107,6 +95,7 @@ import { useTeacherStore } from '@/stores/teacher';
 import { useCourseStore } from '@/stores/course';
 
 export default {
+  name: 'Navbar',
   data() {
     return {
       showCoursesSubmenu: false,
@@ -160,10 +149,24 @@ export default {
       }
     },
   },
+  created() {
+    this.emitter.on('update-selected-date', (evt) => {
+      this.selectedDate = new Date(evt.dateStr).toLocaleDateString('en-US', {
+        // year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    });
+
+    this.emitter.on('update-disabled-date', (evt) => {
+      this.disabledDates = (date) => {
+        return date < new Date();
+      }
+    });
+  },
   watch: {
     $route(to) {
       this.showCoursesSubmenu = /^\/courses\/\d+.*$/.test(to.path);
-      // this.currentRoute = to.path;
 
       if (this.showCoursesSubmenu) {
         this.sectionId = this.currentRoute.split('/')[2];

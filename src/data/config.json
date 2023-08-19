@@ -1,13 +1,13 @@
 {
+    "id": 118393559,
+    "school_id": 2589655242,
+    "locale": "en-US",
     "bio": [
         {   
-            "id": 118393559,
-            "school_id": 2589655242,
             "webtitle": "Tran Teach Math",
             "primary_email": "dawn_tran@roundrockisd.org",
             "picture_url": "src/assets/web_portrait.png",
             "position": "null",
-            "locale": "en-US",
             "full_name": "Dawn Tran",
             "pronouns": "She/Her",
             "birth_place": "Da Nang, Vietnam",
@@ -24,11 +24,7 @@
             "graduation_year": "2021",
             "teachingExperience": "2 years",
             "quote": "The function of education is to teach one to think intensively and to think critically. Intelligence plus character - that is the goal of true education.",
-            "author": "Martin Luther King",
-            "permissions": {
-                "is_directory_public": 1,
-                "allow_connections": 1
-                }
+            "author": "Martin Luther King"
         }
 ],
 

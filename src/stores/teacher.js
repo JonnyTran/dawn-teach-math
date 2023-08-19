@@ -2,10 +2,12 @@ import axios from 'axios';
 import config from '../data/config';
 import { defineStore } from 'pinia';
 import addOAuthInterceptor from 'axios-oauth-1.0a'
+import dotenv from 'dotenv';
 
-const CONSUMERKEY = "8aa414b64bb6f107f22380c55d5d38c206498ecf1";
-const CONSUMERSECRET = "ad767c4e1f3d070c1d01d0779f0833e9";
-// axios.defaults.baseURL = 'https://api.schoology.com/v1/';
+dotenv.config();
+
+const CONSUMERKEY = process.env.CONSUMER_KEY;
+const CONSUMERSECRET = process.env.CONSUMER_SECRET;
 
 export const axiosClient = axios.create({
   baseURL: 'https://api.schoology.com/v1/',
@@ -41,16 +43,13 @@ export const useTeacherStore = defineStore('teacher', {
     async fetch() {
       this.loading = true;
       try {
-        // const school = (await import('../data/schools.json')).default;
         const schools = (await axiosClient.get('/schools/')).data.school;
         this.school = schools[0];
 
-        const user = await axiosClient.get(`/users/${this.id}`);
-        this.user = user.data;
-        // this.user = (await import ('../data/user.json')).default;
+        const user = (await axiosClient.get(`/users/${this.id}`)).data;
+        this.user = user;
 
         const sections = (await axiosClient.get(`/users/${this.id}/sections`)).data.section;
-        // const sections = (await import('../data/sections.json')).default.section;
         this.sections = sections.reduce((map, obj) => {
           map[obj.id.toString()] = obj;
           return map;
@@ -64,11 +63,9 @@ export const useTeacherStore = defineStore('teacher', {
       return this;
     },
     setCurrentSection(sectionId) {
-      console.log("store.setCurrentSection", sectionId);
       try {
         this.currentSection = this.sections[sectionId];
       } catch (error) {
-        console.log('teacherStore setCurrentSection', error);
         this.error = error;
       } finally {
         this.loading = false;
@@ -77,7 +74,6 @@ export const useTeacherStore = defineStore('teacher', {
   },
   getters: {
     getSection: (state) => { return (sectionId) => state.sections[sectionId] },
-    // currentSection: (state) => { state.currentSection },
     getNumCourses: (state) => {
       if (state.courses) {
         return state.courses.length;

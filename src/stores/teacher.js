@@ -48,7 +48,7 @@ export const useTeacherStore = defineStore('teacher', {
         this.user = (await import ('../data/user.json')).default;
 
         // const sections = await axiosClient.get('/sections');
-        const sections = (await import('../data/sections.json')).default.sections;
+        const sections = (await import('../data/sections.json')).default.section;
         this.sections = sections.reduce((map, obj) => {
           map[obj.id.toString()] = obj;
           return map;

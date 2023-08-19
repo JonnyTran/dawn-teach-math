@@ -94,6 +94,13 @@ export const useCourseStore = defineStore('course', {
       }
       return this;
     },
+    /**
+     * Converts lesson dates from a string format to a Date object format. 
+     * Since only month and date is given, it uses the gradingPeriod's year if exists, otherwise the current year.
+     * @async
+     * @function
+     * @returns {Promise<void>}
+     */
     async convertLessonDates() {
       let currentYear;
       try {
@@ -128,8 +135,8 @@ export const useCourseStore = defineStore('course', {
         return;
       }
 
-      const unit = this.parents.get(id);
-      lesson.unit_title = unit.title;
+      const unitFolder = this.parents.get(id);
+      lesson.unit_title = unitFolder.title;
       
       return lesson
     }

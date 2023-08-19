@@ -66,7 +66,7 @@
       <div class="fill-current">
         <dropdown text="Quick Links">
           <template #trigger>
-            <span>Quick Links</span>
+            <button>Quick Links</button>
           </template>
           <list-group>
             <list-group-item>
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Dropdown, ListGroup, ListGroupItem, Tooltip, Breadcrumb, BreadcrumbItem } from 'flowbite-vue';
+import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Dropdown, ListGroup, ListGroupItem, Button, Tooltip, Breadcrumb, BreadcrumbItem } from 'flowbite-vue';
 import { mapState, mapActions } from 'pinia';
 import { useTeacherStore } from '@/stores/teacher';
 import { useCourseStore } from '@/stores/course';

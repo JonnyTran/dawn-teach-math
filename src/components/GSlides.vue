@@ -1,17 +1,27 @@
 <template>
   <div>
-    <h3>
-      {{ label }}
-    </h3>
+    
     <p>
-      <a :href="slidePresentLink" target="_blank">
-        <svg viewBox="0 0 24 24" focusable="false" class="fullscreen">
-          <path d="m0 0h24v24h0z" fill="none"></path>
-          <path d="m19 19h5v5h7v3h5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zm14 3v2h3.59l-9.83 9.83 1.41 1.41l19 6.41v10h2v3h-7z"></path>
-        </svg>
-      </a>
+      <h3>
+        {{ label }}
+      </h3>
+      <!-- <a :href="slideViewLink" target="_blank">
+        <img
+          src="https://www.gstatic.com/images/icons/material/product/2x/slides_48dp.png"
+          alt="Google Slides"
+          class="h-8 w-8"
+        />
+      </a> -->
+      
       <div class="responsive">
-        <iframe frameborder="0" :aria-label="label" :src="slideEmbedLink"></iframe>
+        <iframe 
+          frameborder="0" 
+          :aria-label="label" 
+          :src="slideEmbedLink" 
+          allowfullscreen="true"
+          mozallowfullscreen="true"
+          webkitallowfullscreen="true"
+        ></iframe>
       </div>
     </p>
   </div>
@@ -33,11 +43,11 @@ const GSlides = defineComponent({
     }
   },
   computed: {
-    slidePresentLink() {
-      return `https://docs.google.com/presentation/d/${this.gslide_id}/present`;
+    slideViewLink() {
+      return `https://docs.google.com/presentation/d/${this.gslide_id}/view`;
     },
     slideEmbedLink() {
-      return `https://docs.google.com/presentation/d/${this.gslide_id}/embed`;
+      return `https://docs.google.com/presentation/d/${this.gslide_id}/embed?start=false&loop=false&delayms=3000`;
     }
   },
 });

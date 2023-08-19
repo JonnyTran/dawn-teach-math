@@ -46,6 +46,7 @@
     "vite": "^4.3.9",
     "vite-plugin-node-polyfills": "^0.9.0",
     "vitest": "^0.32.0",
+    "vue-cli-plugin-yaml": "^1.0.2",
     "vue-tailwind-datepicker": "^1.4.6"
   }
 }

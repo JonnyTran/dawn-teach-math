@@ -1,4 +1,6 @@
 import axios from 'axios';
+import yaml from 'js-yaml';
+import fs from 'fs';
 import { defineStore } from 'pinia';
 import addOAuthInterceptor from 'axios-oauth-1.0a'
 
@@ -19,14 +21,18 @@ addOAuthInterceptor(axiosClient, options);
 
 // Print axios request and response to console
 axiosClient.interceptors.request.use(request => {
-  console.log('Starting Request', request)
+  // console.log('Starting Request', request)
   return request
 })
+
+const config = yaml.load('@/src/data/config.yml', 'utf8');
+console.log('config', config)
 
 // Create a Pinia store in this Vue.js named useUserStore with OAuth 1.0 using axios
 // and then store it so other components can use it to make a request to the API at https://api.schoology.com/v1/
 export const useTeacherStore = defineStore('teacher', {
   state: () => ({
+    id: config.user_id,
     user: null,
     school: null,
     sections: {},
@@ -39,16 +45,18 @@ export const useTeacherStore = defineStore('teacher', {
     async fetch() {
       this.loading = true;
       try {
-        // const school = await axiosClient.get('/schools/');
-        // this.school = school.data.school[0];
-        this.school = (await import ('../data/schools.json')).default.school[0];
+        // const school = (await import('../data/schools.json')).default;
+        const schools = (await axiosClient.get('/schools/')).data.school;
+        this.school = schools[0];
 
-        // const user = await axiosClient.get('/user/{id}/sections');
+        // const user = await axiosClient.get('/user/{id}/');
         // this.user = school.data;
         this.user = (await import ('../data/user.json')).default;
+        
+        console.log('userid', this.id)
 
-        // const sections = await axiosClient.get('/sections');
-        const sections = (await import('../data/sections.json')).default.section;
+        const sections = (await axiosClient.get(`/user/${this.id}/sections`)).data.section;
+        // const sections = (await import('../data/sections.json')).default.section;
         this.sections = sections.reduce((map, obj) => {
           map[obj.id.toString()] = obj;
           return map;

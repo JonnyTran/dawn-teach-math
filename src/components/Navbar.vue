@@ -10,7 +10,7 @@
 <template>
   <Navbar solid>
     <template #logo>
-      <NavbarLogo  href="#" alt="logo" image-url="/src/assets/logo.svg">
+      <NavbarLogo  href="/" alt="logo" image-url="/src/assets/logo.svg">
         <span class="text-xl font-bold">Doan K. Tran</span>
       </NavbarLogo>
     </template>
@@ -42,7 +42,7 @@
     </template>
   </Navbar>
   <!-- Add a second level navbar for Class here if current route starts with /courses -->
-  <Navbar v-if="showCoursesSubmenu && sectionId && sections && sectionId in sections" class="bg-gray-50 dark:bg-gray-700 w-full sticky top-0">
+  <Navbar v-if="showCoursesSubmenu && sectionId && sections && sectionId in sections" class="bg-gray-50 dark:bg-gray-700 w-full sticky top-0 z-10">
     <template #logo>
       <Breadcrumb>
         <BreadcrumbItem home :href="'/courses/' + sectionId">

@@ -43,7 +43,7 @@ export const useTeacherStore = defineStore('teacher', {
         // this.school = school.data.school[0];
         this.school = (await import ('../data/schools.json')).default.school[0];
 
-        // const user = await axiosClient.get('/user/{id}');
+        // const user = await axiosClient.get('/user/{id}/sections');
         // this.user = school.data;
         this.user = (await import ('../data/user.json')).default;
 

@@ -1,33 +1,45 @@
 <script setup>
 import { Spinner, Tooltip, Button } from 'flowbite-vue';
+import { defineAsyncComponent } from 'vue';
+
+// import { GSlides } from '@/components/GSlides.vue';
+const GSlides = defineAsyncComponent(() => import('@/components/GSlides.vue'));
+
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useCourseStore } from '@/stores/course';
 
 const route = useRoute();
 const sectionId = route.params.sectionId;
-const pageId = route.params.pageId;
+const folderId = route.params.pageId;
 
 const courseStore = useCourseStore();
-const {getPage} = storeToRefs(courseStore);
+const { getFolder, lesson } = storeToRefs(courseStore);
 
 if (courseStore.id != sectionId) {
   courseStore.fetch(sectionId);
 }
 
-courseStore.loadLesson(pageId);
+courseStore.loadLesson(folderId);
 // console.log(lesson)
 
 </script>
 
 <template>
   <spinner size="12" v-if="courseStore.loading" />
-  <section class="bg-white dark:bg-gray-900">
+  <section class="bg-white dark:bg-gray-900" v-if="courseStore.isLoaded && lesson !== null">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
       <div class="max-w-screen-lg text-gray-500 sm:text-lg dark:text-gray-400">
         <h2 class="mb-4 text-4xl tracking-tight font-bold text-gray-900 dark:text-white">
-          {{ getPage(pageId).unit_title }}
+          {{ lesson.parent.title }}
         </h2>
+
+        <h3 class="mb-4 text-xl tracking-tight font-bold text-gray-900 dark:text-white">
+          {{ lesson.self.title }}
+        </h3>
+
+        <GSlides :label="lesson.gslide_title" :gslide_id="lesson.gslide_id" />
+
         <p class="mb-4 font-light">
           Track work across the enterprise through an open, collaborative platform. Link issues across Jira and ingest data from other software development tools, so your IT support and operations teams have richer contextual information to rapidly respond to requests, incidents, and changes.
         </p>
@@ -42,31 +54,12 @@ courseStore.loadLesson(pageId);
     </div>
   </section>
   
-  <section class="bg-white dark:bg-gray-900" v-if="courseStore.pages.size">
-    <div v-if="courseStore.hasPage(pageId)">
-      <h1>{{ getPage(pageId).title }}</h1>
-      <p>{{ getPage(pageId) }}</p>
-
-      <h1 class="font-bold">Children</h1>
-      <div v-for="id in getPage(pageId).children">
-        <p> {{ getPage(id).title }}</p>
-        <div v-for="id_child in getPage(id).children">
-          <div v-if="getPage(id_child).body" v-html="getPage(id_child).body"></div>
-        </div>
-      </div>
-      
-      <h1 class="font-bold">Unit folders</h1>
-      <div v-for="unitFolder in getPage(courseStore.loadLesson(pageId).parent_id).children">
-        <p> {{ getPage(unitFolder).title }} {{ getPage(unitFolder).children.length }} </p>
-        <ul>
-          <li v-for="page in getPage(unitFolder).children">
-            <span> -</span> {{ getPage(page).title }}
-          </li>
-        </ul>
-      </div>
+  <section class="bg-white dark:bg-gray-900" v-if="courseStore.isLoaded && lesson !== null">
+    <div v-if="lesson !== null">
+      <h1>{{ lesson.self.title }}</h1>
+      <pre>lesson = {{ JSON.stringify(lesson, null, 4) }}</pre>
     </div>
   </section>
-  
 </template>
 
 <style>

@@ -11,7 +11,9 @@ const sectionId = route.params.sectionId;
 teacherStore.setCurrentSection(sectionId);
 
 const courseStore = useCourseStore();
-courseStore.fetch(sectionId);
+if (courseStore.id != sectionId) {
+  courseStore.fetch(sectionId);
+}
 </script>
 
 <template>
@@ -24,7 +26,7 @@ courseStore.fetch(sectionId);
 </template>
 
 <script>
-</script>
+</script> 
 
 <style>
 /* Add your custom styles here */

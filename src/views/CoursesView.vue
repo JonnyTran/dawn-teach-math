@@ -5,12 +5,14 @@ const teacherStore = useTeacherStore();
 </script>
 
 <template>
-  <section class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
+  <section class="grid gap-1 mb-6 lg:mb-16 md:grid-cols-2 ">
     <div v-for="(section, id) in teacherStore.sections" :name="id">
-      <div style="display: flex; flex-direction: row; justify-content: center; margin-top:30px;">
+      <div class="items-center sm:flex" style="display: flex; flex-direction: row; justify-content: center; margin-top:30px;">
         <router-link :to="'/courses/' + id" class="card" style="text-decoration: none;">
-        <the-card href="" variant="image" :img-src="section.profile_url" img-alt="desk">
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ section.course_title }}</h5>
+        <the-card variant="image" :img-src="section.profile_url" img-alt="desk" class="w-full rounded-lg">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {{ section.course_title }} - {{ section.section_title }} 
+          </h5>
           <p class="font-normal text-gray-700 dark:text-gray-400">
             {{ section.description }}
           </p>

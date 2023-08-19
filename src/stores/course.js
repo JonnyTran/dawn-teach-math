@@ -29,34 +29,31 @@ function createNestedTree(objs, objMap = new Map(), objTree = [], parents = new 
       parentFolder.children.push(obj.id.toString());
     }
   });
-
-  return objTree;
 }
 
 function getDateRange(dateString) {
   // const today = new Date();
   // ${today.getFullYear().toString()}
-  const startMonthDateString = dateString.split('-')[0].trim();
-  const startDate = new Date(`${startMonthDateString}`); 
+  const startMonthDateStr = dateString.split('-')[0].trim();
+  const startDate = new Date(`${startMonthDateStr}`); 
   
-  const monthString = dateString.split(' ')[0].trim();
-  const endDateString = dateString.split('-')[1].trim();
-  const endDate = new Date(`${monthString} ${endDateString}`); 
+  const endMonthStr = dateString.split(' ')[0].trim();
+  const endDateStr = dateString.split('-')[1].trim();
+  const endDate = new Date(`${endMonthStr} ${endDateStr}`); 
 
   return [startDate, endDate]
 }
-
 
 export const useCourseStore = defineStore('course', {
   state: () => ({
     id: null,
     section: null,
-    pages: new Map(),
+    teacher: null,
+    pages: null,
+    parents: null,
     lessons: [],
     nestedFolders: [],
-    parents: new Map(),
     gradingPeriods: [],
-    teacher: null,
     loading: false,
     error: null
   }),
@@ -77,13 +74,15 @@ export const useCourseStore = defineStore('course', {
         }
 
         // const folders = await axiosClient.get('/folders?start=0&limit=20');
+        this.nestedFolders = [];
         this.pages = new Map();
+        this.parents = new Map();
 
         const folders = (await import('../data/section-folders.json')).default.folders;
-        this.nestedFolders = createNestedTree(folders, this.pages, this.nestedFolders, this.parents)
+        createNestedTree(folders, this.pages, this.nestedFolders, this.parents)
   
         const pages = (await import('../data/section-pages.json')).default.page;
-        this.nestedFolders = createNestedTree(pages, this.pages, this.nestedFolders, this.parents)
+        createNestedTree(pages, this.pages, this.nestedFolders, this.parents)
 
         var isLessonDate = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s\d{1,2}-\d{1,2}$/i;
         for (let [id, folder] of this.pages) {
@@ -135,8 +134,8 @@ export const useCourseStore = defineStore('course', {
     },
     getAllowedDateRange: (state) => () => {
       const today = new Date();
-      const lesson = state.lessons.find(lesson => {
-        const startDateString = lesson.title.split('-')[0].trim();
+      const lesson = state.lessons.find(folder => {
+        const startDateString = folder.title.split('-')[0].trim();
         const startDate = new Date(`${startDateString} ${today.getFullYear().toString()}`); 
 
         return today >= startDate;

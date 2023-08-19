@@ -21,13 +21,6 @@ courseStore.fetch(sectionId);
   </p>
 
   <Button @click="console.log(courseStore.nestedFolders)">test</Button>
-
-  <!-- {{ teacherStore.sections[sectionId] }}
-
-  {{ teacherStore.sections[sectionId] }}
-
-  {{ teacherStore.sections[sectionId] }}
- -->
 </template>
 
 <script>

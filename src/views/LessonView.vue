@@ -13,8 +13,8 @@ if (courseStore.id != sectionId) {
   courseStore.fetch(sectionId);
 }
 
-const lesson = courseStore.loadLesson(pageId);
-console.log(lesson)
+// const lesson = courseStore.loadLesson(pageId);
+// console.log(lesson)
 
 </script>
 
@@ -34,8 +34,8 @@ console.log(lesson)
     </div>
   </section>
   
-  <section class="bg-white dark:bg-gray-900" v-if="courseStore.folders.size && courseStore.pages.size">
-    <div v-if="courseStore.folders.has(pageId)">
+  <section class="bg-white dark:bg-gray-900" v-if="courseStore.pages.size">
+    <div v-if="courseStore.hasPage(pageId)">
       <h1>{{ courseStore.getPage(pageId).title }}</h1>
       <p>{{ courseStore.loadLesson(pageId) }}</p>
 

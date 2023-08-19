@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template>
   <Navbar solid>
     <template #logo>
@@ -33,15 +36,14 @@
     </template>
   </Navbar>
   <!-- Add a second level navbar for Class here if current route starts with /courses -->
-  <nav 
-  v-if="showCoursesSubmenu && sectionId && sections && sectionId in sections" class="bg-gray-50 dark:bg-gray-700 w-full sticky top-0">
+  <nav v-if="showCoursesSubmenu && sectionId && sections && sectionId in sections" class="bg-gray-50 dark:bg-gray-700 w-full sticky top-0">
     <div class="flex items-center justify-between max-w-screen-xl px-4 py-2 mx-auto">
       <div class="flex flex-row md:order-0">
         <Breadcrumb>
           <BreadcrumbItem home :href="'/courses/' + sectionId">
             {{ sections[sectionId].course_title }} - {{ sections[sectionId].section_title }}
           </BreadcrumbItem>
-          <BreadcrumbItem :href="'/courses/' + sectionId">
+          <BreadcrumbItem>
             Home
           </BreadcrumbItem>
         </Breadcrumb>
@@ -123,8 +125,7 @@ export default {
         }
       },
       disabledDates: (date) => {
-        return false
-        // return date < new Date();
+        return date < new Date();
       }
     };
   },
@@ -149,21 +150,21 @@ export default {
       }
     },
   },
-  created() {
-    this.emitter.on('update-selected-date', (evt) => {
-      this.selectedDate = new Date(evt.dateStr).toLocaleDateString('en-US', {
-        // year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      });
-    });
+  // created() {
+  //   this.emitter.on('update-selected-date', (evt) => {
+  //     this.selectedDate = new Date(evt.dateStr).toLocaleDateString('en-US', {
+  //       // year: 'numeric',
+  //       month: 'short',
+  //       day: 'numeric'
+  //     });
+  //   });
 
-    this.emitter.on('update-disabled-date', (evt) => {
-      this.disabledDates = (date) => {
-        return date < new Date();
-      }
-    });
-  },
+  //   this.emitter.on('update-disabled-dates', (evt) => {
+  //     this.disabledDates = (date) => {
+  //       return date < new Date();
+  //     }
+  //   });
+  // },
   watch: {
     $route(to) {
       this.showCoursesSubmenu = /^\/courses\/\d+.*$/.test(to.path);

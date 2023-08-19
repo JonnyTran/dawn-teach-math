@@ -1,11 +1,7 @@
 <script setup>
-import { ref } from 'vue';
-import { Tabs, Tab, Button } from 'flowbite-vue';
-import { storeToRefs } from 'pinia';
 import { useTeacherStore } from '@/stores/teacher';
-
-const { sections } = storeToRefs(useTeacherStore());
-const activeTab = ref('6051987179')
+// const { sections } = storeToRefs(useTeacherStore());
+// const activeTab = ref('6051987179')
 </script>
 
 <template>
@@ -32,22 +28,6 @@ const activeTab = ref('6051987179')
   </section>
 
   <hr class="h-px my-8 border-0">
-
-  <section class="flex justify-center bg-white dark:bg-gray-700 w-full">
-
-  </section>
-
-
-  <!-- <div>
-    <h1 class="font-bold">Welcome to the Teacher Profile Website</h1>
-    <h2>Courses</h2>
-    <h3>
-      <text v-for="course in courses" :key="course.id">
-        <router-link :to="'/courses/' + course.id">{{ course.title }}</router-link>
-        <p>{{ course.description }}</p>
-      </text>
-    </h3>
-  </div> -->
 </template>
 
 <style>

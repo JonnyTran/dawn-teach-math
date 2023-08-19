@@ -19,7 +19,7 @@ const routes = [
   },
   {
     path: '/courses/:sectionId/lesson/:pageId',
-    name: 'page',
+    name: 'lesson',
     component: () => import('../views/LessonView.vue')
   },
   {

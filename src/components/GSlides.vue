@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h3>
+      {{ label }}
+    </h3>
     <p>
       <a :href="slidePresentLink" target="_blank">
         <svg viewBox="0 0 24 24" focusable="false" class="fullscreen">

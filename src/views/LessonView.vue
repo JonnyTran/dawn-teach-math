@@ -38,7 +38,7 @@ courseStore.loadLesson(folderId);
           {{ lesson.self.title }}
         </h3>
 
-        <GSlides :label="lesson.gslide_title" :gslide_id="lesson.gslide_id" />
+        <GSlides :label="lesson.slide_title" :gslide_id="lesson.gslide_id" />
 
         <p class="mb-4 font-light">
           Track work across the enterprise through an open, collaborative platform. Link issues across Jira and ingest data from other software development tools, so your IT support and operations teams have richer contextual information to rapidly respond to requests, incidents, and changes.

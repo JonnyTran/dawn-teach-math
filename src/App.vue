@@ -1,8 +1,7 @@
 <script setup>
-import { useTeacherStore } from '@/stores/teacher';
-
-const teacherStore = useTeacherStore();
-teacherStore.fill();
+import Navbar from './components/Navbar.vue';
+import Footer from './components/Footer.vue';
+import Chatbox from './components/Chatbox.vue';
 </script>
 
 <template>
@@ -19,22 +18,9 @@ teacherStore.fill();
     <Navbar />
     <router-view />
     <!-- <Chatbox /> -->
+    <Footer />
   </div>
 </template>
-
-<script>
-import Navbar from './components/Navbar.vue';
-import Chatbox from './components/Chatbox.vue';
-
-// What's this? It's a global mixin. It's a way to add functionality to all of your components.
-export default {
-  name: 'App',
-  components: {
-    Navbar,
-    Chatbox
-  },
-};
-</script>
 
 <style>
 

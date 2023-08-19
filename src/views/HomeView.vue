@@ -1,10 +1,7 @@
 <script setup>
-import { ref } from 'vue';
-import { Tabs, Tab, Button } from 'flowbite-vue';
 import { useTeacherStore } from '@/stores/teacher';
-
-const teacherStore = useTeacherStore();
-const activeTab = ref('6051987179')
+// const { sections } = storeToRefs(useTeacherStore());
+// const activeTab = ref('6051987179')
 </script>
 
 <template>
@@ -24,60 +21,15 @@ const activeTab = ref('6051987179')
         </a> 
       </div>
       <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-        <img style="border-radius: 10px;" src="/src/assets/home_pic.jpg" alt="mockup">
+        <img style="border-radius: 10px;" src="/src/assets/hero-section-pic.jpg" alt="mockup">
       </div>                
     </div>
 
   </section>
 
   <hr class="h-px my-8 border-0">
-
-  <section class="flex justify-center bg-white dark:bg-gray-700 w-full">
-    <tabs v-model="activeTab" class="p-5 flex-1"> 
-      <tab v-for="(section, id) in teacherStore.sections" :name="id" :title="section.course_title">
-        <p class="mb-3 text-gray-500 dark:text-gray-400">{{ section.course_title }}</p>
-        <p class="text-gray-500 dark:text-gray-400">{{ section.section_title }}</p>
-        <Button size="md">
-          <router-link :to="'/courses/' + section.id">Go to Class</router-link>
-        </Button>
-      </tab>
-    </tabs>
-  </section>
-
-
-  <!-- <div>
-    <h1 class="font-bold">Welcome to the Teacher Profile Website</h1>
-    <h2>Courses</h2>
-    <h3>
-      <text v-for="course in courses" :key="course.id">
-        <router-link :to="'/courses/' + course.id">{{ course.title }}</router-link>
-        <p>{{ course.description }}</p>
-      </text>
-    </h3>
-  </div> -->
 </template>
 
-<script>
-import { Dropdown, ListGroup, ListGroupItem } from 'flowbite-vue'
-
-export default {
-    name: "HomePage",
-    data() {
-        return {
-            courses: [
-                { id: 1, title: "Algebra 1" },
-                { id: 2, title: "Algebra 2" }
-            ],
-        };
-    },
-    components: { Button }
-};
-</script>
-
 <style>
-
-
-
-
 </style>
 

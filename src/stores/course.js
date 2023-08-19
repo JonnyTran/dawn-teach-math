@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useTeacherStore, axiosClient } from './teacher'
 
-function createNestedTree(objs, objMap = new Map(), objTree = []) {
+function createNestedTree(objs, objMap = new Map(), objTree = [], parents = new Map()) {
   // Create a map of objs using their id as the key
   objs.forEach(obj => {
     obj.children = [];
@@ -12,65 +12,80 @@ function createNestedTree(objs, objMap = new Map(), objTree = []) {
   objs.forEach(obj => {
     if (obj.parent_id === '0') {
       // If the page is a root obj, add it to the objTree array
+      obj.parent_id = null;
       objTree.push(obj);
+
     } else if (obj.hasOwnProperty('parent_id') && objMap.has(obj.parent_id)) {
-      // If the page has a parent, add it as a child to the parent page
+      // Folder
       const parentFolder = objMap.get(obj.parent_id);
-      parentFolder.children.push(obj);
+      parents.set(obj.id.toString(), parentFolder);
+      parentFolder.children.push(obj.id.toString());
+
     } else if (obj.hasOwnProperty('folder_id') && objMap.has(obj.folder_id)) {
-      const parentPage = objMap.get(obj.folder_id);
-      parentPage.children.push(obj);
+      // Page
+      obj.type = 'page';
+      const parentFolder = objMap.get(obj.folder_id);
+      parents.set(obj.id.toString(), parentFolder);
+      parentFolder.children.push(obj.id.toString());
     }
   });
-
-  return objTree;
 }
 
 function getDateRange(dateString) {
-  const today = new Date();
-  const startMonthDateString = dateString.split('-')[0].trim();
-  const startDate = new Date(`${startMonthDateString} ${today.getFullYear().toString()}`); 
+  // const today = new Date();
+  // ${today.getFullYear().toString()}
+  const startMonthDateStr = dateString.split('-')[0].trim();
+  const startDate = new Date(`${startMonthDateStr}`); 
   
-  const monthString = dateString.split(' ')[0].trim();
-  const endDateString = dateString.split('-')[1].trim();
-  const endDate = new Date(`${monthString} ${endDateString} ${today.getFullYear().toString()}`); 
+  const endMonthStr = dateString.split(' ')[0].trim();
+  const endDateStr = dateString.split('-')[1].trim();
+  const endDate = new Date(`${endMonthStr} ${endDateStr}`); 
 
   return [startDate, endDate]
 }
-
 
 export const useCourseStore = defineStore('course', {
   state: () => ({
     id: null,
     section: null,
-    folders: {},
-    pages: {},
+    teacher: null,
+    pages: null,
+    parents: null,
     lessons: [],
     nestedFolders: [],
     gradingPeriods: [],
-    teacher: null,
     loading: false,
     error: null
   }),
   actions: {
+    /**
+     * Fetches data for the course store.
+     * @async
+     * @param {string} sectionId - The ID of the section to fetch data for.
+     * @returns {Promise<Course>} A Promise that resolves with the Course object.
+     */
     async fetch(sectionId) {
       this.loading = true
       const teacherStore = useTeacherStore();
 
       try {
-        // const folders = await axiosClient.get('/folders?start=0&limit=20');
-        this.folders = new Map();
-        this.nestedFolders = createNestedTree((await import ('../data/section-folders.json')).default.folders, this.folders)
-  
-        this.pages = new Map();
-        this.nestedFolders = createNestedTree((await import ('../data/section-pages.json')).default.page, this.pages, this.nestedFolders)
-
         if (sectionId) {
           this.section = teacherStore.sections[sectionId];
         }
 
+        // const folders = await axiosClient.get('/folders?start=0&limit=20');
+        this.nestedFolders = [];
+        this.pages = new Map();
+        this.parents = new Map();
+
+        const folders = (await import('../data/section-folders.json')).default.folders;
+        createNestedTree(folders, this.pages, this.nestedFolders, this.parents)
+  
+        const pages = (await import('../data/section-pages.json')).default.page;
+        createNestedTree(pages, this.pages, this.nestedFolders, this.parents)
+
         var isLessonDate = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s\d{1,2}-\d{1,2}$/i;
-        for (let [id, folder] of this.folders) {
+        for (let [id, folder] of this.pages) {
           if (isLessonDate.test(folder.title)) {
             const [startDate, endDate] = getDateRange(folder.title);
             folder.start_date = startDate;
@@ -96,21 +111,31 @@ export const useCourseStore = defineStore('course', {
         this.loading = false
       }
       return this;
+    },
+    loadLesson(id) {
+      const lesson = this.pages.get(id);
+      if (lesson == null) {
+        return;
+      }
+
+      const unit = this.parents.get(id);
+      lesson.unit_title = unit.title;
+      
+      return lesson
     }
   },
   getters: {
-    getPostAuthor: (state) => {
-      const teacherStore = useTeacherStore()
-      return state.teacher = teacherStore;
-    },
-    getLesson: (state) => (id) => { state.lessons.find(lesson => lesson.id.toString() === id) },
+    isLoaded: (state) => { return state.id != null && state.pages.size },
+    hasPage: (state) => { return (pageId) => state.pages.has(pageId) },
+    getPage: (state) => { return (pageId) => state.pages.get(pageId) },
+    hasLesson: (state) => { return (id) => state.lessons.find(lesson => lesson.id.toString() === id) },
     getLessonFromDate: (state) => {
-      return (today) => state.lessons.find((lesson) => lesson.start_date <= today && lesson.end_date >= today);
+      return (today) => state.lessons.find(lesson => lesson.start_date <= today && lesson.end_date >= today);
     },
     getAllowedDateRange: (state) => () => {
       const today = new Date();
-      const lesson = state.lessons.find(lesson => {
-        const startDateString = lesson.title.split('-')[0].trim();
+      const lesson = state.lessons.find(folder => {
+        const startDateString = folder.title.split('-')[0].trim();
         const startDate = new Date(`${startDateString} ${today.getFullYear().toString()}`); 
 
         return today >= startDate;

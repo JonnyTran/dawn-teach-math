@@ -48,11 +48,10 @@
       <div class="flex flex-row md:order-0">
         <Breadcrumb>
           <BreadcrumbItem home :href="'/courses/' + sectionId">
-            {{ sections[sectionId].course_title }}
+            {{ sections[sectionId].course_title }}, {{ sections[sectionId].section_title }}
           </BreadcrumbItem>
-          <BreadcrumbItem :href="'/courses/' + sectionId">
-            {{ sections[sectionId].section_title }}
-          </BreadcrumbItem>
+          <!-- <BreadcrumbItem">
+          </BreadcrumbItem> -->
           <!-- <BreadcrumbItem>
             {{ sections[sectionId].section_title }}
           </BreadcrumbItem> -->
@@ -134,7 +133,8 @@ export default {
         }
       },
       disabledDates: (date) => {
-        return date < new Date();
+        return false;
+        // return date < new Date();
       }
     };
   },
@@ -151,12 +151,29 @@ export default {
     checkRouteStartsWith(url) {
       return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
     },
-    onSelectDate(newDate) {
-      console.log(newDate)
-
-      fetch(this.sectionId);
-      console.log(getLessonFromDate(newDate));
+    onSelectDate(dateStr) {
+      const newDate = new Date(dateStr);
+      const lesson = this.getLessonFromDate(newDate);
+      if (lesson !== null) {
+        console.log(lesson)
+        this.$router.push(`/courses/${this.sectionId}/lesson/${lesson.id}`);
+      }
     },
+  },
+  created() {
+    this.emitter.on('update-selected-date', (evt) => {
+      this.selectedDate = new Date(evt.dateStr).toLocaleDateString('en-US', {
+        // year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    });
+
+    this.emitter.on('update-disabled-dates', (evt) => {
+      this.disabledDates = (date) => {
+        return date < new Date();
+      }
+    });
   },
   watch: {
     $route(to) {

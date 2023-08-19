@@ -48,10 +48,12 @@ export const useTeacherStore = defineStore('teacher', {
         this.user = (await import ('../data/user.json')).default;
 
         // const sections = await axiosClient.get('/sections');
-        this.sections = (await import ('../data/sections.json')).default.sections.reduce((acc, obj) => {
-          acc[obj.id] = obj;
-          return acc;
+        const sections = (await import('../data/sections.json')).default.sections;
+        this.sections = sections.reduce((map, obj) => {
+          map[obj.id.toString()] = obj;
+          return map;
         }, {});
+
       } catch (error) {
         console.log('teacherStore fetch', error);
         this.error = error;
@@ -73,7 +75,7 @@ export const useTeacherStore = defineStore('teacher', {
     }
   },
   getters: {
-    getSection: (state) => (sectionId) => { state.sections[sectionId] },
+    getSection: (state) => { return (sectionId) => state.sections[sectionId] },
     // currentSection: (state) => { state.currentSection },
     getNumCourses: (state) => {
       if (state.courses) {

@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <p>
       <h3>
         {{ label }}

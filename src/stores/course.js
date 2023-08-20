@@ -20,6 +20,13 @@ function getDateRange(dateString, year = new Date().getFullYear()) {
   return [startDate, endDate]
 }
 
+const config = {
+  params: {
+    start: 0,
+    limit: 200,
+  },
+};
+
 export const useCourseStore = defineStore('course', {
   state: () => ({
     id: null,
@@ -50,7 +57,7 @@ export const useCourseStore = defineStore('course', {
         this.section = null;
         this.lessons = [];
         
-        const folders = (await axiosClient.get(`/sections/${sectionId}/folders?start=0&limit=200`)).data.folders;
+        const folders = (await axiosClient.get(`/sections/${sectionId}/folders`, config)).data.folders;
         if (folders === undefined) {
           return this;
         }
@@ -78,14 +85,14 @@ export const useCourseStore = defineStore('course', {
     async processLessons(folders) {
       let currentYear;
       try {
-        const gradingPeriods = (await import('../data/gradingperiods.json')).default;
-        for (const period of gradingPeriods) {
-          this.gradingPeriods.push({
-            start: new Date(period.start),
-            end: new Date(period.end),
-          });
-          currentYear = new Date(period.start).getFullYear();
-        }
+        // const gradingPeriods = (await import('../data/gradingperiods.json')).default;
+        // for (const period of gradingPeriods) {
+        //   this.gradingPeriods.push({
+        //     start: new Date(period.start),
+        //     end: new Date(period.end),
+        //   });
+        //   currentYear = new Date(period.start).getFullYear();
+        // }
 
       } catch (error) {
         this.error = error;

@@ -78,7 +78,6 @@ export const useCourseStore = defineStore('course', {
         
         this.id = sectionId;
       } catch (error) {
-        console.log('courseStore', error);
         this.error = error;
       } finally {
         this.loading = false;

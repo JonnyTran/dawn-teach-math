@@ -2,12 +2,13 @@ import axios from 'axios';
 import config from '../data/config';
 import { defineStore } from 'pinia';
 import addOAuthInterceptor from 'axios-oauth-1.0a'
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
+// dotenv.config();
 
-dotenv.config();
-
-const CONSUMERKEY = process.env.CONSUMER_KEY;
-const CONSUMERSECRET = process.env.CONSUMER_SECRET;
+const CONSUMERKEY = import.meta.env.VITE_CONSUMERKEY;
+const CONSUMERSECRET = import.meta.env.VITE_CONSUMERSECRET;
+// const CONSUMERKEY = null;
+// const CONSUMERSECRET = null;
 
 export const axiosClient = axios.create({
   baseURL: 'https://api.schoology.com/v1/',

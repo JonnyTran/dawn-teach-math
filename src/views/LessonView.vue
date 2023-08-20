@@ -72,7 +72,9 @@ function showModal() {
           </div>
         </template>
         <template #body>
-          <pre>{{ JSON.stringify(lesson, null, 2) }}</pre>
+          <pre class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+            {{ JSON.stringify(lesson, null, 2) }}
+          </pre>
         </template>
         <template #footer>
           <div class="flex justify-between">

@@ -1,10 +1,14 @@
 import axios from 'axios';
+import config from '../data/config';
 import { defineStore } from 'pinia';
 import addOAuthInterceptor from 'axios-oauth-1.0a'
+// import dotenv from 'dotenv';
+// dotenv.config();
 
-const CONSUMERKEY = "8aa414b64bb6f107f22380c55d5d38c206498ecf1";
-const CONSUMERSECRET = "ad767c4e1f3d070c1d01d0779f0833e9";
-// axios.defaults.baseURL = 'https://api.schoology.com/v1/';
+const CONSUMERKEY = import.meta.env.VITE_CONSUMERKEY;
+const CONSUMERSECRET = import.meta.env.VITE_CONSUMERSECRET;
+// const CONSUMERKEY = null;
+// const CONSUMERSECRET = null;
 
 export const axiosClient = axios.create({
   baseURL: 'https://api.schoology.com/v1/',
@@ -19,7 +23,7 @@ addOAuthInterceptor(axiosClient, options);
 
 // Print axios request and response to console
 axiosClient.interceptors.request.use(request => {
-  console.log('Starting Request', request)
+  // console.log('Starting Request', request)
   return request
 })
 
@@ -27,6 +31,7 @@ axiosClient.interceptors.request.use(request => {
 // and then store it so other components can use it to make a request to the API at https://api.schoology.com/v1/
 export const useTeacherStore = defineStore('teacher', {
   state: () => ({
+    id: config.id,
     user: null,
     school: null,
     sections: {},
@@ -39,23 +44,19 @@ export const useTeacherStore = defineStore('teacher', {
     async fetch() {
       this.loading = true;
       try {
-        // const school = await axiosClient.get('/schools/');
-        // this.school = school.data.school[0];
-        this.school = (await import ('../data/schools.json')).default.school[0];
+        const schools = (await axiosClient.get('/schools/')).data.school;
+        this.school = schools[0];
 
-        // const user = await axiosClient.get('/user/{id}');
-        // this.user = school.data;
-        this.user = (await import ('../data/user.json')).default;
+        const user = (await axiosClient.get(`/users/${this.id}`)).data;
+        this.user = user;
 
-        // const sections = await axiosClient.get('/sections');
-        const sections = (await import('../data/sections.json')).default.sections;
+        const sections = (await axiosClient.get(`/users/${this.id}/sections`)).data.section;
         this.sections = sections.reduce((map, obj) => {
           map[obj.id.toString()] = obj;
           return map;
         }, {});
 
       } catch (error) {
-        console.log('teacherStore fetch', error);
         this.error = error;
       } finally {
         this.loading = false;
@@ -63,11 +64,9 @@ export const useTeacherStore = defineStore('teacher', {
       return this;
     },
     setCurrentSection(sectionId) {
-      console.log("store.setCurrentSection", sectionId);
       try {
         this.currentSection = this.sections[sectionId];
       } catch (error) {
-        console.log('teacherStore setCurrentSection', error);
         this.error = error;
       } finally {
         this.loading = false;
@@ -76,7 +75,6 @@ export const useTeacherStore = defineStore('teacher', {
   },
   getters: {
     getSection: (state) => { return (sectionId) => state.sections[sectionId] },
-    // currentSection: (state) => { state.currentSection },
     getNumCourses: (state) => {
       if (state.courses) {
         return state.courses.length;

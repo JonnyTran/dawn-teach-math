@@ -21,4 +21,6 @@ app.config.globalProperties.emitter = emitter
 app.mount('#app')
 
 const teacherStore = useTeacherStore();
-teacherStore.fetch();
+if (!teacherStore.school) {
+  teacherStore.fetch();
+}

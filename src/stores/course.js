@@ -4,27 +4,9 @@ import { useTeacherStore, axiosClient } from './teacher'
 function processFolders(objs, objMap = new Map(), parents = new Map()) {
   // Create a map of objs using their id as the key
   objs.forEach(obj => {
-    obj.children = [];
     delete obj.completion_status;
     objMap.set(obj.id.toString(), obj);
   });
-
-  // Iterate over the objs
-  // objs.forEach(obj => {
-  //   if (obj.hasOwnProperty('parent_id') && objMap.has(obj.parent_id)) {
-  //     // Folder
-  //     const parentFolder = objMap.get(obj.parent_id);
-  //     parents.set(obj.id.toString(), parentFolder);
-  //     parentFolder.children.push(obj.id.toString());
-
-  //   } else if (obj.hasOwnProperty('folder_id') && objMap.has(obj.folder_id)) {
-  //     // Page
-  //     obj.type = 'page';
-  //     const parentFolder = objMap.get(obj.folder_id);
-  //     parents.set(obj.id.toString(), parentFolder);
-  //     parentFolder.children.push(obj.id.toString());
-  //   }
-  // });
 }
 
 function getDateRange(dateString, year = new Date().getFullYear()) {
@@ -60,22 +42,24 @@ export const useCourseStore = defineStore('course', {
      */
     async fetch(sectionId) {
       this.loading = true
-      const teacherStore = useTeacherStore();
 
       try {
-        if (sectionId) {
-          this.section = teacherStore.sections[sectionId];
-        }
-
-        // const folders = await axiosClient.get('/folders?start=0&limit=20');
         this.folders = new Map();
         this.parents = new Map();
-
-        const folders = (await import('../data/section-folders.json')).default.folders;
+        this.gradingPeriods = [];
+        this.section = null;
+        this.lessons = [];
+        
+        const folders = (await axiosClient.get(`/sections/${sectionId}/folders?start=0&limit=200`)).data.folders;
+        if (folders === undefined) {
+          return this;
+        }
         processFolders(folders, this.folders, this.parents);
   
         this.processLessons(this.folders);
+        const teacherStore = useTeacherStore();
         
+        this.section = await teacherStore.sections[sectionId];
         this.id = sectionId;
       } catch (error) {
         this.error = error;
@@ -104,7 +88,6 @@ export const useCourseStore = defineStore('course', {
         }
 
       } catch (error) {
-        console.log('convertLessonDates', error);
         this.error = error;
 
       } finally {
@@ -119,9 +102,12 @@ export const useCourseStore = defineStore('course', {
         }
       }
     },
-    async loadLesson(id) {
+    async loadLesson(folderId, sectionId = this.id) {
+      if (sectionId === null) {
+        throw new Error('Course not loaded');
+      }
       try {
-        this.lesson = (await import('../data/section-lesson.json')).default;
+        this.lesson = (await axiosClient.get(`/courses/${sectionId}/folder/${folderId}`)).data;
         this.lesson.slide_title = null;
         this.lesson.gslide_id = null;
         delete this.lesson.self.completion_status;
@@ -132,7 +118,7 @@ export const useCourseStore = defineStore('course', {
           delete child.completion_status;
 
           if (child.type === 'document' && child.document_type === 'link') {
-            const documents = (await import('../data/section-document.json')).default;
+            const documents = (await axiosClient.get(`/sections/${sectionId}/documents/${child.id}`)).data;
             const links = documents.attachments.links.link;
             
             for (let link of links) {
@@ -148,13 +134,9 @@ export const useCourseStore = defineStore('course', {
 
             child['links'] = links;
 
-          } else if (child.type === 'assignment' && child.assignment_type === 'basic') {
-            const assignment = (await import('../data/section-assignments.json')).default;
+          } else if (child.type === 'assignment' || child.type === 'assessment_v2') {
+            const assignment = (await axiosClient.get(`/sections/${sectionId}/assignments/${child.id}`)).data;
             child = Object.assign({}, child, assignment)
-
-          } else if (child.type === 'assessment_v2') {
-            const assessment = (await import('../data/section-assignments.json')).default;
-            child = Object.assign({}, child, assessment)
           }
 
           this.lesson['folder-item'][i] = child;

@@ -4,10 +4,10 @@ import { useRoute } from 'vue-router';
 import { useTeacherStore } from '@/stores/teacher';
 import { useCourseStore } from '@/stores/course';
 
-const teacherStore = useTeacherStore();
-
 const route = useRoute();
 const sectionId = route.params.sectionId;
+
+const teacherStore = useTeacherStore();
 teacherStore.setCurrentSection(sectionId);
 
 const courseStore = useCourseStore();
@@ -21,8 +21,6 @@ if (courseStore.id != sectionId) {
   <p>
     {{ teacherStore.sections[sectionId] }}
   </p>
-
-  <Button @click="console.log(courseStore.nestedFolders)">test</Button>
 </template>
 
 <script>

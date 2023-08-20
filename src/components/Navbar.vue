@@ -106,12 +106,12 @@ export default {
       showCoursesSubmenu: false,
       sectionId: null,
       selectedDate: new Date().toLocaleDateString('en-US', {
-        // year: 'numeric',
+        year: 'numeric',
         month: 'short',
         day: 'numeric'
       }),
       dateFormatter: {
-        date: 'MMM DD',
+        date: 'MMM DD, YYYY',
         month: 'MMM',
         weekday: 'ddd',
       },
@@ -151,10 +151,8 @@ export default {
       if (this.selectedDate == newDate) {
         return;
       }
-
       const lesson = this.getLessonFromDate(newDate);
-      if (lesson !== null) {
-        console.log(lesson)
+      if (lesson != null) {
         this.$router.push(`/courses/${this.sectionId}/lesson/${lesson.id}`);
       }
     },

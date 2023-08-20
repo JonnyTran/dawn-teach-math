@@ -2,6 +2,9 @@
 import { TheCard, Accordion, AccordionHeader, AccordionPanel, AccordionContent } from 'flowbite-vue';
 import { useTeacherStore } from '@/stores/teacher';
 const teacherStore = useTeacherStore();
+if (!teacherStore.school) {
+  teacherStore.fetch();
+}
 </script>
 
 <template>

@@ -8,7 +8,7 @@ if (!teacherStore.school) {
 </script>
 
 <template>
-  <section class="grid gap-1 mb-6 lg:mb-16 md:grid-cols-2 ">
+  <section class="grid gap-1 mb-6 lg:mb-16 md:grid-cols-2 lg:grid-cols-3 ">
     <div v-for="(section, id) in teacherStore.sections" :name="id">
       <div class="items-center sm:flex" style="display: flex; flex-direction: row; justify-content: center; margin-top:30px;">
         <router-link :to="'/courses/' + id" class="card" style="text-decoration: none;">

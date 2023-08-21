@@ -68,13 +68,15 @@ function showModal() {
       <Modal size="5xl" v-if="isShowModal" @close="closeModal">
         <template #header>
           <div class="flex items-center text-lg">
-            {{lesson.self.title}}
+            {{lesson.self.title}} lesson
           </div>
         </template>
         <template #body>
-          <pre class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-            {{ JSON.stringify(lesson, null, 2) }}
-          </pre>
+          <div class="overflow-auto h-64">
+            <pre class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              {{ JSON.stringify(lesson, null, 2) }}
+            </pre>
+          </div>
         </template>
         <template #footer>
           <div class="flex justify-between">

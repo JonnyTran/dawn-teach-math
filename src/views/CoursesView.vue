@@ -8,28 +8,33 @@ if (!teacherStore.school) {
 </script>
 
 <template>
-  <section class="grid gap-1 mb-6 lg:mb-16 md:grid-cols-2 lg:grid-cols-3 ">
-    <div v-for="(section, id) in teacherStore.sections" :name="id">
-      <div class="items-center sm:flex" style="display: flex; flex-direction: row; justify-content: center; margin-top:30px;">
-        <router-link :to="'/courses/' + id" class="card" style="text-decoration: none;">
-        <the-card variant="image" :img-src="section.profile_url" img-alt="desk" class="w-full rounded-lg">
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {{ section.course_title }} - {{ section.section_title }} 
-          </h5>
-          <p class="font-normal text-gray-700 dark:text-gray-400">
-            {{ section.description }}
-          </p>
-        </the-card>
-        </router-link>
+  <section>
+    <h3 class="mt-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
+      Courses
+    </h3>
+    <div class="grid gap-1 mb-6 lg:mb-16 md:grid-cols-2 lg:grid-cols-3">
+      <div v-for="(section, id) in teacherStore.sections">
+        <div class="items-center" style="display: flex; flex-direction: row; justify-content: center; margin-top:30px;">
+          <router-link :to="'/courses/' + id" class="card" style="text-decoration: none;">
+          <the-card variant="image" :img-src="section.profile_url" img-alt="desk" class="col-span-1 overflow-hidden rounded-lg rounded-b-lg flex justify-center">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <span>{{ section.course_title }}</span> - <span>{{ section.section_title }}</span>
+            </h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">
+              {{ section.description }}
+            </p>
+          </the-card>
+          </router-link>
+        </div>
       </div>
     </div>
   </section>
 
   <section>
-    <h1 style="display: center; font-size: 2rem; margin:20px">
+    <h3 class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
       General FAQ
-    </h1>
-    <Accordion>
+    </h3>
+    <Accordion class="w-full px-20 mb-4">
       <accordion-panel>
         <accordion-header>What are Ms. Tran's tutoring hours?</accordion-header>
         <accordion-content>

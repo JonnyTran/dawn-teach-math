@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import { useTeacherStore, axiosClient } from './teacher'
+import { useTeacherStore } from './teacher'
+import { axiosClient } from './general'
 
 function getDateRange(dateString, year = new Date().getFullYear()) {
   const startMonthDateStr = dateString.split('-')[0].trim();

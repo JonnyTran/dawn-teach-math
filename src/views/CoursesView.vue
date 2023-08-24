@@ -34,7 +34,7 @@ if (!teacherStore.school) {
     <h3 class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
       General FAQ
     </h3>
-    <Accordion class="w-full px-20 mb-4">
+    <Accordion class="w-full px-10 md:px-10 lg:px-20 mb-4">
       <accordion-panel>
         <accordion-header>What are Ms. Tran's tutoring hours?</accordion-header>
         <accordion-content>

@@ -27,11 +27,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Chat from 'vue3-beautiful-chat';
 
 export default {
   name: 'Chatbox',
+  components: {
+    Chat
+  },
   data() {
     return {
       participants: [
@@ -78,15 +81,15 @@ export default {
     }
   },
   methods: {
-    sendMessage (text) {
+    sendMessage (text: string) {
       if (text.length > 0) {
         this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
         this.onMessageWasSent({ author: 'support', type: 'text', data: { text } })
       }
     },
-    onMessageWasSent (message) {
+    onMessageWasSent (message: any) {
       // called when the user sends a message
-      this.messageList = [ ...this.messageList, message ]
+      this.messageList.push(message)
     },
     openChat () {
       // called when the user clicks on the fab button to open the chat
@@ -104,8 +107,8 @@ export default {
     handleOnType () {
       console.log('Emit typing event')
     },
-    editMessage(message){
-      const m = this.messageList.find(m=>m.id === message.id);
+    editMessage(message: any){
+      const m = this.messageList.find((m) => m.id === message.id);
       m.isEdited = true;
       m.data.text = message.data.text;
     }

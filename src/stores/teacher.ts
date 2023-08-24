@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import config from '../data/config';
+import config from '../../data/config';
 import { axiosClient } from './general'
 
 

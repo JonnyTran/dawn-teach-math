@@ -1,13 +1,10 @@
 <script setup>
 import { Spinner, Modal, Tooltip, Button } from 'flowbite-vue';
-import { ref, defineAsyncComponent } from 'vue';
-
-// import { GSlides } from '@/components/GSlides.vue';
-const GSlides = defineAsyncComponent(() => import('@/components/GSlides.vue'));
-
+import { ref, inject, defineAsyncComponent, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useCourseStore } from '@/stores/course';
+const GSlides = defineAsyncComponent(() => import('@/components/GSlides.vue'));
 
 const route = useRoute();
 const sectionId = route.params.sectionId;
@@ -29,6 +26,23 @@ function closeModal() {
 function showModal() {
   isShowModal.value = true
 }
+
+const emitter = inject('emitter');
+watch(lesson, (lesson_new, lesson_old) => {
+  if (lesson_new.self) {
+    emitter.emit('update-selected-date', {
+      start_date: lesson_new.self.start_date,
+      end_date: lesson_new.self.end_date,
+    });
+  }
+
+  if (lesson_new.parent) {
+    emitter.emit('update-unit-title', {
+      unitTitle: lesson_new.parent.title,
+    });
+  }
+});
+  
 </script>
 
 <template>
@@ -68,11 +82,15 @@ function showModal() {
       <Modal size="5xl" v-if="isShowModal" @close="closeModal">
         <template #header>
           <div class="flex items-center text-lg">
-            {{lesson.self.title}}
+            {{lesson.self.title}} lesson
           </div>
         </template>
         <template #body>
-          <pre>{{ JSON.stringify(lesson, null, 2) }}</pre>
+          <div class="overflow-auto h-64">
+            <pre class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              {{ JSON.stringify(lesson, null, 2) }}
+            </pre>
+          </div>
         </template>
         <template #footer>
           <div class="flex justify-between">

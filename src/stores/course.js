@@ -1,14 +1,6 @@
 import { defineStore } from 'pinia'
 import { useTeacherStore, axiosClient } from './teacher'
 
-function processFolders(objs, objMap = new Map(), parents = new Map()) {
-  // Create a map of objs using their id as the key
-  objs.forEach(obj => {
-    delete obj.completion_status;
-    objMap.set(obj.id.toString(), obj);
-  });
-}
-
 function getDateRange(dateString, year = new Date().getFullYear()) {
   const startMonthDateStr = dateString.split('-')[0].trim();
   const startDate = new Date(`${startMonthDateStr} ${year.toString()}`); 
@@ -33,12 +25,12 @@ export const useCourseStore = defineStore('course', {
     section: null,
     teacher: null,
     folders: null,
-    parents: null,
     lessons: [],
     lesson: null,
     gradingPeriods: [],
     loading: false,
-    error: null
+    error: null,
+    currentYear : new Date().getFullYear(),
   }),
   actions: {
     /**
@@ -57,12 +49,17 @@ export const useCourseStore = defineStore('course', {
         this.section = null;
         this.lessons = [];
         
-        const folders = (await axiosClient.get(`/sections/${sectionId}/folders`, config)).data.folders;
+        let folders = (await axiosClient.get(`/sections/${sectionId}/folders`, config)).data.folders;
         if (folders === undefined) {
           return this;
         }
-        processFolders(folders, this.folders, this.parents);
-  
+        folders.filter((folder) => {
+          var isLessonDate = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s\d{1,2}-\d{1,2}$/i
+          return isLessonDate.test(folder.title)
+        }).forEach(folder => {
+          this.folders.set(folder.id.toString(), folder);
+        });
+
         this.processLessons(this.folders);
         const teacherStore = useTeacherStore();
         
@@ -83,7 +80,6 @@ export const useCourseStore = defineStore('course', {
      * @returns {Promise<void>}
      */
     async processLessons(folders) {
-      let currentYear;
       try {
         // const gradingPeriods = (await import('../data/gradingperiods.json')).default;
         // for (const period of gradingPeriods) {
@@ -91,7 +87,7 @@ export const useCourseStore = defineStore('course', {
         //     start: new Date(period.start),
         //     end: new Date(period.end),
         //   });
-        //   currentYear = new Date(period.start).getFullYear();
+        //   this.currentYear = new Date(period.start).getFullYear();
         // }
 
       } catch (error) {
@@ -101,7 +97,8 @@ export const useCourseStore = defineStore('course', {
         var isLessonDate = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s\d{1,2}-\d{1,2}$/i;
         for (let [id, folder] of folders) {
           if (isLessonDate.test(folder.title)) {
-            const [startDate, endDate] = getDateRange(folder.title, currentYear);
+            const [startDate, endDate] = getDateRange(folder.title, this.currentYear);
+            delete folder.completion_status;
             folder.start_date = startDate;
             folder.end_date = endDate;
             this.lessons.push(folder);
@@ -113,12 +110,17 @@ export const useCourseStore = defineStore('course', {
       if (sectionId === null) {
         throw new Error('Course not loaded');
       }
+
       try {
         this.lesson = (await axiosClient.get(`/courses/${sectionId}/folder/${folderId}`)).data;
         this.lesson.slide_title = null;
         this.lesson.gslide_id = null;
         delete this.lesson.self.completion_status;
         delete this.lesson.parent.completion_status;
+
+        const [startDate, endDate] = getDateRange(this.lesson.self.title, this.currentYear);
+        this.lesson.self.start_date = startDate;
+        this.lesson.self.end_date = endDate;
 
         for (let i in this.lesson['folder-item']) {
           let child = this.lesson['folder-item'][i];
@@ -166,7 +168,7 @@ export const useCourseStore = defineStore('course', {
     hasLesson: (state) => { 
       return (id) => state.lessons.find(lesson => lesson.id.toString() === id) },
     getLessonFromDate: (state) => {
-      return (today) => state.lessons.find(lesson => lesson.start_date <= today && lesson.end_date >= today);
+      return (today) => state.lessons.find(lesson => today >= lesson.start_date && today <= lesson.end_date);
     },
     getAllowedDateRange: (state) => () => {
       const today = new Date();

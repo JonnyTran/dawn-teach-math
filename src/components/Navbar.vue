@@ -31,7 +31,7 @@
             {{ sections[sectionId].course_title }} - {{ sections[sectionId].section_title }}
           </span>
         </BreadcrumbItem>
-        <!-- <BreadcrumbItem">
+        <!-- <BreadcrumbItem>
         </BreadcrumbItem> -->
         <!-- <BreadcrumbItem>
           {{ sections[sectionId].section_title }}
@@ -44,10 +44,10 @@
         <vue-tailwind-datepicker as-single v-model="selectedDate" :disable-date="disabledDates" placeholder="Select date" @update:model-value="onSelectDate($event)" :formatter="dateFormatter" :options="dateOptions" style="text-lg font-medium"/>
       </div>
 
-      <div class="fill-current">
+      <div>
         <dropdown text="Quick Links">
           <template #trigger>
-            <button>Quick Links</button>
+            <button class="hover:text-blue-600 dark:hover:text-white">Quick Links</button>
           </template>
           <list-group>
             <list-group-item>
@@ -86,6 +86,7 @@ import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Dropdown, ListGroup, Li
 import { mapState, mapActions } from 'pinia';
 import { useTeacherStore } from '@/stores/teacher';
 import { useCourseStore } from '@/stores/course';
+import { inject } from 'vue';
 
 export default {
   components: {
@@ -105,11 +106,16 @@ export default {
     return {
       showCoursesSubmenu: false,
       sectionId: null,
+      unitTitle: null,
       selectedDate: new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
         month: 'short',
-        day: 'numeric'
+        day: 'numeric',
+        year: 'numeric',
       }),
+      disabledDates: (date) => {
+        return false;
+        // return date < new Date();
+      },
       dateFormatter: {
         date: 'MMM DD, YYYY',
         month: 'MMM',
@@ -127,60 +133,62 @@ export default {
           cancel: 'Cancel'
         }
       },
-      disabledDates: (date) => {
-        return false;
-        // return date < new Date();
-      }
     };
   },
   computed: {
     ...mapState(useTeacherStore, ['sections']),
     ...mapState(useCourseStore, ['getLessonFromDate']),
-    currentRoute() {
-      return this.$route.path;
-    }
+    showCoursesSubmenu() {
+      return this.sectionId != null;
+    },
   },
   // add a new function to check if current route starts with /courses
   methods: {
     ...mapActions(useCourseStore, ['fetch']),
-    checkRouteStartsWith(url) {
-      return (this.currentRoute.startsWith(url) || url === '/') ? 'is-active' : null;
-    },
     onSelectDate(dateStr) {
       const newDate = new Date(dateStr);
       if (this.selectedDate == newDate) {
         return;
       }
       const lesson = this.getLessonFromDate(newDate);
-      if (lesson != null) {
+      if (lesson !== null && this.sectionId && lesson.id) {
         this.$router.push(`/courses/${this.sectionId}/lesson/${lesson.id}`);
       }
     },
   },
   created() {
-    this.emitter.on('update-selected-date', (evt) => {
-      this.selectedDate = new Date(evt.dateStr).toLocaleDateString('en-US', {
-        // year: 'numeric',
+    const emitter = inject('emitter');
+    
+    emitter.on('update-selected-date', (evt) => {
+      if (this.selectedDate >= evt.start_date && this.selectedDate <= evt.end_date) { return; }
+
+      this.selectedDate = evt.start_date.toLocaleDateString('en-US', {
+        year: 'numeric',
         month: 'short',
         day: 'numeric'
       });
     });
 
-    this.emitter.on('update-disabled-dates', (evt) => {
+    emitter.on('update-disabled-dates', (evt) => {
       this.disabledDates = (date) => {
         return date < new Date();
       }
     });
+
+    emitter.on('update-unit-title', (evt) => {
+      if (evt.unitTitle.includes('Unit')) {
+        this.unitTitle = evt.unitTitle;
+      }
+    });
   },
   watch: {
-    $route(to) {
-      this.showCoursesSubmenu = /^\/courses\/\d+.*$/.test(to.path);
-      // this.currentRoute = to.path;
-
-      if (this.showCoursesSubmenu) {
-        this.sectionId = this.currentRoute.split('/')[2];
+    '$route.params': {
+      immediate: true,
+      handler(params) {
+        this.sectionId = params.sectionId;
+        this.lessonId = params.lessonId;
       }
-    },
+    }
   },
 };
 </script>

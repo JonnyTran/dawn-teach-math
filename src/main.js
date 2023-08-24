@@ -17,7 +17,8 @@ app.use(router)
 app.use(VueTailwindDatepicker)
 
 const emitter = mitt();
-app.config.globalProperties.emitter = emitter
+// app.config.globalProperties.$emitter = emitter
+app.provide('emitter', emitter);
 app.mount('#app')
 
 const teacherStore = useTeacherStore();

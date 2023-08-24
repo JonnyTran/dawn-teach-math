@@ -104,7 +104,6 @@ export default {
   },
   data() {
     return {
-      showCoursesSubmenu: false,
       sectionId: null,
       unitTitle: null,
       selectedDate: new Date().toLocaleDateString('en-US', {

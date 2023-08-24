@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
-import config from '../../data/config';
 import { axiosClient } from './general'
-
+import config from '../../data/config.json';
 
 // Create a Pinia store in this Vue.js named useUserStore with OAuth 1.0 using axios
 // and then store it so other components can use it to make a request to the API at https://api.schoology.com/v1/

@@ -105,6 +105,7 @@ export default {
   data() {
     return {
       sectionId: null,
+      lessonId: null,
       unitTitle: null,
       selectedDate: new Date().toLocaleDateString('en-US', {
         month: 'short',
@@ -143,23 +144,24 @@ export default {
   },
   // add a new function to check if current route starts with /courses
   methods: {
-    ...mapActions(useCourseStore, ['fetch']),
+    ...mapActions(useCourseStore, ['loadLesson']),
     onSelectDate(dateStr: string) {
-
       const newDate = new Date(dateStr);
+
       if (this.selectedDate == newDate) {
         return;
       }
       const lesson = this.getLessonFromDate(newDate);
-      if (lesson !== null && this.sectionId && lesson.id) {
+      if (lesson != null && this.sectionId && lesson.hasOwnProperty('id') && lesson.id) {
         this.$router.push(`/courses/${this.sectionId}/lesson/${lesson.id}`);
+        this.loadLesson(lesson.id, this.sectionId);
       }
     },
   },
   created() {
-    const emitter = inject('emitter');
+    const emitter: any = inject('emitter');
     
-    emitter.on('update-selected-date', (evt) => {
+    emitter.on('update-selected-date', (evt: any) => {
       if (this.selectedDate >= evt.start_date && this.selectedDate <= evt.end_date) { return; }
 
       this.selectedDate = evt.start_date.toLocaleDateString('en-US', {
@@ -169,13 +171,13 @@ export default {
       });
     });
 
-    emitter.on('update-disabled-dates', (evt) => {
+    emitter.on('update-disabled-dates', (evt: any) => {
       this.disabledDates = (date) => {
         return date < new Date();
       }
     });
 
-    emitter.on('update-unit-title', (evt) => {
+    emitter.on('update-unit-title', (evt: any) => {
       if (evt.unitTitle.includes('Unit')) {
         this.unitTitle = evt.unitTitle;
       }

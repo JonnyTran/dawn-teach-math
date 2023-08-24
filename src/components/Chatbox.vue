@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fixed z-20">
     <beautiful-chat
       :participants="participants"
       :titleImageUrl="titleImageUrl"

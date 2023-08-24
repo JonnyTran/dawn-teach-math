@@ -81,7 +81,7 @@
   </Navbar>
 </template>
 
-<script>
+<script lang="ts">
 import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Dropdown, ListGroup, ListGroupItem, Button, Tooltip, Breadcrumb, BreadcrumbItem } from 'flowbite-vue';
 import { mapState, mapActions } from 'pinia';
 import { useTeacherStore } from '@/stores/teacher';
@@ -111,7 +111,7 @@ export default {
         day: 'numeric',
         year: 'numeric',
       }),
-      disabledDates: (date) => {
+      disabledDates: (date: Date) => {
         return false;
         // return date < new Date();
       },
@@ -144,7 +144,8 @@ export default {
   // add a new function to check if current route starts with /courses
   methods: {
     ...mapActions(useCourseStore, ['fetch']),
-    onSelectDate(dateStr) {
+    onSelectDate(dateStr: string) {
+
       const newDate = new Date(dateStr);
       if (this.selectedDate == newDate) {
         return;

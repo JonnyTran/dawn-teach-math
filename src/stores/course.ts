@@ -40,7 +40,7 @@ export const useCourseStore = defineStore('course', {
      * @param {string} sectionId - The ID of the section to fetch data for.
      * @returns {Promise<Course>} A Promise that resolves with the Course object.
      */
-    async fetch(sectionId) {
+    async fetch(sectionId: string) {
       this.loading = true
 
       try {
@@ -54,14 +54,16 @@ export const useCourseStore = defineStore('course', {
         if (folders === undefined) {
           return this;
         }
-        folders.filter((folder) => {
+        folders.filter((folder: any) => {
           var isLessonDate = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s\d{1,2}-\d{1,2}$/i
           return isLessonDate.test(folder.title)
-        }).forEach(folder => {
+        }).forEach((folder: any) => {
           this.folders.set(folder.id.toString(), folder);
         });
 
-        this.processLessons(this.folders);
+        if (this.folders !== null) {
+          this.processLessons(this.folders);
+        }
         const teacherStore = useTeacherStore();
         
         this.section = await teacherStore.sections[sectionId];
@@ -80,7 +82,7 @@ export const useCourseStore = defineStore('course', {
      * @function
      * @returns {Promise<void>}
      */
-    async processLessons(folders) {
+    async processLessons(folders: Map<string, any>) {
       try {
         // const gradingPeriods = (await import('../data/gradingperiods.json')).default;
         // for (const period of gradingPeriods) {
@@ -169,7 +171,7 @@ export const useCourseStore = defineStore('course', {
     hasLesson: (state) => { 
       return (id) => state.lessons.find(lesson => lesson.id.toString() === id) },
     getLessonFromDate: (state) => {
-      return (today) => state.lessons.find(lesson => today >= lesson.start_date && today <= lesson.end_date);
+      return (today: Date) => state.lessons.find(lesson => today >= lesson.start_date && today <= lesson.end_date);
     },
     getAllowedDateRange: (state) => () => {
       const today = new Date();

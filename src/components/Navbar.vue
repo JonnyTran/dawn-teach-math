@@ -148,7 +148,7 @@ export default {
     onSelectDate(dateStr: string) {
       const newDate = new Date(dateStr);
 
-      if (this.selectedDate == newDate) {
+      if (this.selectedDate == newDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'})) {
         return;
       }
       const lesson = this.getLessonFromDate(newDate);
@@ -172,7 +172,7 @@ export default {
     });
 
     emitter.on('update-disabled-dates', (evt: any) => {
-      this.disabledDates = (date) => {
+      this.disabledDates = (date: Date) => {
         return date < new Date();
       }
     });

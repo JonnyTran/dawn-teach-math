@@ -21,7 +21,6 @@
     "vue-simple-search-dropdown": "^1.0.1"
   },
   "devDependencies": {
-    "@headlessui/vue": "^1.7.14",
     "@heroicons/vue": "^2.0.18",
     "@rushstack/eslint-patch": "^1.2.0",
     "@tailwindcss/forms": "^0.5.4",
@@ -34,14 +33,12 @@
     "@vue/test-utils": "^2.2.7",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
-    "axios-oauth-1.0a": "^0.3.6",
     "eslint": "^8.39.0",
     "eslint-plugin-cypress": "^2.13.3",
     "eslint-plugin-vue": "^9.11.0",
     "flowbite": "^1.6.6",
     "flowbite-vue": "^0.0.14",
     "js-cookie": "^3.0.5",
-    "js-yaml": "^4.1.0",
     "jsdom": "^22.1.0",
     "mitt": "^3.0.1",
     "pinia": "^2.1.6",
@@ -51,7 +48,6 @@
     "tailwindcss": "^3.3.2",
     "typescript": "^5.1.6",
     "vite": "^4.3.9",
-    "vite-plugin-node-polyfills": "^0.9.0",
     "vitest": "^0.32.0",
     "vue-tailwind-datepicker": "^1.4.6",
     "vue3-beautiful-chat": "^3.3.1"

@@ -8,6 +8,6 @@
     }],
     "rewrites": [
         { "source": "/api/:path*", "destination": "api/wsgi.py" },
-        { "source": "/(.*)", "destination": "" }
+        { "source": "/(.*)", "destination": "/" }
     ]
 }

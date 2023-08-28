@@ -7,6 +7,9 @@ name = "pypi"
 flask = "==2.3.3"
 requests = "*"
 langchain = "*"
+django = "*"
+python-dotenv = "*"
+requests-oauthlib = "*"
 
 [dev-packages]
 

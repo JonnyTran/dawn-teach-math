@@ -19,7 +19,7 @@ export const useTeacherStore = defineStore('teacher', {
     async fetch() {
       this.loading = true;
       try {
-        const schools = (await axiosClient.get('/schools/')).data.school;
+        const schools = (await axiosClient.get('/schools')).data.school;
         this.school = schools[0];
 
         const user = (await axiosClient.get(`/users/${this.id}`)).data;

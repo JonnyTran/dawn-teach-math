@@ -148,7 +148,7 @@ export default {
     onSelectDate(dateStr: string) {
       const newDate = new Date(dateStr);
 
-      if (this.selectedDate == newDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'})) {
+      if (this.selectedDate == newDate) {
         return;
       }
       const lesson = this.getLessonFromDate(newDate);

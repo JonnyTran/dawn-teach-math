@@ -12,6 +12,11 @@ if (csrftoken) {
 }
 
 export const axiosClient = axios.create({
-  baseURL: 'api',
+  baseURL: '/api',
 });
+
+// // Print axios request and response to console
+// axiosClient.interceptors.request.use(request => {
+//   return request
+// })
 

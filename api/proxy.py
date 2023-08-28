@@ -8,7 +8,7 @@ from requests_oauthlib import OAuth1Session
 
 load_dotenv(find_dotenv())
 
-@csrf_protect
+@csrf_exempt
 def proxy_api(request: WSGIRequest, path: str):
     """
     Proxies GET requests to the specified URL using OAuth1 authentication.

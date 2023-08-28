@@ -185,7 +185,7 @@ export const useCourseStore = defineStore('course', {
     getFolder: (state) => { 
       return (pageId: string) => state.folders.get(pageId) },
     hasLesson: (state) => { 
-      return (id) => state.lessons.find(lesson => lesson.id.toString() === id) },
+      return (id: string) => state.lessons.find(lesson => lesson.id.toString() === id) },
     getLessonFromDate: (state): any => {
       return (today: Date) => state.lessons.find(lesson => today >= lesson.start_date && today <= lesson.end_date);
     },

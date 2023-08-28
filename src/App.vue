@@ -1,7 +1,19 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
-// import Chatbox from './components/Chatbox.vue';
+import Chatbox from './components/Chatbox.vue';
+
+import { OpenAI } from "langchain/llms/openai";
+
+try {
+  const llm = new OpenAI({
+    openAIApiKey: import.meta.env.VITE_OPENAI_API_KEY,
+    temperature: 0.9,
+  });
+} catch (error) {
+  console.log('error', error)
+}
+
 </script>
 
 <template>
@@ -13,7 +25,7 @@ import Footer from './components/Footer.vue';
     <div class="flex-1">
       <router-view />
     </div>
-    <!-- <Chatbox /> -->
+    <Chatbox />
     <Footer />
   </div>
 </template>

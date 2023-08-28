@@ -12,6 +12,7 @@ if (!teacherStore.school) {
     <h3 class="mt-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
       Courses
     </h3>
+    <spinner size="12" v-if="teacherStore.loading" />
     <div class="grid gap-1 mb-6 lg:mb-16 md:grid-cols-2 lg:grid-cols-3">
       <div v-for="(section, id) in teacherStore.sections">
         <div class="items-center" style="display: flex; flex-direction: row; justify-content: center; margin-top:30px;">
@@ -34,7 +35,7 @@ if (!teacherStore.school) {
     <h3 class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
       General FAQ
     </h3>
-    <Accordion class="w-full px-20 mb-4">
+    <Accordion class="w-full px-10 md:px-10 lg:px-20 mb-4">
       <accordion-panel>
         <accordion-header>What are Ms. Tran's tutoring hours?</accordion-header>
         <accordion-content>

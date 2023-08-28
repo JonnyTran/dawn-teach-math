@@ -1,15 +1,28 @@
 import { defineStore } from 'pinia'
-import { useTeacherStore, axiosClient } from './teacher'
+import { useTeacherStore } from './teacher'
+import { axiosClient } from './general'
 
-function getDateRange(dateString, year = new Date().getFullYear()) {
-  const startMonthDateStr = dateString.split('-')[0].trim();
+/**
+ * Returns an array of two Date objects representing the start and end dates of a date range.
+ * @param dateStr - A string representing the date range in the format "MMM DD-DD".
+ * @param year - An optional number representing the year to use for the date range. Defaults to the current year.
+ * @returns An array of two Date objects representing the start and end dates of the date range.
+ */
+function getDateRange(dateStr: string, year = new Date().getFullYear()) {
+  const startMonthDateStr = dateStr.split('-')[0].trim();
   const startDate = new Date(`${startMonthDateStr} ${year.toString()}`); 
   
-  const endMonthStr = dateString.split(' ')[0].trim();
-  const endDateStr = dateString.split('-')[1].trim();
+  const endMonthStr = dateStr.split(' ')[0].trim();
+  const endDateStr = dateStr.split('-')[1].trim();
   const endDate = new Date(`${endMonthStr} ${endDateStr} ${year.toString()}`); 
 
   return [startDate, endDate]
+}
+
+function decodeHtml(str: string) {
+  const parser = new DOMParser();
+  const decodedString = parser.parseFromString(str.replace(/&amp;amp;/g, '&'), 'text/html').body.textContent;
+  return decodedString;
 }
 
 const config = {
@@ -39,10 +52,14 @@ export const useCourseStore = defineStore('course', {
      * @param {string} sectionId - The ID of the section to fetch data for.
      * @returns {Promise<Course>} A Promise that resolves with the Course object.
      */
-    async fetch(sectionId) {
+    async fetch(sectionId: string) {
       this.loading = true
 
       try {
+        if (typeof sectionId !== 'string') {
+          throw new Error('Course not loaded');
+        }
+
         this.folders = new Map();
         this.parents = new Map();
         this.gradingPeriods = [];
@@ -53,14 +70,16 @@ export const useCourseStore = defineStore('course', {
         if (folders === undefined) {
           return this;
         }
-        folders.filter((folder) => {
+        folders.filter((folder: any) => {
           var isLessonDate = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s\d{1,2}-\d{1,2}$/i
           return isLessonDate.test(folder.title)
-        }).forEach(folder => {
+        }).forEach((folder: any) => {
           this.folders.set(folder.id.toString(), folder);
         });
 
-        this.processLessons(this.folders);
+        if (this.folders !== null) {
+          this.processLessons(this.folders);
+        }
         const teacherStore = useTeacherStore();
         
         this.section = await teacherStore.sections[sectionId];
@@ -79,7 +98,7 @@ export const useCourseStore = defineStore('course', {
      * @function
      * @returns {Promise<void>}
      */
-    async processLessons(folders) {
+    async processLessons(folders: Map<string, any>) {
       try {
         // const gradingPeriods = (await import('../data/gradingperiods.json')).default;
         // for (const period of gradingPeriods) {
@@ -106,9 +125,9 @@ export const useCourseStore = defineStore('course', {
         }
       }
     },
-    async loadLesson(folderId, sectionId = this.id) {
-      if (sectionId === null) {
-        throw new Error('Course not loaded');
+    async loadLesson(folderId: string, sectionId: string = this.id) {
+      if (sectionId === null || typeof folderId !== 'string' && typeof folderId !== 'number' || typeof sectionId !== 'string' && typeof sectionId !== 'number') {
+        throw new Error(`Invalid parameters: ${folderId}, ${sectionId}`);
       }
 
       try {
@@ -121,7 +140,7 @@ export const useCourseStore = defineStore('course', {
         const [startDate, endDate] = getDateRange(this.lesson.self.title, this.currentYear);
         this.lesson.self.start_date = startDate;
         this.lesson.self.end_date = endDate;
-
+      
         for (let i in this.lesson['folder-item']) {
           let child = this.lesson['folder-item'][i];
           delete child.completion_status;
@@ -132,7 +151,7 @@ export const useCourseStore = defineStore('course', {
             
             for (let link of links) {
               if (link.url.includes('presentation')) {
-                this.lesson.slide_title = link.title;
+                this.lesson.slide_title = decodeHtml(link.title);
                 const regex = /\/d\/([a-zA-Z0-9-_]+)/;
                 const gslide_id = link.url.match(regex)[1];
                 // let embedurl = link.url.replace(/\/edit.*$/, "/embed");
@@ -147,7 +166,7 @@ export const useCourseStore = defineStore('course', {
             const assignment = (await axiosClient.get(`/sections/${sectionId}/assignments/${child.id}`)).data;
             child = Object.assign({}, child, assignment)
           }
-
+          
           this.lesson['folder-item'][i] = child;
         }
 
@@ -159,16 +178,16 @@ export const useCourseStore = defineStore('course', {
     },
   },
   getters: {
-    isLoaded: (state) => { 
+    isLoaded: (state): boolean => { 
       return state.id !== null && state.folders.size !== 0 },
     hasFolder: (state) => { 
-      return (pageId) => state.folders.has(pageId) },
+      return (pageId: string) => state.folders.has(pageId) },
     getFolder: (state) => { 
-      return (pageId) => state.folders.get(pageId) },
+      return (pageId: string) => state.folders.get(pageId) },
     hasLesson: (state) => { 
       return (id) => state.lessons.find(lesson => lesson.id.toString() === id) },
-    getLessonFromDate: (state) => {
-      return (today) => state.lessons.find(lesson => today >= lesson.start_date && today <= lesson.end_date);
+    getLessonFromDate: (state): any => {
+      return (today: Date) => state.lessons.find(lesson => today >= lesson.start_date && today <= lesson.end_date);
     },
     getAllowedDateRange: (state) => () => {
       const today = new Date();

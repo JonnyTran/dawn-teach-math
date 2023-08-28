@@ -1,27 +1,6 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
-import addOAuthInterceptor from 'axios-oauth-1.0a'
-import config from '../data/config';
-
-const CONSUMERKEY = import.meta.env.VITE_CONSUMERKEY;
-const CONSUMERSECRET = import.meta.env.VITE_CONSUMERSECRET;
-
-export const axiosClient = axios.create({
-  baseURL: 'https://api.schoology.com/v1/',
-});
-
-const options = {
-  key: CONSUMERKEY,
-  secret: CONSUMERSECRET,
-  algorithm: "HMAC-SHA1",
-};
-addOAuthInterceptor(axiosClient, options);
-
-// Print axios request and response to console
-axiosClient.interceptors.request.use(request => {
-  // console.log('Starting Request', request)
-  return request
-})
+import { axiosClient } from './general'
+import config from '../../data/config.json';
 
 // Create a Pinia store in this Vue.js named useUserStore with OAuth 1.0 using axios
 // and then store it so other components can use it to make a request to the API at https://api.schoology.com/v1/
@@ -40,7 +19,7 @@ export const useTeacherStore = defineStore('teacher', {
     async fetch() {
       this.loading = true;
       try {
-        const schools = (await axiosClient.get('/schools/')).data.school;
+        const schools = (await axiosClient.get('/schools')).data.school;
         this.school = schools[0];
 
         const user = (await axiosClient.get(`/users/${this.id}`)).data;

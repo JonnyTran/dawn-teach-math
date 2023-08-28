@@ -81,7 +81,7 @@
   </Navbar>
 </template>
 
-<script>
+<script lang="ts">
 import { Navbar, NavbarLogo, NavbarCollapse, NavbarLink, Dropdown, ListGroup, ListGroupItem, Button, Tooltip, Breadcrumb, BreadcrumbItem } from 'flowbite-vue';
 import { mapState, mapActions } from 'pinia';
 import { useTeacherStore } from '@/stores/teacher';
@@ -104,15 +104,15 @@ export default {
   },
   data() {
     return {
-      showCoursesSubmenu: false,
       sectionId: null,
+      lessonId: null,
       unitTitle: null,
       selectedDate: new Date().toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
       }),
-      disabledDates: (date) => {
+      disabledDates: (date: Date) => {
         return false;
         // return date < new Date();
       },
@@ -144,22 +144,24 @@ export default {
   },
   // add a new function to check if current route starts with /courses
   methods: {
-    ...mapActions(useCourseStore, ['fetch']),
-    onSelectDate(dateStr) {
+    ...mapActions(useCourseStore, ['loadLesson']),
+    onSelectDate(dateStr: string) {
       const newDate = new Date(dateStr);
+
       if (this.selectedDate == newDate) {
         return;
       }
       const lesson = this.getLessonFromDate(newDate);
-      if (lesson !== null && this.sectionId && lesson.id) {
+      if (lesson != null && this.sectionId && lesson.hasOwnProperty('id') && lesson.id) {
         this.$router.push(`/courses/${this.sectionId}/lesson/${lesson.id}`);
+        this.loadLesson(lesson.id, this.sectionId);
       }
     },
   },
   created() {
-    const emitter = inject('emitter');
+    const emitter: any = inject('emitter');
     
-    emitter.on('update-selected-date', (evt) => {
+    emitter.on('update-selected-date', (evt: any) => {
       if (this.selectedDate >= evt.start_date && this.selectedDate <= evt.end_date) { return; }
 
       this.selectedDate = evt.start_date.toLocaleDateString('en-US', {
@@ -169,13 +171,13 @@ export default {
       });
     });
 
-    emitter.on('update-disabled-dates', (evt) => {
-      this.disabledDates = (date) => {
+    emitter.on('update-disabled-dates', (evt: any) => {
+      this.disabledDates = (date: Date) => {
         return date < new Date();
       }
     });
 
-    emitter.on('update-unit-title', (evt) => {
+    emitter.on('update-unit-title', (evt: any) => {
       if (evt.unitTitle.includes('Unit')) {
         this.unitTitle = evt.unitTitle;
       }

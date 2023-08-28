@@ -3,7 +3,7 @@ import { Footer } from 'flowbite-vue'
 </script>
 
 <template>
-  <div class="w-full z-20 bottom-0 mt-4">
+  <div class="w-full bottom-0 mt-4">
     <Footer>
       Dawn Teach Math
     </Footer>

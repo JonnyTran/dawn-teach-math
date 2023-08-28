@@ -5,7 +5,7 @@ import { createPinia } from 'pinia';
 import mitt from 'mitt';
 import { useTeacherStore } from '@/stores/teacher';
 import VueTailwindDatepicker from 'vue-tailwind-datepicker'
-
+import Chat from "vue3-beautiful-chat";
 import App from './App.vue';
 import router from './router';
 
@@ -17,8 +17,8 @@ app.use(router)
 app.use(VueTailwindDatepicker)
 
 const emitter = mitt();
-// app.config.globalProperties.$emitter = emitter
 app.provide('emitter', emitter);
+app.use(Chat);
 app.mount('#app')
 
 const teacherStore = useTeacherStore();

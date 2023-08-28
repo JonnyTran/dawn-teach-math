@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Spinner, Modal, Tooltip, Button } from 'flowbite-vue';
 import { ref, inject, defineAsyncComponent, watch } from 'vue';
 import { useRoute } from 'vue-router';
@@ -27,16 +27,16 @@ function showModal() {
   isShowModal.value = true
 }
 
-const emitter = inject('emitter');
+const emitter: any = inject('emitter');
 watch(lesson, (lesson_new, lesson_old) => {
-  if (lesson_new.self) {
+  if (lesson_new != null && lesson_new.self) {
     emitter.emit('update-selected-date', {
       start_date: lesson_new.self.start_date,
       end_date: lesson_new.self.end_date,
     });
   }
 
-  if (lesson_new.parent) {
+  if (lesson_new != null && lesson_new.parent) {
     emitter.emit('update-unit-title', {
       unitTitle: lesson_new.parent.title,
     });

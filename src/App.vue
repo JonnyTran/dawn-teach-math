@@ -8,7 +8,6 @@ const isDev = process.env.NODE_ENV === 'development';
 <template>
   <head>
     <meta charset="UTF-8">
-    <script v-if="isDev" src="http://localhost:8098"></script>
   </head>
   <div id="app" class="flex flex-col min-h-screen">
     <Navbar />

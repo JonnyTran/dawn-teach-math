@@ -31,8 +31,11 @@
             {{ sections[sectionId].course_title }} - {{ sections[sectionId].section_title }}
           </span>
         </BreadcrumbItem>
-        <!-- <BreadcrumbItem>
-        </BreadcrumbItem> -->
+        <BreadcrumbItem v-if="unitTitle">
+          <span class="text-lg font-medium">
+          {{ unitTitle }}
+          </span>
+        </BreadcrumbItem>
         <!-- <BreadcrumbItem>
           {{ sections[sectionId].section_title }}
         </BreadcrumbItem> -->
@@ -178,9 +181,7 @@ export default {
     });
 
     emitter.on('update-unit-title', (evt: any) => {
-      if (evt.unitTitle.includes('Unit')) {
-        this.unitTitle = evt.unitTitle;
-      }
+      this.unitTitle = evt.unitTitle;
     });
   },
   watch: {

@@ -247,6 +247,7 @@
 </template>
 
 <script>
+import config from '../../data/config.json';
 </script>
 
 <style>

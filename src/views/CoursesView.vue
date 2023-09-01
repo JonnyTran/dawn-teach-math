@@ -1,10 +1,17 @@
 <script setup>
 import { TheCard, Accordion, AccordionHeader, AccordionPanel, AccordionContent } from 'flowbite-vue';
 import { useTeacherStore } from '@/stores/teacher';
+import { inject } from 'vue';
+
 const teacherStore = useTeacherStore();
 if (!teacherStore.school) {
   teacherStore.fetch();
 }
+
+const emitter = inject('emitter');
+emitter.emit('update-unit-title', {
+  unitTitle: "",
+});
 </script>
 
 <template>

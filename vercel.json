@@ -4,6 +4,7 @@
         "use": "@vercel/python"
     }],
     "rewrites": [
-        { "source": "/(.*)", "destination": "/" }
+        { "source": "/api/:path*", "destination": "api/wsgi.py" },
+        { "source": "/(.*)", "destination": "" }
     ]
 }

@@ -2,11 +2,13 @@
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import Chatbox from './components/Chatbox.vue';
+const isDev = process.env.NODE_ENV === 'development';
 </script>
 
 <template>
   <head>
     <meta charset="UTF-8">
+    <script v-if="isDev" src="http://localhost:8098"></script>
   </head>
   <div id="app" class="flex flex-col min-h-screen">
     <Navbar />

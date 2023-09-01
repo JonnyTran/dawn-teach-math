@@ -4,14 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "==2.3.3"
-requests = "*"
-langchain = "*"
 django = "*"
-python-dotenv = "*"
+requests = "*"
 requests-oauthlib = "*"
+python-dotenv = "*"
+langchain = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = "3.9"

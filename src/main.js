@@ -2,7 +2,7 @@ import './assets/main.css';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import { mitt } from 'mitt';
+import mitt from 'mitt';
 import { useTeacherStore } from '@/stores/teacher';
 import VueTailwindDatepicker from 'vue-tailwind-datepicker'
 import Chat from "vue3-beautiful-chat";

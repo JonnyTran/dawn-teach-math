@@ -5,6 +5,7 @@
     "bradlc.vscode-tailwindcss",
     "esbenp.prettier-vscode",
     "hollowtree.vue-snippets",
-    "GitHub.copilot"
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
   ]
 }

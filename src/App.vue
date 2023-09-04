@@ -1,13 +1,12 @@
 <script setup>
-import Navbar from './components/Navbar.vue';
-import Footer from './components/Footer.vue';
-import Chatbox from './components/Chatbox.vue';
-const isDev = process.env.NODE_ENV === 'development';
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
+import Chatbox from './components/Chatbox.vue'
 </script>
 
 <template>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
   </head>
   <div id="app" class="flex flex-col min-h-screen">
     <Navbar />
@@ -19,7 +18,4 @@ const isDev = process.env.NODE_ENV === 'development';
   </div>
 </template>
 
-<style>
-
-</style>
-
+<style></style>

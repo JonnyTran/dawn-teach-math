@@ -4,11 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+fastapi = "*"
 requests = "*"
 requests-oauthlib = "*"
 python-dotenv = "*"
 langchain = "*"
+uvicorn = {extras = ["standard"], version = "*"}
 
 [dev-packages]
 

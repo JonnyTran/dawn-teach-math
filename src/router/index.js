@@ -36,13 +36,13 @@ const routes = [
     path: '/about',
     name: 'about',
     component: () => import('../views/AboutView.vue')
-  },
+  }
 ]
 
 const router = createRouter({
-  linkExactActiveClass: 'is-active',  // for the corresponding NavbarLink to be active
+  linkExactActiveClass: 'is-active', // for the corresponding NavbarLink to be active
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: routes
 })
 
-export default router;
+export default router

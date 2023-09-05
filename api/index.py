@@ -35,9 +35,8 @@ except KeyError as ke:
 @app.get("/api/{path:path}")
 async def proxy_api(path: str):
     """
-    Proxies GET requests to the specified URL using OAuth1 authentication.
+    Proxies GET requests to the API_BASE_URL with OAuth1 authentication.
     """
-    print("PATH", path)
     base_url = os.environ.get('API_BASE_URL', default="https://api.schoology.com/v1/")
     if base_url is None or base_url == '':
         return JSONResponse({'error': 'No base URL provided. Please set API_BASE_URL in environment variables.'})

@@ -9,48 +9,52 @@ load_dotenv(find_dotenv())
 
 app = FastAPI()
 
-# Set up CORS
-origins = [
-    "http://localhost",
-    "http://localhost:3000",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 try:
+    base_url = os.environ.get('API_BASE_URL', default="https://api.schoology.com/v1/")
+    if base_url is None or base_url == '':
+        print('No base URL provided. Please set API_BASE_URL in environment variables.')
+
     oauth = OAuth1Session(
         client_key=os.environ['CONSUMERKEY'],
         client_secret=os.environ['CONSUMERSECRET'],
     )
 except KeyError as ke:
-    print("Please set CONSUMERKEY and CONSUMERSECRET in environment variables.")
+    print("Please set API_BASE_URL, CONSUMERKEY and CONSUMERSECRET in environment variables.")
     raise ke
+
+
+@app.on_event("shutdown")
+def shutdown_event():
+    """
+    Closes the OAuth1Session when the server shuts down.
+    """
+    print("shutting down...")
+    oauth.close()
+
 
 @app.get("/api/{path:path}")
 async def proxy_api(path: str):
     """
     Proxies GET requests to the API_BASE_URL with OAuth1 authentication.
     """
-    base_url = os.environ.get('API_BASE_URL', default="https://api.schoology.com/v1/")
-    if base_url is None or base_url == '':
-        return JSONResponse({'error': 'No base URL provided. Please set API_BASE_URL in environment variables.'})
-
     url = os.path.join(base_url, path.replace('/api', ''))
 
     try:
-        response = oauth.get(url, timeout=5)
+        response: requests.Response = oauth.get(url, timeout=5)
         response.raise_for_status()
-        return JSONResponse(content=response.json(), status_code=response.status_code)
     
     except requests.exceptions.Timeout:
         return JSONResponse({'error': 'Request timed out.'})
-    except requests.exceptions.RequestException as e:
-        return JSONResponse({'error': str(e), 'url': url})
     
-    return JSONResponse({'error': 'Invalid request method.'})
+    except requests.exceptions.HTTPError as he:
+        return JSONResponse({'error': str(he), 'url': url})
+    
+    except requests.exceptions.RequestException as re:
+        return JSONResponse({'error': str(re), 'url': url})
+    
+    except Exception as e:
+        return JSONResponse({'error': str(e)})
+    
+    return JSONResponse(content=response.json(), status_code=response.status_code)
+
+    

@@ -9,7 +9,7 @@
         }
     ],
     "routes": [
-        { "src": "/(.*)", "dest": "" },
+        { "src": "^(?!\\/api\\/|\\/docs$|\\/openapi\\.json$).*", "dest": "" },
 		{ "src": "/api/(.*)", "dest": "api/index.py" },
 		{ "src": "/docs", "dest": "api/index.py" },
 		{ "src": "/openapi.json", "dest": "api/index.py" }

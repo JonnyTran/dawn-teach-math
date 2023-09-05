@@ -1,4 +1,4 @@
-import os, requests, uvicorn
+import os, requests
 from dotenv import load_dotenv, find_dotenv
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
@@ -39,7 +39,3 @@ async def proxy_api(path: str):
         return JSONResponse({'error': str(e)})
     
     return JSONResponse({'error': 'Invalid request method.'})
-
-
-if __name__ == "__main__":
-    uvicorn.run("index:app", host="0.0.0.0", port=8000, reload=True)

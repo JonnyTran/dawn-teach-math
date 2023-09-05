@@ -9,6 +9,7 @@ requests = "*"
 requests-oauthlib = "*"
 python-dotenv = "*"
 langchain = "*"
+python = "==3.9"
 uvicorn = {extras = ["standard"], version = "*"}
 
 [dev-packages]

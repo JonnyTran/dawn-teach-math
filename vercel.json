@@ -3,14 +3,10 @@
     "builds": [
         { 
             "src": "/api/index.py", 
-            "use": "@vercel/python", 
-            "config": { 
-                "maxLambdaSize": "15mb"
-            }
+            "use": "@vercel/python"
         }
     ],
     "rewrites": [
-        { "source": "/api/:path*", "destination": "/api/index.py" },
-        { "source": "/(.*)", "destination": "" }
+        { "source": "/api/:path*", "destination": "http://127.0.0.1:8000/api/:path*" }
     ]
 }

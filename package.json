@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "fastapi-dev": "pip3 install -r requirements.txt && python3 -m uvicorn api.index:app --reload",
-    "dev": "concurrently \"vite --port 3000\" \"npm run fastapi-dev\"",
+    "fastapi-dev": "pip3 install -r requirements.txt && python3 -m uvicorn api.index:app --host 0.0.0.0 --port 8000 --reload",
+    "dev": "concurrently \"vite --port $PORT\" \"npm run fastapi-dev\"",
     "build": "vite build",
     "preview": "vite preview",
     "test:unit": "vitest",

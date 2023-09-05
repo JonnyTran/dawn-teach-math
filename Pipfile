@@ -13,6 +13,9 @@ python = "==3.9"
 uvicorn = {extras = ["standard"], version = "*"}
 
 [dev-packages]
+pip = "==3.9"
+werkzeug = "==1.0.1"
+
 
 [requires]
 python_version = "3.9"

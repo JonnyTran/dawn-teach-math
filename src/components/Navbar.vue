@@ -1,7 +1,8 @@
 <template>
   <Navbar solid>
     <template #logo>
-      <NavbarLogo href="/" alt="logo" image-url="/src/assets/logo.svg">
+      <!-- files in the public directory are served at the root path. Instead of /public/logo.svg, use /logo.svg. -->
+      <NavbarLogo href="/" alt="logo" image-url="/logo.svg">
         <span class="text-xl font-bold">Doan K. Tran</span>
       </NavbarLogo>
     </template>

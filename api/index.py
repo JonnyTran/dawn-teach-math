@@ -1,4 +1,3 @@
-import asyncio
 import os
 from typing import Optional
 import httpx
@@ -23,7 +22,6 @@ try:
 
     limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
     timeout = httpx.Timeout(timeout=5.0, read=5.0)
-    asyncio.set_event_loop_policy(asyncio.get_event_loop_policy())
     client = AsyncOAuth1Client(client_id=os.environ['CONSUMERKEY'],
                             client_secret=os.environ['CONSUMERSECRET'], 
                             limits=limits, 

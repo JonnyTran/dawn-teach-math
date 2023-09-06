@@ -4,14 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-fastapi = "==0.100.1"
-uvicorn = {extras = ["standard"], version = "==0.23.2"}
+fastapi = ">=0.100.1"
 starlette = "*"
 python-dotenv = "*"
 requests = "*"
 pydantic = "*"
 requests-oauthlib = "*"
 langchain = "*"
+httpx = "*"
+uvicorn = {extras = ["standard"], version = ">=0.23.2"}
+authlib = "*"
 
 [dev-packages]
 

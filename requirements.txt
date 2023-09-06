@@ -1,8 +1,7 @@
-fastapi==0.100.1
-uvicorn[standard]==0.23.2
-starlette
+fastapi>=0.100.1
+uvicorn[standard]>=0.23.2
+httpx
+authlib
 python-dotenv
-requests
 pydantic
-requests-oauthlib
 langchain

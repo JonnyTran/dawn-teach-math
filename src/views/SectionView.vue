@@ -1,18 +1,18 @@
 <script setup>
-import { Spinner, Tooltip, Button } from 'flowbite-vue';
-import { useRoute } from 'vue-router';
-import { useTeacherStore } from '@/stores/teacher';
-import { useCourseStore } from '@/stores/course';
+import { Spinner } from 'flowbite-vue'
+import { useRoute } from 'vue-router'
+import { useTeacherStore } from '@/stores/teacher'
+import { useCourseStore } from '@/stores/course'
 
-const route = useRoute();
-const sectionId = route.params.sectionId;
+const route = useRoute()
+const sectionId = route.params.sectionId
 
-const teacherStore = useTeacherStore();
-teacherStore.setCurrentSection(sectionId);
+const teacherStore = useTeacherStore()
+teacherStore.setCurrentSection(sectionId)
 
-const courseStore = useCourseStore();
+const courseStore = useCourseStore()
 if (courseStore.id != sectionId) {
-  courseStore.fetch(sectionId);
+  courseStore.fetch(sectionId)
 }
 </script>
 
@@ -23,8 +23,7 @@ if (courseStore.id != sectionId) {
   </p>
 </template>
 
-<script>
-</script> 
+<script></script>
 
 <style>
 /* Add your custom styles here */

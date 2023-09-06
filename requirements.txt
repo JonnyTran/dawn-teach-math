@@ -1,5 +1,8 @@
-django
+fastapi==0.100.1
+uvicorn[standard]==0.23.2
+starlette
 python-dotenv
 requests
+pydantic
 requests-oauthlib
 langchain

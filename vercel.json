@@ -1,13 +1,24 @@
 {
-    "builds": [{
-        "src": "api/wsgi.py",
-        "use": "@vercel/python",
-        "config": { 
-            "maxLambdaSize": "15mb"
+    "version": 2,
+    "public": false,
+    "devCommand": "npm run dev",
+    "builds": [
+        {
+            "src": "package.json",
+            "use": "@vercel/static-build",
+            "config": {
+              "distDir": "dist"
+            }
+        },
+        { 
+            "src": "/api/index.py", 
+            "use": "@vercel/python"
         }
-    }],
-    "rewrites": [
-        { "source": "/api/:path*", "destination": "api/wsgi.py" },
-        { "source": "/(.*)", "destination": "" }
-    ]
+    ],
+    "routes": [
+        { "src": "/api/(.*)", "dest": "api/index.py" },
+	    { "src": "/docs", "dest": "api/index.py" },
+		{ "src": "/openapi.json", "dest": "api/index.py" },
+        { "src": "/(.*)", "dest": "dist/:splat*" }
+	]
 }

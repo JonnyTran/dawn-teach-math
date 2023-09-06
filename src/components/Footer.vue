@@ -4,8 +4,6 @@ import { Footer } from 'flowbite-vue'
 
 <template>
   <div class="w-full bottom-0 mt-4">
-    <Footer>
-      Dawn Teach Math
-    </Footer>
+    <Footer> Dawn Teach Math </Footer>
   </div>
 </template>

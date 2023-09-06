@@ -23,12 +23,13 @@
       :disableUserListToggle="true"
       :messageStyling="messageStyling"
       @onType="handleOnType"
-      @edit="editMessage" />
+      @edit="editMessage"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import Chat from 'vue3-beautiful-chat';
+import Chat from 'vue3-beautiful-chat'
 
 export default {
   name: 'Chatbox',
@@ -46,8 +47,8 @@ export default {
       ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
       messageList: [
-          { type: 'text', author: `me`, data: { text: `Say yes!` } },
-          { type: 'text', author: `user2`, data: { text: `No.` } }
+        { type: 'text', author: `me`, data: { text: `Say yes!` } },
+        { type: 'text', author: `user2`, data: { text: `No.` } }
       ], // the list of the messages to show, can be paginated and adjusted dynamically
       newMessagesCount: 0,
       isChatOpen: false, // to determine whether the chat window should be open or closed
@@ -81,41 +82,39 @@ export default {
     }
   },
   methods: {
-    sendMessage (text: string) {
+    sendMessage(text: string) {
       if (text.length > 0) {
         this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
         this.onMessageWasSent({ author: 'support', type: 'text', data: { text } })
       }
     },
-    onMessageWasSent (message: any) {
+    onMessageWasSent(message: any) {
       // called when the user sends a message
       this.messageList.push(message)
     },
-    openChat () {
+    openChat() {
       // called when the user clicks on the fab button to open the chat
       this.isChatOpen = true
       this.newMessagesCount = 0
     },
-    closeChat () {
+    closeChat() {
       // called when the user clicks on the botton to close the chat
       this.isChatOpen = false
     },
-    handleScrollToTop () {
+    handleScrollToTop() {
       // called when the user scrolls message list to top
       // leverage pagination for loading another page of messages
     },
-    handleOnType () {
+    handleOnType() {
       console.log('Emit typing event')
     },
-    editMessage(message: any){
-      const m = this.messageList.find((m) => m.id === message.id);
-      m.isEdited = true;
-      m.data.text = message.data.text;
+    editMessage(message: any) {
+      const m = this.messageList.find((m) => m.id === message.id)
+      m.isEdited = true
+      m.data.text = message.data.text
     }
   }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

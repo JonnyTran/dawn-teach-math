@@ -20,6 +20,6 @@
 	    { "src": "/docs", "dest": "api/index.py" },
 		{ "src": "/openapi.json", "dest": "api/index.py" },
         { "src": "/(.*)", "dest": "dist/:splat*" },
-        { "src": "/(.*)", "dest": "" }
+        { "src": "(.*)", "dest": "" }
 	]
 }

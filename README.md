@@ -20,7 +20,7 @@ npm install
 Then, run the development server:
 
 ```bash
-vercel dev
+npm run dev
 ```
 Open the link provided in the prompt with a browser. Any changes made to the source code (src/) will be automatically reflected in the browser.
 

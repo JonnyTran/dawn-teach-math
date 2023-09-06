@@ -26,8 +26,7 @@
   <!-- Add a second level navbar for Class here if current route starts with /courses -->
   <Navbar
     v-if="showCoursesSubmenu && sectionId && sections && sectionId in sections"
-    class="bg-gray-50 dark:bg-gray-700 w-full sticky top-0 z-10"
-  >
+    class="bg-gray-50 dark:bg-gray-700 w-full sticky top-0 z-10">
     <template #logo>
       <Breadcrumb>
         <BreadcrumbItem home :href="'/courses/' + sectionId">

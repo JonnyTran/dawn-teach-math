@@ -23,9 +23,9 @@ try:
     limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
     timeout = httpx.Timeout(timeout=5.0, read=5.0)
     client = AsyncOAuth1Client(client_id=os.environ['CONSUMERKEY'],
-                            client_secret=os.environ['CONSUMERSECRET'], 
-                            limits=limits, 
-                            timeout=timeout)
+                               client_secret=os.environ['CONSUMERSECRET'],
+                               limits=limits,
+                               timeout=timeout)
 except KeyError as ke:
     print("Please set API_BASE_URL, CONSUMERKEY and CONSUMERSECRET in environment variables.")
     raise ke

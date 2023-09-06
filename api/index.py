@@ -1,3 +1,4 @@
+import asyncio
 import os
 from typing import Optional
 import httpx
@@ -25,6 +26,7 @@ except KeyError as ke:
 
 limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
 timeout = httpx.Timeout(timeout=5.0, read=15.0)
+asyncio.set_event_loop_policy(asyncio.get_event_loop_policy())
 client = httpx.AsyncClient(limits=limits, timeout=timeout, auth=oauth)
 
 @app.on_event("shutdown")
@@ -43,8 +45,7 @@ async def proxy_schoology_api(path: str):
     try:
         response = await client.get(url, timeout=5)
 
-        if response.status_code == 404:
-            return None
+        response.raise_for_status()
     
     except httpx.ConnectTimeout:
         return JSONResponse(content={"error": "Connection timeout"}, status_code=408)

@@ -12,8 +12,9 @@ pydantic = "*"
 requests-oauthlib = "*"
 langchain = "*"
 httpx = "*"
-uvicorn = {extras = ["standard"], version = ">=0.23.2"}
 authlib = "*"
+uvicorn = {extras = ["standard"], version = ">=0.23.2"}
+asyncio = "*"
 
 [dev-packages]
 

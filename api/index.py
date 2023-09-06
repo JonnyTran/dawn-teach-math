@@ -5,7 +5,7 @@ import httpx
 from dotenv import load_dotenv, find_dotenv
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
-from authlib.integrations.httpx_client import OAuth1Auth
+from authlib.integrations.httpx_client import OAuth1Auth, AsyncOAuth1Client
 
 load_dotenv(find_dotenv())
 
@@ -16,18 +16,22 @@ try:
     if base_url is None or base_url == '':
         print('No base URL provided. Please set API_BASE_URL in environment variables.')
 
-    oauth = OAuth1Auth(
-        client_id=os.environ['CONSUMERKEY'],
-        client_secret=os.environ['CONSUMERSECRET'],
-    )
+    # oauth = OAuth1Auth(
+    #     client_id=os.environ['CONSUMERKEY'],
+    #     client_secret=os.environ['CONSUMERSECRET'],
+    # )
+
+    limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
+    timeout = httpx.Timeout(timeout=5.0, read=5.0)
+    asyncio.set_event_loop_policy(asyncio.get_event_loop_policy())
+    client = AsyncOAuth1Client(client_id=os.environ['CONSUMERKEY'],
+                            client_secret=os.environ['CONSUMERSECRET'], 
+                            limits=limits, 
+                            timeout=timeout)
 except KeyError as ke:
     print("Please set API_BASE_URL, CONSUMERKEY and CONSUMERSECRET in environment variables.")
     raise ke
 
-limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
-timeout = httpx.Timeout(timeout=5.0, read=15.0)
-asyncio.set_event_loop_policy(asyncio.get_event_loop_policy())
-client = httpx.AsyncClient(limits=limits, timeout=timeout, auth=oauth)
 
 @app.on_event("shutdown")
 async def shutdown_event():

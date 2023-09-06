@@ -12,6 +12,7 @@
         { "src": "/api/(.*)", "dest": "api/index.py" },
 		{ "src": "/docs", "dest": "api/index.py" },
 		{ "src": "/openapi.json", "dest": "api/index.py" },
-        { "src": "/(.*)", "dest": "/" }
+        { "handle": "filesystem" },
+        { "src": "/(.*)", "dest": "/index.html" }
 	]
 }

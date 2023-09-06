@@ -15,9 +15,10 @@
             "use": "@vercel/python"
         }
     ],
-    "routes": [
-        { "src": "/api/(.*)", "dest": "api/index.py" },
-	    { "src": "/docs", "dest": "api/index.py" },
-		{ "src": "/openapi.json", "dest": "api/index.py" }
+    "rewrites": [
+        { "source": "/api/(.*)", "destination": "api/index.py" },
+	    { "source": "/docs", "destination": "api/index.py" },
+		{ "source": "/openapi.json", "destination": "api/index.py" },
+        { "source": "/(.*)", "destination": "/$1"}
 	]
 }

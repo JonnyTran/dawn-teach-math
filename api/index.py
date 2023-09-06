@@ -10,10 +10,6 @@ load_dotenv(find_dotenv())
 
 app = FastAPI()
 
-limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
-timeout = httpx.Timeout(timeout=5.0, read=15.0)
-client = httpx.AsyncClient(limits=limits, timeout=timeout)
-
 try:
     base_url = os.environ.get('API_BASE_URL', default="https://api.schoology.com/v1/")
     if base_url is None or base_url == '':
@@ -27,6 +23,9 @@ except KeyError as ke:
     print("Please set API_BASE_URL, CONSUMERKEY and CONSUMERSECRET in environment variables.")
     raise ke
 
+limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
+timeout = httpx.Timeout(timeout=5.0, read=15.0)
+client = httpx.AsyncClient(limits=limits, timeout=timeout, auth=oauth)
 
 @app.on_event("shutdown")
 async def shutdown_event():
@@ -35,14 +34,14 @@ async def shutdown_event():
 
 
 @app.get("/api/{path:path}")
-async def proxy_api(path: str):
+async def proxy_schoology_api(path: str):
     """
     Proxies GET requests to the API_BASE_URL with OAuth1 authentication.
     """
     url = os.path.join(base_url, path.replace('/api', ''))
 
     try:
-        response = await client.get(url, timeout=5, auth=oauth)
+        response = await client.get(url, timeout=5)
 
         if response.status_code == 404:
             return None
@@ -54,6 +53,7 @@ async def proxy_api(path: str):
     except httpx.HTTPError:
         return JSONResponse(content={"error": "HTTP error"}, status_code=500)
     except Exception as e:
+        print(e)
         return JSONResponse(content={"error": "Unknown error"}, status_code=500)
     
     return JSONResponse(content=response.json(), status_code=response.status_code)

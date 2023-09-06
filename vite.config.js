@@ -14,10 +14,10 @@ export default defineConfig({
       }
     }
   },
+  build: {
+    outDir: 'dist',
+  },
   assetsInclude: ['**/*.yml'],
-  // build: {
-  //   outDir: 'dist',
-  // },
   plugins: [
     vue(),
     vueJsx()

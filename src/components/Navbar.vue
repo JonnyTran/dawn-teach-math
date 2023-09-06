@@ -30,7 +30,7 @@
   >
     <template #logo>
       <Breadcrumb>
-        <BreadcrumbItem home :href="'/courses/' + sectionId">
+        <BreadcrumbItem home href="'/courses/' + sectionId">
           <span class="text-lg font-medium">
             {{ sections[sectionId].course_title }} - {{ sections[sectionId].section_title }}
           </span>

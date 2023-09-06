@@ -16,9 +16,9 @@
         }
     ],
     "routes": [
-        { "src": "/api/(.*)", "dest": "api/index.py" },
+        { "src": "/api/(.*)", "dest": "${env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000': 'api/index.py'}" },
 	    { "src": "/docs", "dest": "api/index.py" },
 		{ "src": "/openapi.json", "dest": "api/index.py" },
-        { "src": "/(.*)", "dest": "dist/:splat*" }
+        { "src": "/(.*)", "dest": "${env.NODE_ENV === 'development' ? '/': 'dist/:splat*'" }
 	]
 }

@@ -11,15 +11,6 @@ export default defineConfig({
       '/api': {
         target: 'http://127.0.0.1:8000',
         changeOrigin: true,
-        onProxyReq: (proxyReq, req, res) => {
-          const { query } = req.url
-          if (query) {
-            const queryStr = Object.keys(query)
-              .map((key) => `${key}=${query[key]}`)
-              .join('&')
-            proxyReq.path += `?${queryStr}`
-          }
-        }
       }
     }
   },

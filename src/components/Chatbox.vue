@@ -114,6 +114,7 @@ export default {
           return
         }
         const response: string = (await axiosClient.get(`/chat`, config)).data
+        console.log(response)
 
         if (response) {
           this.messageList[this.messageList.length -1] = { author: 'chatgpt', type: 'text', data: { text: response } }

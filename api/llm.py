@@ -18,7 +18,7 @@ chat = ChatOpenAI(openai_api_key=os.environ['OPENAI_API_KEY'],
                   model="gpt-3.5-turbo") # type: ignore
 
 @router.get("/")
-async def chat_api(author: str, text: str):
+async def chat_api(text: str, author: str = None):
     print("MESSAGE:", text)
     response = chat.predict(text=text)
     print("RESPONSE:", response)

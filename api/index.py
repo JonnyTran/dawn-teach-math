@@ -12,6 +12,20 @@ from api.llm import router as chat_router
 load_dotenv(find_dotenv())
 app = FastAPI()
 
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:8000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_origin_regex='https://.*\.vercel\.com',
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
 timeout = httpx.Timeout(timeout=5.0, read=15.0)

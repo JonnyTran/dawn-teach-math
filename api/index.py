@@ -6,7 +6,7 @@ from dotenv import load_dotenv, find_dotenv
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
 from authlib.integrations.httpx_client import OAuth1Auth
-from .llm import router as chat_router
+from api.llm import router as chat_router
 
 load_dotenv(find_dotenv())
 app = FastAPI()

@@ -1,8 +1,24 @@
 import os
+from fastapi import APIRouter, Depends
+from fastapi.responses import JSONResponse
+from typing import Annotated
 from langchain.chat_models import ChatOpenAI
+from langchain.schema import (
+    AIMessage,
+    HumanMessage,
+    SystemMessage
+)
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
+router = APIRouter()
 
-def load_llm_model() -> ChatOpenAI:
-    chat_model = ChatOpenAI(openai_api_key=os.environ['OPENAI_API_KEY'], 
-                            model="gpt-3.5-turbo")
-    return chat_model
+print("created ChatOpenAI")
+chat = ChatOpenAI(openai_api_key=os.environ['OPENAI_API_KEY'], 
+                  model="gpt-3.5-turbo") # type: ignore
+
+@router.get("/")
+async def chat_api(author:str, message: str):
+    print("MESSAGE:", message)
+    response = chat.predict(text=message)
+    return JSONResponse(content=response)

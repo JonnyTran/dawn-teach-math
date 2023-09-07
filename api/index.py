@@ -1,15 +1,12 @@
 import asyncio
-from typing import Annotated, Union
 import os
 from typing import Optional
 import httpx
 from dotenv import load_dotenv, find_dotenv
-from fastapi import FastAPI, Depends, Request, Response
+from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
 from authlib.integrations.httpx_client import OAuth1Auth
-from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
-from api.llm import load_llm_model
+from .llm import router as chat_router
 
 load_dotenv(find_dotenv())
 app = FastAPI()
@@ -54,9 +51,4 @@ async def proxy_schoology_api(path: str):
         
         return JSONResponse(content=response.json(), status_code=response.status_code)
 
-
-@app.get("/api/chat/{message:path}")
-async def chat_api(message: str, model: Annotated[ChatOpenAI, Depends(load_llm_model)]):
-    print("MESSAGE:", message)
-    response = model.predict(text=message)
-    return JSONResponse(content=response)
+app.include_router(chat_router, prefix="/api/chat")

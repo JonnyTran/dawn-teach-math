@@ -44,15 +44,19 @@ export default {
       unitTitle: null,
       participants: [
         {
-          id: 'support',
+          id: 'chatgpt',
           name: 'ChatGPT',
           imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'
+        },
+        {
+          id: 'loading',
+          name: 'Loading'
         }
       ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
       messageList: [
         { type: 'text', author: `me`, data: { text: `Say yes!` } },
-        { type: 'text', author: `support`, data: { text: `No.` } }
+        { type: 'text', author: `chatgpt`, data: { text: `No.` } }
       ], // the list of the messages to show, can be paginated and adjusted dynamically
       newMessagesCount: 0,
       isChatOpen: false, // to determine whether the chat window should be open or closed
@@ -89,7 +93,7 @@ export default {
     sendMessage(text: string) {
       if (text.length > 0) {
         this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
-        this.onMessageWasSent({ author: 'support', type: 'text', data: { text } })
+        this.onMessageWasSent({ author: 'me', type: 'text', data: { text } })
       }
     },
     onMessageWasSent(message: any) {
@@ -98,18 +102,25 @@ export default {
       this.getChatGPTResponse(message)
     },
     async getChatGPTResponse(message: any) {
-      // const config = {
-      //   params: {
-      //     author: message.author,
-      //     ...message.data
-      //   }
-      // }
-      if (!message.data.text) {
-        return
+      const config = {
+        params: {
+          author: message.author,
+          ...message.data
+        }
       }
-      const response: string = (await axiosClient.get(`/chat/`+ message.data.text)).data
-      if (response) {
-        this.messageList.push({ author: 'support', type: 'text', data: { text: response } })
+      this.messageList.push({ author: 'loading', type: 'text', data: { text: '...' } })
+      try {
+        if (!message.data.text) {
+          return
+        }
+        const response: string = (await axiosClient.get(`/chat/`, config)).data
+
+        if (response) {
+          this.messageList[this.messageList.length -1] = { author: 'chatgpt', type: 'text', data: { text: response } }
+        }
+      } catch (e) {
+        console.log(e)
+        this.messageList.pop()
       }
     },
     openChat() {

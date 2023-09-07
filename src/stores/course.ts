@@ -67,7 +67,7 @@ export const useCourseStore = defineStore('course', {
         this.section = null
         this.lessons = []
 
-        let folders = (await axiosClient.get(`/sections/${sectionId}/folders`, config)).data.folders
+        let folders = (await axiosClient.get(`/schoology/sections/${sectionId}/folders`, config)).data.folders
         if (folders === undefined) {
           return this
         }
@@ -137,7 +137,7 @@ export const useCourseStore = defineStore('course', {
       }
 
       try {
-        this.lesson = (await axiosClient.get(`/courses/${sectionId}/folder/${folderId}`)).data
+        this.lesson = (await axiosClient.get(`/schoology/courses/${sectionId}/folder/${folderId}`)).data
         this.lesson.slide_title = null
         this.lesson.gslide_id = null
         delete this.lesson.self.completion_status
@@ -153,7 +153,7 @@ export const useCourseStore = defineStore('course', {
 
           if (child.type === 'document' && child.document_type === 'link') {
             const documents = (
-              await axiosClient.get(`/sections/${sectionId}/documents/${child.id}`)
+              await axiosClient.get(`/schoology/sections/${sectionId}/documents/${child.id}`)
             ).data
             const links = documents.attachments.links.link
 
@@ -171,7 +171,7 @@ export const useCourseStore = defineStore('course', {
             child['links'] = links
           } else if (child.type === 'assignment' || child.type === 'assessment_v2') {
             const assignment = (
-              await axiosClient.get(`/sections/${sectionId}/assignments/${child.id}`)
+              await axiosClient.get(`/schoology/sections/${sectionId}/assignments/${child.id}`)
             ).data
             child = Object.assign({}, child, assignment)
           }

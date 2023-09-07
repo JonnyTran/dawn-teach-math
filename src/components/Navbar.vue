@@ -178,8 +178,8 @@ export default {
         year: 'numeric'
       }),
       disabledDates: (date: Date) => {
-        return false
-        // return date < new Date();
+        // return false
+        return date > new Date();
       },
       dateFormatter: {
         date: 'MMM DD, YYYY',

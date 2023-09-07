@@ -20,7 +20,7 @@
       :showCloseButton="true"
       :colors="colors"
       :alwaysScrollToBottom="alwaysScrollToBottom"
-      :disableUserListToggle="true"
+      :disableUserListToggle="false"
       :messageStyling="messageStyling"
       @onType="handleOnType"
       @edit="editMessage"
@@ -30,6 +30,7 @@
 
 <script lang="ts">
 import Chat from 'vue3-beautiful-chat'
+import { axiosClient } from '../stores/general'
 
 export default {
   name: 'Chatbox',
@@ -38,17 +39,20 @@ export default {
   },
   data() {
     return {
+      sectionId: null,
+      lessonId: null,
+      unitTitle: null,
       participants: [
         {
-          id: 'user2',
-          name: 'Tutor',
+          id: 'support',
+          name: 'ChatGPT',
           imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'
         }
       ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
       messageList: [
         { type: 'text', author: `me`, data: { text: `Say yes!` } },
-        { type: 'text', author: `user2`, data: { text: `No.` } }
+        { type: 'text', author: `support`, data: { text: `No.` } }
       ], // the list of the messages to show, can be paginated and adjusted dynamically
       newMessagesCount: 0,
       isChatOpen: false, // to determine whether the chat window should be open or closed
@@ -91,6 +95,22 @@ export default {
     onMessageWasSent(message: any) {
       // called when the user sends a message
       this.messageList.push(message)
+      this.getChatGPTResponse(message)
+    },
+    async getChatGPTResponse(message: any) {
+      // const config = {
+      //   params: {
+      //     author: message.author,
+      //     ...message.data
+      //   }
+      // }
+      if (!message.data.text) {
+        return
+      }
+      const response: string = (await axiosClient.get(`/chat/`+ message.data.text)).data
+      if (response) {
+        this.messageList.push({ author: 'support', type: 'text', data: { text: response } })
+      }
     },
     openChat() {
       // called when the user clicks on the fab button to open the chat
@@ -112,6 +132,15 @@ export default {
       const m = this.messageList.find((m) => m.id === message.id)
       m.isEdited = true
       m.data.text = message.data.text
+    }
+  },
+  watch: {
+    '$route.params': {
+      immediate: true,
+      handler(params) {
+        this.sectionId = params.sectionId
+        this.lessonId = params.lessonId
+      }
     }
   }
 }

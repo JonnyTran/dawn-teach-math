@@ -19,13 +19,13 @@ export const useTeacherStore = defineStore('teacher', {
     async fetch() {
       this.loading = true
       try {
-        const schools = (await axiosClient.get('/schools')).data.school
+        const schools = (await axiosClient.get('/schoology/schools')).data.school
         this.school = schools[0]
 
-        const user = (await axiosClient.get(`/users/${this.id}`)).data
+        const user = (await axiosClient.get(`/schoology/users/${this.id}`)).data
         this.user = user
 
-        const sections = (await axiosClient.get(`/users/${this.id}/sections`)).data.section
+        const sections = (await axiosClient.get(`/schoology/users/${this.id}/sections`)).data.section
         this.sections = sections.reduce((map, obj) => {
           map[obj.id.toString()] = obj
           return map

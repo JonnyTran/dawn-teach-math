@@ -1,35 +1,34 @@
+import asyncio
 import os
 from typing import Optional
 import httpx
 from dotenv import load_dotenv, find_dotenv
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse
-from authlib.integrations.httpx_client import OAuth1Auth, AsyncOAuth1Client
+from authlib.integrations.httpx_client import OAuth1Auth
 
 load_dotenv(find_dotenv())
 
 app = FastAPI()
+
+asyncio.set_event_loop_policy(asyncio.get_event_loop_policy())
 
 try:
     base_url = os.environ.get('API_BASE_URL', default="https://api.schoology.com/v1/")
     if base_url is None or base_url == '':
         print('No base URL provided. Please set API_BASE_URL in environment variables.')
 
-    # oauth = OAuth1Auth(
-    #     client_id=os.environ['CONSUMERKEY'],
-    #     client_secret=os.environ['CONSUMERSECRET'],
-    # )
-
-    limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
-    timeout = httpx.Timeout(timeout=5.0, read=5.0)
-    client = AsyncOAuth1Client(client_id=os.environ['CONSUMERKEY'],
-                               client_secret=os.environ['CONSUMERSECRET'],
-                               limits=limits,
-                               timeout=timeout)
+    oauth = OAuth1Auth(
+        client_id=os.environ['CONSUMERKEY'],
+        client_secret=os.environ['CONSUMERSECRET'],
+    )
 except KeyError as ke:
     print("Please set API_BASE_URL, CONSUMERKEY and CONSUMERSECRET in environment variables.")
     raise ke
 
+limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
+timeout = httpx.Timeout(timeout=5.0, read=15.0)
+client = httpx.AsyncClient(limits=limits, timeout=timeout, auth=oauth)
 
 @app.on_event("shutdown")
 async def shutdown_event():
@@ -45,7 +44,7 @@ async def proxy_schoology_api(path: str):
     url = os.path.join(base_url, path.replace('/api', ''))
 
     try:
-        response = await client.get(url, timeout=5)
+        response = await client.get(url)
 
         response.raise_for_status()
     

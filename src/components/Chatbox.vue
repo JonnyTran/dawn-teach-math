@@ -102,18 +102,18 @@ export default {
       this.getChatGPTResponse(message)
     },
     async getChatGPTResponse(message: any) {
-      // const config = {
-      //   params: {
-      //     author: message.author,
-      //     ...message.data
-      //   }
-      // }
+      const config = {
+        params: {
+          author: message.author,
+          ...message.data
+        }
+      }
       this.messageList.push({ author: 'loading', type: 'text', data: { text: '...' } })
       try {
         if (!message.data.text) {
           return
         }
-        const response: string = (await axiosClient.get(`/chat/`+ message.data.text,)).data
+        const response: string = (await axiosClient.get(`/chat/`, config)).data
         console.log(response)
 
         if (response) {

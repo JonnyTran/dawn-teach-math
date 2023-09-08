@@ -31,3 +31,4 @@ coverage
 .env*.local
 .env*.*
 */__pycache__/*
+/__pycache__/

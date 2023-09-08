@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia'
 import axios from 'axios'
 // import Cookies from 'js-cookie'
 
@@ -16,6 +15,8 @@ export const axiosClient = axios.create({
 })
 
 // // Print axios request and response to console
-// axiosClient.interceptors.request.use(request => {
-//   return request
-// })
+// axiosClient.interceptors.request.use(config => {
+//   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+//   config.headers['X-CSRF-TOKEN'] = csrfToken;
+//   return config;
+// });

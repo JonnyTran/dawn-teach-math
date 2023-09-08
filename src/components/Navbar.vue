@@ -178,8 +178,8 @@ export default {
         year: 'numeric'
       }),
       disabledDates: (date: Date) => {
-        return false
-        // return date < new Date();
+        // return false
+        return date > new Date();
       },
       dateFormatter: {
         date: 'MMM DD, YYYY',
@@ -253,7 +253,7 @@ export default {
       immediate: true,
       handler(params) {
         this.sectionId = params.sectionId
-        this.lessonId = params.lessonId
+        this.lessonId = params.pageId
       }
     }
   }

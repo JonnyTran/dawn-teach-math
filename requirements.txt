@@ -5,3 +5,4 @@ authlib
 python-dotenv
 pydantic
 langchain
+openai

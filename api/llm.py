@@ -12,7 +12,3 @@ from langchain.schema import (
 load_dotenv(find_dotenv())
 
 
-def load_llm_model() -> ChatOpenAI:
-    chat_model = ChatOpenAI(openai_api_key=os.environ['OPENAI_API_KEY'], 
-                            model="gpt-3.5-turbo")
-    return chat_model

@@ -9,7 +9,6 @@ from fastapi.responses import JSONResponse
 from authlib.integrations.httpx_client import OAuth1Auth
 from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
-from api.llm import load_llm_model
 
 load_dotenv(find_dotenv())
 app = FastAPI()
@@ -54,9 +53,13 @@ async def proxy_schoology_api(path: str):
         
         return JSONResponse(content=response.json(), status_code=response.status_code)
 
+def load_llm_model() -> ChatOpenAI:
+    chat = ChatOpenAI(openai_api_key=os.environ['OPENAI_API_KEY'], 
+                            model="gpt-3.5-turbo")
+    return chat
 
 @app.get("/api/chat/{message:path}")
-async def chat_api(message: str, model: Annotated[ChatOpenAI, Depends(load_llm_model)]):
+async def chat_api(message: str, chat: Annotated[ChatOpenAI, Depends(load_llm_model)]):
     print("MESSAGE:", message)
-    response = model.predict(text=message)
+    response = chat.predict(message)
     return JSONResponse(content=response)

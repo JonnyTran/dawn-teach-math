@@ -13,10 +13,6 @@
         { 
             "src": "/api/index.py", 
             "use": "@vercel/python"
-        },
-        { 
-            "src": "/api/llm.py", 
-            "use": "@vercel/python"
         }
     ],
     "rewrites": [

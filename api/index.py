@@ -29,7 +29,7 @@ except KeyError as ke:
     raise ke
 
 
-@app.get("/api/schoology/{path:path}")
+@app.get("/api/schoology/{path:path}", tags=["schoology"])
 async def proxy_schoology_api(path: str):
     """
     Proxies GET requests to the API_BASE_URL with OAuth1 authentication.
@@ -53,4 +53,4 @@ async def proxy_schoology_api(path: str):
         
         return JSONResponse(content=response.json(), status_code=response.status_code)
 
-app.include_router(chat_router, prefix="/api/chat")
+app.include_router(chat_router)

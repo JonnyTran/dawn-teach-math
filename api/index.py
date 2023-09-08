@@ -1,17 +1,17 @@
 import asyncio
-from typing import Annotated, Union
 import os
 from typing import Optional
 import httpx
 from dotenv import load_dotenv, find_dotenv
-from fastapi import FastAPI, Depends, Request, Response
+from fastapi import FastAPI, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from authlib.integrations.httpx_client import OAuth1Auth
-from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
+from api.llm import router as chat_router
 
 load_dotenv(find_dotenv())
 app = FastAPI()
+
 limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
 timeout = httpx.Timeout(timeout=5.0, read=15.0)
 
@@ -29,7 +29,7 @@ except KeyError as ke:
     raise ke
 
 
-@app.get("/api/schoology/{path:path}")
+@app.get("/api/schoology/{path:path}", tags=["schoology"])
 async def proxy_schoology_api(path: str):
     """
     Proxies GET requests to the API_BASE_URL with OAuth1 authentication.
@@ -53,13 +53,4 @@ async def proxy_schoology_api(path: str):
         
         return JSONResponse(content=response.json(), status_code=response.status_code)
 
-def load_llm_model() -> ChatOpenAI:
-    chat = ChatOpenAI(openai_api_key=os.environ['OPENAI_API_KEY'], 
-                            model="gpt-3.5-turbo")
-    return chat
-
-@app.get("/api/chat/{message:path}")
-async def chat_api(message: str, chat: Annotated[ChatOpenAI, Depends(load_llm_model)]):
-    print("MESSAGE:", message)
-    response = chat.predict(message)
-    return JSONResponse(content=response)
+app.include_router(chat_router)

@@ -30,6 +30,9 @@
 
 <script lang="ts">
 import Chat from 'vue3-beautiful-chat'
+import { mapState, mapActions } from 'pinia'
+import { useTeacherStore } from '@/stores/teacher'
+import { useCourseStore } from '@/stores/course'
 import { axiosClient } from '../stores/general'
 
 export default {
@@ -44,19 +47,19 @@ export default {
       unitTitle: null,
       participants: [
         {
-          id: 'chatgpt',
-          name: 'ChatGPT',
+          id: 'me',
+          name: 'Dawn',
           imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'
         },
         {
           id: 'loading',
-          name: 'Loading'
+          name: 'chatgpt'
         }
       ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
       messageList: [
         { type: 'text', author: `me`, data: { text: `Say yes!` } },
-        { type: 'text', author: `chatgpt`, data: { text: `No.` } }
+        { type: 'text', author: `loading`, data: { text: `No.` } }
       ], // the list of the messages to show, can be paginated and adjusted dynamically
       newMessagesCount: 0,
       isChatOpen: false, // to determine whether the chat window should be open or closed
@@ -89,6 +92,9 @@ export default {
       messageStyling: true // enables *bold* /emph/ _underline_ and such (more info at github.com/mattezza/msgdown)
     }
   },
+  computed: {
+    ...mapState(useTeacherStore, ['school', 'sections']),
+  },
   methods: {
     sendMessage(text: string) {
       if (text.length > 0) {
@@ -102,9 +108,14 @@ export default {
       this.getChatGPTResponse(message)
     },
     async getChatGPTResponse(message: any) {
+      // get response from chatgpt given context of site's lesson
       const config = {
         params: {
           author: message.author,
+          sectionId: this.sectionId,
+          lessonId: this.lessonId,
+          school: this.school.title,
+          course: this.sections.hasOwnProperty(this.sectionId) ? this.sections[this.sectionId].description: null,
           ...message.data
         }
       }
@@ -113,7 +124,7 @@ export default {
         if (!message.data.text) {
           return
         }
-        const response: string = (await axiosClient.get(`/chat/`, config)).data
+        const response: string = (await axiosClient.get('/chat/', config)).data
         console.log(response)
 
         if (response) {
@@ -151,7 +162,7 @@ export default {
       immediate: true,
       handler(params) {
         this.sectionId = params.sectionId
-        this.lessonId = params.lessonId
+        this.lessonId = params.pageId
       }
     }
   }

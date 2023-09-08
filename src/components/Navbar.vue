@@ -253,7 +253,7 @@ export default {
       immediate: true,
       handler(params) {
         this.sectionId = params.sectionId
-        this.lessonId = params.lessonId
+        this.lessonId = params.pageId
       }
     }
   }

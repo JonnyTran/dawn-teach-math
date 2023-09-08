@@ -6,11 +6,21 @@ from dotenv import load_dotenv, find_dotenv
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from starlette.middleware.sessions import SessionMiddleware
 from authlib.integrations.httpx_client import OAuth1Auth
 from api.llm import router as chat_router
 
 load_dotenv(find_dotenv())
 app = FastAPI()
+app.add_middleware(SessionMiddleware, secret_key="my_secret_key")
+
+@app.middleware("http")
+async def some_middleware(request: Request, call_next):
+    response = await call_next(request)
+    session = request.cookies.get('session')
+    if session:
+        response.set_cookie(key='session', value=request.cookies.get('session'), httponly=True)
+    return response
 
 limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
 timeout = httpx.Timeout(timeout=5.0, read=15.0)

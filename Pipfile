@@ -10,8 +10,9 @@ authlib = "*"
 python-dotenv = "*"
 pydantic = "*"
 langchain = "*"
-uvicorn = {extras = ["standard"], version = ">=0.23.2"}
 openai = "*"
+uvicorn = {extras = ["standard"], version = ">=0.23.2"}
+itsdangerous = "*"
 
 [dev-packages]
 

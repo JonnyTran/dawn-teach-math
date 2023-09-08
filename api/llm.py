@@ -35,12 +35,12 @@ def get_prompt() -> PromptTemplate:
 @router.get("/api/chat/", tags=["chat"])
 async def chat_api(request: Request, text: str, author: str = None, school: str = None, course: str=None, sectionId: str=None, lessonId: str=None, prompt: Annotated[PromptTemplate, Depends(get_prompt)]=None): # type: ignore
     # prompt = prompt + "{text}"
-    # prompt.format()
-    # print("new_prompt:", prompt, '\n', school, course, lessonId)
+    prompt.format_prompt(school=school, course=course, text=text)
+    print("PROMPT:", prompt, '\n', school, course, lessonId)
 
     chain = LLMChain(llm=model, prompt=prompt)
     message = chain.run(dict(school=school, course=course, text=text))
-    # print("response prompt:", message)
+    print("RESPONSE:", message)
     # prompt = prompt
 
     return JSONResponse(content=message)

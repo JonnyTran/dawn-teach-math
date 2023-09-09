@@ -39,9 +39,6 @@
             {{ unitTitle }}
           </span>
         </BreadcrumbItem>
-        <!-- <BreadcrumbItem>
-          {{ sections[sectionId].section_title }}
-        </BreadcrumbItem> -->
       </Breadcrumb>
     </template>
 

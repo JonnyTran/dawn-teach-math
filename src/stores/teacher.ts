@@ -1,19 +1,17 @@
 import { defineStore } from 'pinia'
 import { axiosClient } from './general'
-import yaml from 'js-yaml';
-// import config from '../../data/config.json'
+import config from '../../data/config.json'
 
 // Create a Pinia store in this Vue.js named useUserStore with OAuth 1.0 using axios
 // and then store it so other components can use it to make a request to the API at https://api.schoology.com/v1/
 export const useTeacherStore = defineStore('teacher', {
   state: () => ({
-    id: null,
+    id: config.id,
     user: null,
     school: null,
     sections: {},
     currentSection: null,
     highlightSections: [],
-    config: null,
     loading: false,
     error: null
   }),
@@ -21,14 +19,6 @@ export const useTeacherStore = defineStore('teacher', {
     async fetch() {
       this.loading = true
       try {
-        fetch('/data/config.yaml')
-            .then(response => response.text())
-            .then(yamlData => {
-              this.config = yaml.load(yamlData);
-            });
-
-        this.id = this.config.id
-
         const schools = (await axiosClient.get('/schoology/schools')).data.school
         this.school = schools[0]
 

@@ -115,7 +115,7 @@ export default {
           sectionId: this.sectionId,
           lessonId: this.lessonId,
           school: this.school.title,
-          course: this.sections.hasOwnProperty(this.sectionId) ? this.sections[this.sectionId].description: null,
+          course: (this.sections!=null && this.sections.hasOwnProperty(this.sectionId)) ? this.sections[this.sectionId].description: null,
           ...message.data
         }
       }
@@ -125,10 +125,9 @@ export default {
           return
         }
         const response: string = (await axiosClient.get('/chat/', config)).data
-        console.log(response)
 
         if (response) {
-          this.messageList[this.messageList.length -1] = { author: 'chatgpt', type: 'text', data: { text: response } }
+          this.messageList[this.messageList.length -1] = { author: '', type: 'text', data: { text: response } }
         }
       } catch (e) {
         console.log(e)

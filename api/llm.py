@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv, find_dotenv
 from fastapi import APIRouter, Depends, Request, Response
 from fastapi.responses import JSONResponse
-from typing import Annotated, Dict, List
+from typing import Annotated, Dict, List, Optional
 from langchain.chat_models import ChatOpenAI
 from langchain import LLMChain, PromptTemplate
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
@@ -24,16 +24,25 @@ model = ChatOpenAI(openai_api_key=os.environ['OPENAI_API_KEY'],
 
 def get_prompt() -> PromptTemplate:
     prompt = PromptTemplate.from_template(
-        "You are a helpful math tutor that answer problems from {course} high school students in {school}."
-        + "\nYou should help the user understand the problem and how to solve it." 
-        + "\nGive chain-of-thought concise explanations and show your work."
+        "You are a helpful math tutor that answer problems from {course} students in {school} high school. "
+        + "You should help the user understand the problem and how to solve it. " 
+        + "Give chain-of-thought explanations and show your work, but be concise and use 9th grade level language."
         + "\n\n{text}")
 
     return prompt
 
 
 @router.get("/api/chat/", tags=["chat"])
-async def chat_api(request: Request, text: str, author: str = None, school: str = None, course: str=None, sectionId: str=None, lessonId: str=None, prompt: Annotated[PromptTemplate, Depends(get_prompt)]=None): # type: ignore
+async def chat_api(
+    request: Request,
+    text: str,
+    author: Optional[str] = None,
+    school: Optional[str] = None,
+    course: Optional[str]=None,
+    sectionId: Optional[str]=None,
+    lessonId: Optional[str]=None,
+    prompt: Annotated[Optional[PromptTemplate], Depends(get_prompt)]=None
+    ): # type: ignore
     # prompt = prompt + "{text}"
     prompt.format_prompt(school=school, course=course, text=text)
     print("PROMPT:", prompt, '\n', school, course, lessonId)

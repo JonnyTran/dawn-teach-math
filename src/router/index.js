@@ -42,7 +42,16 @@ const routes = [
 const router = createRouter({
   linkExactActiveClass: 'is-active', // for the corresponding NavbarLink to be active
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: routes
+  routes: routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return { selector: to.hash };
+    } else if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  }
 })
 
 export default router

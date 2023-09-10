@@ -160,6 +160,9 @@ export default {
     '$route.params': {
       immediate: true,
       handler(params) {
+        if (!params) {
+          return
+        }
         this.sectionId = params.sectionId
         this.lessonId = params.pageId
       }

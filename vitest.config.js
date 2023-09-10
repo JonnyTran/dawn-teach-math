@@ -13,17 +13,6 @@ export default mergeConfig(
       transformMode: {
         web: [/\.[jt]sx$/]
       }
-    },
-    plugins: [
-      vue({
-        template: {
-          compilerOptions: {
-            isCustomElement: (tag) => {
-              return tag.startsWith('Navbar') 
-            }
-          }
-        }
-      })
-    ]
+    }
   })
 )

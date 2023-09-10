@@ -7,11 +7,23 @@
     "dev": "concurrently \"vite --port 3000\" \"npm run fastapi-dev\"",
     "build": "vite build",
     "preview": "vite preview",
-    "test:unit": "vitest",
+    "test:unit": "vitest --watch=false",
     "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "pre-commit": "lint-staged && npm run test:unit"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.vue": [
+      "eslint --fix",
+      "stylelint --fix",
+      "git add"
+    ]
   },
   "dependencies": {
     "@formkit/vue": "^0.17.4",
@@ -43,6 +55,7 @@
     "eslint-plugin-vue": "^9.11.0",
     "flowbite": "^1.6.6",
     "flowbite-vue": "^0.0.14",
+    "husky": "^8.0.3",
     "js-cookie": "^3.0.5",
     "js-yaml": "^4.1.0",
     "jsdom": "^22.1.0",

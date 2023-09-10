@@ -222,6 +222,9 @@ export default {
   },
   created() {
     const emitter: any = inject('emitter')
+    if (!emitter) {
+      return
+    }
 
     emitter.on('update-selected-date', (evt: any) => {
       if (this.selectedDate >= evt.start_date && this.selectedDate <= evt.end_date) {
@@ -249,6 +252,9 @@ export default {
     '$route.params': {
       immediate: true,
       handler(params) {
+        if (!params) {
+          return
+        }
         this.sectionId = params.sectionId
         this.lessonId = params.pageId
       }

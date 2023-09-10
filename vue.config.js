@@ -9,5 +9,16 @@ module.exports = {
         changeOrigin: true
       },
     }
-  }
+  },
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => {
+            return tag.startsWith('Navbar') 
+          }
+        }
+      }
+    })
+  ]
 }

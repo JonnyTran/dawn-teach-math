@@ -63,14 +63,14 @@ onMounted(() => {
     </div>
   </section>
 
-  <section>
+  <section v-if="faqData">
     <h3 
       class="mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white"
       id="componentId"
     >
       General FAQ
     </h3>
-    <Accordion class="w-full px-10 md:px-10 lg:px-20 mb-4 rounded-b-lg" v-if="faqData">
+    <Accordion class="w-full px-10 md:px-10 lg:px-20 mb-4 rounded-b-lg">
       <accordion-panel v-for="(item, index) in faqData" :key="index">
         <accordion-header>
           <div class="text-lg font-bold">

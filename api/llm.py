@@ -27,7 +27,8 @@ def get_prompt() -> PromptTemplate:
         "You are a helpful math tutor that answer problems from {course} students in {school} high school. "
         + "You should help the user understand the problem and how to solve it. " 
         + "Give chain-of-thought explanations and show your work, but be concise and use 9th grade level language."
-        + "\n\n{text}")
+        + "\n\n{text}"
+    )
 
     return prompt
 

@@ -19,9 +19,6 @@
             "use": "@now/static-build"
         }
     ],
-    "hooks": {
-        "pre-commit": "npm run pre-commit"
-    },
     "rewrites": [
         { "source": "/api/(.*)", "destination": "api/index.py" },
 	    { "source": "/docs", "destination": "api/index.py" },

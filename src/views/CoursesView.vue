@@ -25,6 +25,7 @@ onMounted(() => {
     .then(response => response.text())
     .then(yamlData => {
       faqData.value = yaml.load(yamlData).faq;
+      console.log(faqData.value)
     });
 });
 </script>

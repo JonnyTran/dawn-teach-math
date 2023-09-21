@@ -41,16 +41,18 @@ class Message(BaseModel):
     """Request body for streaming."""
     content: str
 
-async def send_message(content: str) -> AsyncIterable[str]:
+async def send_message(query: str) -> AsyncIterable[str]:
     callback = AsyncIteratorCallbackHandler()
     model = ChatOpenAI(
         streaming=True,
         verbose=True,
         callbacks=[callback],
+        model="gpt-3.5-turbo",
+        temperature=0.0,
     )
 
     task = asyncio.create_task(
-        model.agenerate(messages=[[HumanMessage(content=content)]])
+        model.agenerate(messages=[[HumanMessage(content=query)]])
     )
 
     try:
@@ -90,17 +92,16 @@ async def chat_api(
 
     return message
 
-@router.get("/api/chat/", tags=["chat"])
+@router.post("/api/chat/", tags=["chat"])
 async def stream_chat(
     request: Request,
-    text: Optional[str] = None,
-    author: Optional[str] = None,
-    school: Optional[str] = None,
+    text: str,
+    author: Optional[str]=None,
+    school: Optional[str]=None,
     course: Optional[str]=None,
     sectionId: Optional[str]=None,
     lessonId: Optional[str]=None,
-    prompt: Annotated[Optional[PromptTemplate], Depends(get_prompt)]=None):
+    prompt: Annotated[Optional[PromptTemplate], Depends(get_prompt)]=None) -> StreamingResponse:
 
     generator = send_message(text)
-    print("GENERATOR:", generator)
     return StreamingResponse(generator, media_type="text/event-stream")

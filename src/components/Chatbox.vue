@@ -112,12 +112,12 @@ export default {
       // get response from chatgpt given context of site's lesson
       const config = {
         params: {
+          text: message.data.text,
           author: message.author,
           sectionId: this.sectionId,
           lessonId: this.lessonId,
           school: this.school.title,
           course: (this.sections!=null && this.sections.hasOwnProperty(this.sectionId)) ? this.sections[this.sectionId].description: null,
-          ...message.data
         },
         headers: {
           'Accept': 'text/event-stream',
@@ -137,10 +137,19 @@ export default {
         if (!message.data.text) {
           return
         }
-        const response: string = (await axiosClient.get('/chat/', config)).data
+        const data = {
+          text: message.data.text,
+          author: message.author,
+          sectionId: this.sectionId,
+          lessonId: this.lessonId,
+          school: this.school.title,
+          course: (this.sections != null && this.sections.hasOwnProperty(this.sectionId)) ? this.sections[this.sectionId].description : null
+        }
+        const response: string = await axiosClient.post('/chat/', data, config)
+        console.log(response)
 
         if (response) {
-          this.messageList[this.messageList.length - 1] = { author: '', type: 'text', data: { text: response } }
+          this.messageList[this.messageList.length - 1] = { author: '', type: 'text', data: { text: response.data } }
         }
       } catch (e) {
         console.log(e)

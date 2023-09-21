@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import Cookies from 'js-cookie'
+import VueCookies from 'vue-cookies'
 
 // axios.defaults.xsrfCookieName = 'csrftoken'
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken'
@@ -15,8 +15,10 @@ export const axiosClient = axios.create({
 })
 
 // // Print axios request and response to console
-// axiosClient.interceptors.request.use(config => {
-//   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-//   config.headers['X-CSRF-TOKEN'] = csrfToken;
-//   return config;
-// });
+axiosClient.interceptors.request.use(config => {
+  config.headers['Content-Type'] = 'application/json';
+  config.headers['X-Requested-With'] = 'XMLHttpRequest';
+  config.headers['X-CSRFToken'] = VueCookies.get('csrftoken');
+  config.headers['Authorization'] = `Bearer ${VueCookies.get('session')}`;
+  return config;
+});

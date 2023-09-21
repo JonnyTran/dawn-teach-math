@@ -31,6 +31,7 @@
 <script lang="ts">
 import Chat from 'vue3-beautiful-chat'
 import { mapState, mapActions } from 'pinia'
+import VueCookies from 'vue-cookies'
 import { useTeacherStore } from '@/stores/teacher'
 import { useCourseStore } from '@/stores/course'
 import { axiosClient } from '../stores/general'
@@ -117,9 +118,21 @@ export default {
           school: this.school.title,
           course: (this.sections!=null && this.sections.hasOwnProperty(this.sectionId)) ? this.sections[this.sectionId].description: null,
           ...message.data
-        }
+        },
+        headers: {
+          'Accept': 'text/event-stream',
+          'X-History': JSON.stringify(this.messageList.map((message) => {
+            return {
+              author: message.author,
+              text: message.data.text
+            }
+          }))
+        },
+        responseType: 'text'
       }
+
       this.messageList.push({ author: 'loading', type: 'text', data: { text: '...' } })
+
       try {
         if (!message.data.text) {
           return
@@ -127,7 +140,7 @@ export default {
         const response: string = (await axiosClient.get('/chat/', config)).data
 
         if (response) {
-          this.messageList[this.messageList.length -1] = { author: '', type: 'text', data: { text: response } }
+          this.messageList[this.messageList.length - 1] = { author: '', type: 'text', data: { text: response } }
         }
       } catch (e) {
         console.log(e)

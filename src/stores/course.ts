@@ -60,12 +60,13 @@ export const useCourseStore = defineStore('course', {
         if (typeof sectionId !== 'string') {
           throw new Error('Course not loaded')
         }
-
         this.folders = new Map()
         this.parents = new Map()
         this.gradingPeriods = []
         this.section = null
         this.lessons = []
+        
+        this.id = sectionId
 
         let folders = (await axiosClient.get(`/schoology/sections/${sectionId}/folders`, config)).data.folders
         if (folders === undefined) {
@@ -84,10 +85,9 @@ export const useCourseStore = defineStore('course', {
         if (this.folders !== null) {
           this.processLessons(this.folders)
         }
-        const teacherStore = useTeacherStore()
 
+        const teacherStore = useTeacherStore()
         this.section = await teacherStore.sections[sectionId]
-        this.id = sectionId
       } catch (error) {
         this.error = error
       } finally {
@@ -126,6 +126,9 @@ export const useCourseStore = defineStore('course', {
           }
         }
       }
+
+      // Preload today's lesson
+      this.loadLesson(this.lessons[this.lessons.length - 1].id, this.id)
     },
     async loadLesson(folderId: string, sectionId: string = this.id) {
       if (

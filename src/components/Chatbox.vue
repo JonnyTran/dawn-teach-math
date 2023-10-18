@@ -29,11 +29,9 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import VueCookies from 'vue-cookies'
 import Chat from 'vue3-beautiful-chat'
-import EventSource from 'eventsource'
 import { useTeacherStore } from '@/stores/teacher'
 import { useCourseStore } from '@/stores/course'
 import { axiosClient } from '../stores/general'
@@ -41,7 +39,7 @@ import { axiosClient } from '../stores/general'
 export default {
   name: 'Chatbox',
   components: {
-    Chat,
+    Chat
   },
   data() {
     return {
@@ -174,33 +172,7 @@ export default {
         this.lessonId = params.pageId
       }
     }
-  },
-  onMounted() {
-    const eventSource = new EventSource('/api/chat/', {
-      withCredentials: true,
-      headers: {
-        'Accept': 'text/event-stream',
-        'X-History': JSON.stringify(this.messageList.value.map((message) => {
-          return {
-            author: message.author,
-            text: message.data.text
-          }
-        }))
-      }
-    })
-
-    eventSource.addEventListener('message', (event) => {
-      const message = event.data
-      console.log(message)
-      if (message) {
-        this.messageList.push({ author: '', type: 'text', data: { text: message } })
-      }
-    })
-
-    eventSource.addEventListener('error', (event) => {
-      console.log('EventSource error:', event)
-    })
-  },
+  }
 }
 </script>
 

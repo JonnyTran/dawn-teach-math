@@ -20,8 +20,8 @@ const GSlideImage = defineComponent({
     computed: {
         slideImage() {
             const credentials = {
-                client_id: '309618326384-rvu64ig6ifrh7b1n8ftdtq6blolis9oc.apps.googleusercontent.com',
-                client_secret: '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',
+                client_id: '',
+                client_secret: '',
                 redirect_uris: ['urn:ietf:wg:oauth:2.0:oob', 'http://localhost']
             }
             const oAuth2Client = new OAuth2Client(
